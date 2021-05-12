@@ -161,4 +161,24 @@ public class ControlBD {
     public void cerrar() {
         DBHelper.close();
     }
+
+
+    //Métodos CRUD SH15001
+    public String insertar(Escuela escuela){
+        String regInsertados = "Registro insertado No. ";
+        long contador = 0;
+
+        ContentValues esc = new ContentValues();
+        esc.put("idescuela", escuela.getId());
+        esc.put("nombreescuela", escuela.getNombre());
+        contador = db.insert("escuela", null, esc);
+        if (contador==-1 || contador == 0){
+            regInsertados = "Error de inserción, registro duplicado. Verificar datos.";
+        }
+        else{
+            regInsertados = regInsertados + contador;
+        }
+        return regInsertados;
+    }
+    //Fin SH15001
 }

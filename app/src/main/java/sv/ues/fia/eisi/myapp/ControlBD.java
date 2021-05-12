@@ -7,6 +7,10 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 public class ControlBD {
 
     private final Context context; //Almacenara el context de nuestra Activity
@@ -164,6 +168,13 @@ public class ControlBD {
 
 
     //Métodos CRUD SH15001
+    //Este método pasa fechas a string para usar en ContentValues.put()
+    private String getDateTime(Date date) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(
+                "yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        return dateFormat.format(date);
+    }
+
     public String insertar(Escuela escuela){
         String regInsertados = "Registro insertado No. ";
         long contador = 0;
@@ -172,6 +183,24 @@ public class ControlBD {
         esc.put("idescuela", escuela.getId());
         esc.put("nombreescuela", escuela.getNombre());
         contador = db.insert("escuela", null, esc);
+        if (contador==-1 || contador == 0){
+            regInsertados = "Error de inserción, registro duplicado. Verificar datos.";
+        }
+        else{
+            regInsertados = regInsertados + contador;
+        }
+        return regInsertados;
+    }
+
+    public String insertar(Ciclo ciclo){
+        String regInsertados = "Registro insertado No. ";
+        long contador = 0;
+
+        ContentValues cv = new ContentValues();
+        cv.put("idciclo", ciclo.getId());
+        cv.put("fechainicio", getDateTime(ciclo.getInicio()));
+        cv.put("fechafin", getDateTime(ciclo.getFin()));
+        contador = db.insert("ciclo", null, cv);
         if (contador==-1 || contador == 0){
             regInsertados = "Error de inserción, registro duplicado. Verificar datos.";
         }

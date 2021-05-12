@@ -2,8 +2,10 @@ package sv.ues.fia.eisi.myapp;
 //SH15001
 import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -37,4 +39,5 @@ public class EscuelaInsertarActivity extends AppCompatActivity {
         editId.setText("");
         editNombre.setText("");
     }
+
 }

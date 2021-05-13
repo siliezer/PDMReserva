@@ -7,6 +7,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -175,6 +176,11 @@ public class ControlBD {
         return dateFormat.format(date);
     }
 
+    private Date getStringDate(String date) throws ParseException {
+        return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(date);
+    }
+
+    //Inserción
     public String insertar(Escuela escuela){
         String regInsertados = "Registro insertado No. ";
         long contador = 0;
@@ -209,5 +215,150 @@ public class ControlBD {
         }
         return regInsertados;
     }
+
+    //Consulta
+    public Escuela consultarEscuela(String id){
+
+        String[] camposEscuela = {"idescuela", "nombreescuela"}, idescuela = {id};
+        Cursor cursor = db.query("escuela", camposEscuela, "idescuela = ?", idescuela, null, null, null );
+        if(cursor.moveToFirst()){
+            Escuela escuela = new Escuela();
+            escuela.setId(cursor.getString(0));
+            escuela.setNombre(cursor.getString(1));
+            return escuela;
+        }
+        else {
+            return null;
+        }
+    }
+
+    public Ciclo consultarCiclo(String id) throws ParseException {
+
+        String[] camposCiclo = {"idciclo", "fechainicio", "fechafin"}, idciclo = {id};
+        Cursor cursor = db.query("ciclo", camposCiclo, "idciclo = ?", idciclo, null, null, null );
+        if(cursor.moveToFirst()){
+            Ciclo ciclo = new Ciclo();
+            ciclo.setId(cursor.getString(0));
+            ciclo.setInicio(getStringDate(cursor.getString(1)));
+            ciclo.setFin(getStringDate(cursor.getString(2)));
+            return ciclo;
+        }
+        else {
+            return null;
+        }
+    }
+
+    //Actualización
+    public String actualizar(Escuela escuela){
+        if(verificarIntegridad(escuela, 1)){
+            String[] id = {escuela.getId()};
+            ContentValues cv = new ContentValues();
+
+            cv.put("nombreescuela", escuela.getNombre());
+            db.update("escuela", cv, "idescuela = ?", id);
+            return "¡Registro actualizado correctamente!";
+        }
+        else{
+            return "La escuela con id "+escuela.getId()+" no existe.";
+        }
+    }
+
+    public String actualizar(Ciclo ciclo){
+        if(verificarIntegridad(ciclo, 2)){
+            String[] id = {ciclo.getId()};
+            ContentValues cv = new ContentValues();
+
+            cv.put("fechainicio", getDateTime(ciclo.getInicio()));
+            cv.put("fechafin", getDateTime(ciclo.getFin()));
+            db.update("ciclo", cv, "idciclo = ?", id);
+            return "¡Registro actualizado correctamente!";
+        }
+        else{
+            return "El ciclo con id "+ciclo.getId()+" no existe";
+        }
+    }
+
+    //Eliminacion
+    public String eliminar(Escuela escuela){
+        String afectados = "Filas afectadas: ";
+        int cont = 0;
+
+        if (verificarIntegridad(escuela, 3)){
+            cont += db.delete("materia", "idescuela='"+
+                    escuela.getId()+"'", null);
+        }
+        cont += db.delete("escuela", "idescuela='"+
+                escuela.getId()+"'", null);
+        return afectados+=cont;
+    }
+
+    public String eliminar(Ciclo ciclo){
+        String afectados = "Filas afectadas: ";
+        int cont = 0;
+
+        if(verificarIntegridad(ciclo, 4)){
+            cont += db.delete("materia", "idciclo='"+
+                    ciclo.getId()+"'", null);
+        }
+        cont += db.delete("ciclo", "idciclo='"+
+                ciclo.getId()+"'", null);
+        return afectados+=cont;
+    }
     //Fin SH15001
+
+    private boolean verificarIntegridad(Object dato, int relacion) throws SQLException{
+        switch (relacion){
+            case 1:{//verificación de existencia de escuela
+                Escuela escuela = (Escuela) dato;
+                String[] id = {escuela.getId()};
+
+                abrir();
+                Cursor cursor = db.query("escuela", null, "idescuela = ?", id, null, null, null);
+                //cerrar();
+                if(cursor.moveToFirst()){
+                    return true;
+                }
+                return false;
+            }
+
+            case 2:{//verificación de existencia de ciclo
+                Ciclo ciclo = (Ciclo) dato;
+                String[] id = {ciclo.getId()};
+
+                abrir();
+                Cursor cursor = db.query("ciclo", null, "idciclo = ?", id, null, null, null);
+                //cerrar();
+                if (cursor.moveToFirst()) {
+                    return true;
+                }
+                return false;
+            }
+
+            case 3:{//verifica si hay materia(s) impartida por la escuela
+                Escuela escuela = (Escuela) dato;
+                String[] id = {"idescuela"};
+                Cursor c = db.query(true, "materia", id,  "idescuela='"
+                        +escuela.getId()+"'", null, null, null, null, null);
+                if(c.moveToFirst()){
+                    return true;
+                }
+                else{
+                    return false;
+                }
+            }
+
+            case 4:{//verifica si hay materia(s) impartida en el ciclo
+                Ciclo ciclo = (Ciclo) dato;
+                String[] id = {"idciclo"};
+                Cursor c = db.query(true, "materia", id, "idciclo='"+
+                        ciclo.getId()+"'", null, null, null, null, null);
+                if(c.moveToFirst())
+                    return true;
+                else
+                    return false;
+            }
+            default:
+                return false;
+        }
+    }
 }

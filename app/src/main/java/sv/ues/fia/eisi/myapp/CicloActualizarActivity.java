@@ -1,33 +1,32 @@
 package sv.ues.fia.eisi.myapp;
-//SH15001
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class CicloInsertarActivity extends AppCompatActivity {
-
+public class CicloActualizarActivity extends AppCompatActivity {
     ControlBD helper;
     EditText editId, editInicio, editFin;
-    //DatePicker DPinicio, DPfin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ciclo_insertar);
+        setContentView(R.layout.activity_ciclo_actualizar);
         helper = new ControlBD(this);
         editId = (EditText) findViewById(R.id.editId);
         editInicio = (EditText) findViewById(R.id.editInicio);
         editInicio.setOnClickListener(this::onClick);
         editFin = (EditText) findViewById(R.id.editFin);
         editFin.setOnClickListener(this::onClick);
-
     }
 
     public void onClick(View view) {
@@ -42,19 +41,18 @@ public class CicloInsertarActivity extends AppCompatActivity {
         }
     }
 
-    public void insertarCiclo(View v) throws ParseException {
+    public void actualizarCiclo(View v) throws ParseException {
         String id = editId.getText().toString();
         String inicio = editInicio.getText().toString();
         String fin = editFin.getText().toString();
         Date inicioD = new SimpleDateFormat("dd/MM/yyyy").parse(inicio);
         Date finD = new SimpleDateFormat("dd/MM/yyyy").parse(fin);
-        String regInsertados;
-
         Ciclo ciclo = new Ciclo(id, inicioD, finD);
+
         helper.abrir();
-        regInsertados = helper.insertar(ciclo);
+        String tosti = helper.actualizar(ciclo);
         helper.cerrar();
-        Toast.makeText(this, regInsertados, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, tosti, Toast.LENGTH_SHORT).show();
     }
 
     public void limpiarTexto(View v){

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="10dip"
+    android:stretchColumns="1" >
+    <TableRow>
+        <TextView android:text="Id de ciclo:" />
+        <EditText
+            android:id="@+id/editId"
+            android:inputType="text"
+            android:maxLength="5" />
+    </TableRow>
+
+    <TableRow android:layout_height="15dp">
+
+        <TextView android:text="Fecha de inicio:" />
+
+        <EditText
+            android:id="@+id/editInicio"
+            android:hint=""
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="date"
+            android:focusable="false"
+            android:clickable="true"
+            android:maxLines="1" />
+    </TableRow>
+    <TableRow android:layout_height="15dp">
+
+        <TextView android:text="Fecha de inicio:" />
+
+        <EditText
+            android:id="@+id/editFin"
+            android:hint=""
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="date"
+            android:focusable="false"
+            android:clickable="true"
+            android:maxLines="1" />
+    </TableRow>
+
+    <TableRow>
+        <Button
+            android:onClick="limpiarTexto"
+            android:text="Limpiar" />
+        <Button
+            android:onClick="actualizarCiclo"
+            android:text="Actualizar registro" />
+
+
+    </TableRow>
+</TableLayout>

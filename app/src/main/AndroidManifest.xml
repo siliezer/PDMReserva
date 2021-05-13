@@ -9,7 +9,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
-        <activity android:name=".CicloInsertarActivity"></activity>
+        <activity android:name=".CicloEliminarActivity"></activity>
+        <activity android:name=".EscuelaEliminarActivity" />
+        <activity android:name=".CicloActualizarActivity" />
+        <activity android:name=".EscuelaActualizarActivity" />
+        <activity android:name=".CicloConsultarActivity" />
+        <activity android:name=".EscuelaConsultarActivity" />
+        <activity android:name=".CicloInsertarActivity" />
         <activity android:name=".EscuelaInsertarActivity" />
         <activity android:name=".MateriaMenuActivity" />
         <activity android:name=".CicloMenuActivity" />

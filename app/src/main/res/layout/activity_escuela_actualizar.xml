@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="10dip"
+    android:stretchColumns="1" >
+    <TableRow>
+        <TextView android:text="Id de escuela:" />
+        <EditText
+            android:id="@+id/editId"
+            android:inputType="text"
+            android:maxLength="5" />
+    </TableRow>
+
+    <TableRow android:layout_height="15dp">
+
+        <TextView android:text="Nombre de escuela:" />
+
+        <EditText
+            android:id="@+id/editNombre"
+            android:layout_height="83dp"
+            android:inputType="textMultiLine"
+            android:maxLength="100" />
+    </TableRow>
+
+    <TableRow>
+        <Button
+            android:onClick="limpiarTexto"
+            android:text="Limpiar" />
+        <Button
+            android:onClick="actualizarEscuela"
+            android:text="Actualizar registro" />
+
+
+    </TableRow>
+</TableLayout>

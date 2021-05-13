@@ -1,3 +1,36 @@
 <resources>
     <string name="app_name">My Application</string>
+
+    <string name="title_activity_asignacion_menu">AlumnoMenuActivity</string>
+    <string name="title_activity_encargado_menu">NotaMenuActivity</string>
+    <string name="title_activity_salon_menu">MateriaMenuActivity</string>
+    <string
+        name="title_activity_asignacion_insertar">AlumnoInsertarActivity</string>
+    <string
+        name="title_activity_asignacion_eliminar">AlumnoEliminarActivity</string>
+    <string
+        name="title_activity_asignacion_actualizar">AlumnoActualizarActivity</string>
+    <string
+        name="title_activity_asignacion_consultar">AlumnoConsultarActivity</string>
+    <string name="title_activity_encargado_insertar">NotaInsertarActivity</string>
+    <string name="title_activity_encargado_eliminar">NotaEliminarActivity</string>
+    <string
+        name="title_activity_encargado_actualizar">NotaActualizarActivity</string>
+    <string name="title_activity_encargado_consultar">NotaConsultarActivity</string>
+    <string
+        name="title_activity_salon_insertar">MateriaInsertarActivity</string>
+    <string
+        name="title_activity_salon_eliminar">MateriaEliminarActivity</string>
+    <string
+        name="title_activity_salon_actualizar">MateriaActualizarActivity</string>
+    <string
+        name="title_activity_salon_consultar">MateriaConsultarActivity</string>
+    <string name="asignacion_menu">Función a Ejecutar Asignacion</string>
+    <string name="encargado_menu">Función a Ejecutar Encargado</string>
+    <string name="salon_menu">Función a Ejecutar Salon</string>
+    <string name="insertar_registro">Insertar Registro</string>
+    <string name="eliminar_registro">Eliminar Registro</string>
+    <string name="consultar_registro">Consultar Registro</string>
+    <string name="actualizar_registro">Actualizar Registro</string>
+
 </resources>

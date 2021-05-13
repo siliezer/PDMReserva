@@ -9,7 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
-        <activity android:name=".PropuestaMenuActivity"></activity>
+        <activity android:name=".HorarioMenuActivity"></activity>
+        <activity android:name=".HorarioInsertarActivity" />
+        <activity android:name=".HorarioConsultarActivity" />
+        <activity android:name=".HorarioActualizarActivity" />
+        <activity android:name=".HorarioEliminarActivity" />
+        <activity android:name=".PropuestaMenuActivity" />
         <activity android:name=".PropuestaInsertarActivity" />
         <activity android:name=".PropuestaEliminarActivity" />
         <activity android:name=".PropuestaConsultarActivity" />

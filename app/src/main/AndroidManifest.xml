@@ -9,7 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
-        <activity android:name=".RolDocenteMenuActivity"></activity>
+        <activity android:name=".DocenteConsultarActivity"></activity>
+        <activity android:name=".DocenteActualizarActivity" />
+        <activity android:name=".DocenteEliminarActivity" />
+        <activity android:name=".DocenteInsertarActivity" />
+        <activity android:name=".RolDocenteMenuActivity" />
         <activity android:name=".TeoricoMenuActivity" />
         <activity android:name=".DocenteMenuActivity" />
         <activity android:name=".CicloEliminarActivity" />

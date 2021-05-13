@@ -9,7 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
-        <activity android:name=".EncargadoMenuActivity"></activity>
+        <activity android:name=".PropuestaMenuActivity"></activity>
+        <activity android:name=".PropuestaInsertarActivity" />
+        <activity android:name=".PropuestaEliminarActivity" />
+        <activity android:name=".PropuestaConsultarActivity" />
+        <activity android:name=".PropuestaActualizarActivity" />
+        <activity android:name=".EncargadoMenuActivity" />
         <activity android:name=".EncargadoInsertarActivity" />
         <activity android:name=".EncargadoEliminarActivity" />
         <activity android:name=".EncargadoConsultarActivity" />

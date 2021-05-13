@@ -9,7 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
-        <activity android:name=".HorarioMenuActivity"></activity>
+        <activity android:name=".LaboratorioMenuActivity"></activity>
+        <activity android:name=".LaboratorioActualizarActivity" />
+        <activity android:name=".LaboratorioEliminarActivity" />
+        <activity android:name=".LaboratorioConsultarActivity" />
+        <activity android:name=".LaboratorioInsertarActivity" />
+        <activity android:name=".HorarioMenuActivity" />
         <activity android:name=".HorarioInsertarActivity" />
         <activity android:name=".HorarioConsultarActivity" />
         <activity android:name=".HorarioActualizarActivity" />

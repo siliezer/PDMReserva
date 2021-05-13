@@ -19,9 +19,14 @@
     <string name="asignacion_menu">Función a Ejecutar Asignacion</string>
     <string name="encargado_menu">Función a Ejecutar Encargado</string>
     <string name="salon_menu">Función a Ejecutar Salon</string>
-    <string name="insertar_registro">Insertar Registro</string>
-    <string name="eliminar_registro">Eliminar Registro</string>
-    <string name="consultar_registro">Consultar Registro</string>
-    <string name="actualizar_registro">Actualizar Registro</string>
+    <string name="idPropuesta">IdPropuesta</string>
+    <string name="idHorario">IdHorario</string>
+    <string name="IdDia">idDia</string>
+    <string name="idEncargado">IdEncargado</string>
+    <string name="nombreEncargado">NombreEncargado</string>
+    <string name="apellidosEncargado">ApeliidoEncargado</string>
+    <string name="idSalon">IdSalon</string>
+    <string name="tipo">Tipo</string>
+    <string name="nombre">Nombre</string>
 
 </resources>

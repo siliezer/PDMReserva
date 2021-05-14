@@ -474,4 +474,41 @@ public class ControlBD {
                 return false;
         }
     }
+
+    public String llenarBD() throws ParseException {
+        final String[] Vidciclo = {"P2019", "I2020", "P2020", "I2021", "P2021"};
+        final Date[] Vfechainicio = {
+                getStringDate("2019-08-19 00:00:00"), getStringDate("2020-02-18 00:00:00"),  getStringDate("2020-08-10 00:00:00"), getStringDate("2021-02-18 00:00:00"), getStringDate("2021-08-10 00:00:00")
+        };
+        final Date[] Vfechafin = {
+                getStringDate("2019-12-15 00:00:00"), getStringDate("2020-07-30 00:00:00"),  getStringDate("2021-01-15 00:00:00"), getStringDate("2021-08-08 00:00:00"), getStringDate("2021-12-10 00:00:00")
+        };
+        final String[] Videscuela = {"EISI", "EA", "EIM", "EII", "UCB"};
+        final String[] Vnomescuela = {"Escuela de Ingenieria de Sistemas Informaticos", "Escuela de Arquitectura", "Escuela de Ingenieria Mecanica",
+                "Escuela de Ingenieria Industrial", "Unidad de Ciencias Basicas"};
+        final String[] Vcarnetmateria = {"SH15001", "HH15002", "SS15003"};
+        abrir();
+        db.execSQL("DELETE FROM ciclo");
+        db.execSQL("DELETE FROM escuela");
+        db.execSQL("DELETE FROM materia");
+
+        for(int i=0; i<5; i++){
+            Ciclo ciclo = new Ciclo(Vidciclo[i], Vfechainicio[i], Vfechafin[i]);
+            insertar(ciclo);
+        }
+        for(int i=0; i<5; i++){
+            Escuela escuela = new Escuela(Videscuela[i], Vnomescuela[i]);
+            insertar(escuela);
+        }
+
+        Materia mate1 = new Materia("MAT115", Vidciclo[1], Videscuela[4], "Matematicas 1", Vcarnetmateria[0]);
+        Materia prn1 = new Materia("PRN115", Vidciclo[3], Videscuela[0], "Programacion 1", Vcarnetmateria[1]);
+        Materia bad1 = new Materia("BAD115", Vidciclo[2], Videscuela[0], "Bases de Datos", Vcarnetmateria[2]);
+        insertar(mate1);
+        insertar(prn1);
+        insertar(bad1);
+
+        cerrar();
+        return "Se realizó correctamente";
+    }
 }

@@ -17,9 +17,13 @@ import java.text.ParseException;
 public class MainActivity extends ListActivity {
 
     String[] menu={"Tabla Escuela","Tabla Ciclo","Tabla Materia","Tabla 4","Tabla 5","Tabla 6","Tabla 7",
-            "Tabla 8","Tabla 9","Tabla 10","Tabla 11","Tabla 12","Tabla Laboratorio","Tabla Horario",
-            "Tabla Propuesta","Llenar Base de Datos"};
-    String[] activities={"EscuelaMenuActivity","CicloMenuActivity","MateriaMenuActivity", "LaboratorioMenuActivity","HorarioMenuActivity","PropuestaMenuActivity"};
+            "Tabla 8","Tabla 9","Asignacion","Encargado","Salon","Tabla 13","Tabla 14",
+            "Tabla 15","Llenar Base de Datos"};
+
+    String[] activities={"EscuelaMenuActivity","CicloMenuActivity","MateriaMenuActivity","Tabla 4","Tabla 5","Tabla 6","Tabla 7",
+            "Tabla 8","Tabla 9","AsignacionMenuActivity","EncargadoMenuActivity","SalonMenuActivity","Tabla 13","Tabla 14",
+            "Tabla 15","Llenar Base de Datos"};
+
     ControlBD helper;
 
     @Override

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="10dip"
+    android:stretchColumns="1" >
+    <TableRow>
+        <TextView android:text="Código de materia"/>
+        <EditText
+            android:id="@+id/editId"
+            android:inputType="text"
+            android:maxLength="6" />
+    </TableRow>
+    <TableRow>
+        <TextView android:text="Id de escuela" />
+        <EditText
+            android:id="@+id/editidEscuela"
+            android:inputType="text"
+            android:maxLength="5" />
+    </TableRow>
+    <TableRow>
+        <TextView android:text="Id de ciclo" />
+        <EditText
+            android:id="@+id/editIdCiclo"
+            android:inputType="text"
+            android:maxLength="5" />
+    </TableRow>
+    <TableRow>
+        <TextView android:text="Carnet de docente" />
+        <EditText
+            android:id="@+id/editCarnetDocente"
+            android:inputType="text"
+            android:maxLength="7" />
+    </TableRow>
+
+    <TableRow android:layout_height="64dp">
+
+        <TextView android:text="Nombre de la materia" />
+
+        <EditText
+            android:id="@+id/editNombre"
+            android:layout_height="119dp"
+            android:inputType="textMultiLine"
+            android:maxLength="50" />
+    </TableRow>
+    <TableRow>
+        <TextView android:text="Opciones" />
+    </TableRow>
+    <TableRow>
+        <Button
+            android:onClick="limpiarTexto"
+            android:text="Limpiar" />
+        <Button
+            android:onClick="insertarMateria"
+            android:text="Agregar materia" />
+
+    </TableRow>
+</TableLayout>

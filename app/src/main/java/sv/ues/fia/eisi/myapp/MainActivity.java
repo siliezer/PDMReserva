@@ -21,7 +21,7 @@ public class MainActivity extends ListActivity {
             "Tabla Propuesta","Llenar Base de Datos"};
     String[] activities={"EscuelaMenuActivity","CicloMenuActivity","MateriaMenuActivity","Tabla 4","Tabla 5","Tabla 6","Tabla 7",
             "Tabla 8","Tabla 9","Tabla 10","Tabla 11","Tabla 12", "LaboratorioMenuActivity","HorarioMenuActivity","PropuestaMenuActivity"};
-    String[] activities={"EscuelaMenuActivity","CicloMenuActivity","MateriaMenuActivity", "LaboratorioMenuActivity","HorarioMenuActivity","PropuestaMenuActivity"};
+
     ControlBD helper;
 
     @Override

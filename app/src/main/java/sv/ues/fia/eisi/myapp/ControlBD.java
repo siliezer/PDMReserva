@@ -316,6 +316,27 @@ public class ControlBD {
         else return null;
     }
 
+    public Usuario consultarUsuario(String id){
+        String[] camposUsuario = {"usuario", "contrasenia", "nombreusuario"};
+        String[] idUsuario = {id};
+        Cursor c = db.query("usuario", camposUsuario, "usuario = ?", idUsuario, null, null, null);
+        if (c.moveToFirst()){
+            Usuario usuario = new Usuario(c.getString(0), c.getString(1), c.getString(2));
+            return usuario;
+        }
+        else return null;
+    }
+
+    public boolean consultarAcceso(String usuario, String opcion){
+        String[] camposAcceso = {"usuario", "idopcion"};
+        String[] id = {usuario, opcion};
+        Cursor c = db.query("accesousuario", camposAcceso, "usuario = ? AND idopcion = ?", id, null, null, null);
+        if(c.moveToFirst()){
+            return true;
+        }
+        else return false;
+    }
+
     //Actualización
     public String actualizar(Escuela escuela){
         if(verificarIntegridad(escuela, 1)){
@@ -545,11 +566,11 @@ public class ControlBD {
         insertar(bad1);
         /*^^^^^datos para escuela, ciclo y materia^^^^^^^*/
 
-        final String[] Vusuario = {"admin", "1", "2", "3"};
+        final String[] Vusuario = {"admin", "krlos", "albrto", "herni"};
         Usuario admin = new Usuario(Vusuario[0], "admin123", "Administrador");
-        Usuario carlos = new Usuario(Vusuario[1], "Ch1q2", "Carlos");
-        Usuario alberto = new Usuario(Vusuario[2], "jA3f2", "Alberto");
-        Usuario hernan = new Usuario(Vusuario[3], "gD21d", "Hernan");
+        Usuario carlos = new Usuario(Vusuario[1], "Ch1q2", "Carlos Argueta");
+        Usuario alberto = new Usuario(Vusuario[2], "jA3f2", "Alberto Luna");
+        Usuario hernan = new Usuario(Vusuario[3], "gD21d", "Hernan Morales");
         insertar(admin); insertar(carlos); insertar(alberto); insertar(hernan);
 
         String[] Vtablas = {"Escuela", "Ciclo", "Materia", "4", "5", "6", "7","8","9","Asignación", "Encargado", "Salón", "Laboratorio", "Horario", "Propuesta"};
@@ -557,11 +578,33 @@ public class ControlBD {
             OpcionCrud crud = new OpcionCrud(String.valueOf(i), "Menu de "+Vtablas[i], i);
             insertar(crud);
         }
-
+        /*
         for(int i=0; i<4; i++){
             AccesoUsuario acceso = new AccesoUsuario(Vusuario[i], String.valueOf(i));
             insertar(acceso);
+        }*/
+
+        for(int i=0; i<15; i++){
+            AccesoUsuario acceso = new AccesoUsuario(Vusuario[0], String.valueOf(i));
+            insertar(acceso);
         }
+
+        for(int i=0; i<7; i++){
+            AccesoUsuario acceso = new AccesoUsuario(Vusuario[1], String.valueOf(i));
+            insertar(acceso);
+        }
+
+        for(int i=7; i<15; i++){
+            AccesoUsuario acceso = new AccesoUsuario(Vusuario[2], String.valueOf(i));
+            insertar(acceso);
+        }
+
+        for(int i=0; i<15; i=i+2){
+            AccesoUsuario acceso = new AccesoUsuario(Vusuario[3], String.valueOf(i));
+            insertar(acceso);
+        }
+
+        /*^^^^^datos para usuarios y permisos^^^^^^^*/
 
         cerrar();
         return "Se realizó correctamente";

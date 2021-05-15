@@ -1,12 +1,8 @@
 package sv.ues.fia.eisi.myapp;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.ContentValues;
 import android.os.Bundle;
 import android.app.ListActivity;
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -24,6 +20,7 @@ public class MainActivity extends ListActivity {
             "LaboratorioMenuActivity","HorarioMenuActivity","PropuestaMenuActivity","Llenar Base de Datos"};
 
     ControlBD helper;
+    String idUsuario;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -31,6 +28,9 @@ public class MainActivity extends ListActivity {
         setListAdapter(new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, menu));
         helper = new ControlBD(this);
+        idUsuario = getIntent().getExtras().getString("IdUsuario");
+        //Toast.makeText(this, idUsuario, Toast.LENGTH_LONG).show();
+
 
     }
 
@@ -41,15 +41,24 @@ public class MainActivity extends ListActivity {
         if(position!=15){
 
             String nombreValue=activities[position];
-
-            try{
-                Class<?>
-                        clase=Class.forName("sv.ues.fia.eisi.myapp."+nombreValue);
-                Intent inte = new Intent(this,clase);
-                this.startActivity(inte);
-            }catch(ClassNotFoundException e){
-                e.printStackTrace();
+            helper.abrir();
+            Boolean acceso = helper.consultarAcceso(idUsuario, String.valueOf(position));
+            helper.cerrar();
+            if(acceso){
+                try{
+                    Class<?>
+                            clase=Class.forName("sv.ues.fia.eisi.myapp."+nombreValue);
+                    Intent inte = new Intent(this,clase);
+                    this.startActivity(inte);
+                }catch(ClassNotFoundException e){
+                    e.printStackTrace();
+                }
             }
+            else {
+                Toast.makeText(this, "No posee permisos para ver el menú", Toast.LENGTH_SHORT).show();
+            }
+
+
         }else{
             helper.abrir();
             String t = "Error de llamado";

@@ -51,4 +51,5 @@
     <string name="Aprobado">IdEncargado</string>
     <string name="idLab">NombreEncargado</string>
     <string name="idMat">ApeliidoEncargado</string>
+    <string name="linkBD"><a href="">¿BD vacía?</a></string>
 </resources>

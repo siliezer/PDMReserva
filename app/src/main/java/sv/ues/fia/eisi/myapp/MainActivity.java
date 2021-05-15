@@ -16,10 +16,10 @@ import java.text.ParseException;
 
 public class MainActivity extends ListActivity {
 
-    String[] menu={"Tabla Escuela","Tabla Ciclo","Tabla Materia","Tabla 4","Tabla 5","Tabla 6","Tabla 7",
+    String[] menu={"Tabla Escuela","Tabla Ciclo","Tabla Materia","Docente","Rol de docente","Teorico","Tabla 7",
             "Tabla 8","Tabla 9","Asignacion","Encargado","Salon","Tabla Laboratorio","Tabla Horario","Tabla Propuesta","Llenar Base de Datos"};
 
-    String[] activities={"EscuelaMenuActivity","CicloMenuActivity","MateriaMenuActivity","Tabla 4","Tabla 5","Tabla 6","Tabla 7",
+    String[] activities={"EscuelaMenuActivity","CicloMenuActivity","MateriaMenuActivity","DocenteMenuActivity","RolDocenteMenuActivity","TeoricoMenuActivity","Tabla 7",
             "Tabla 8","Tabla 9","AsignacionMenuActivity","EncargadoMenuActivity","SalonMenuActivity",
             "LaboratorioMenuActivity","HorarioMenuActivity","PropuestaMenuActivity","Llenar Base de Datos"};
 

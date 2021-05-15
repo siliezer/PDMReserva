@@ -26,7 +26,7 @@ public class Horario {
         this.idHorario = idHorario;
     }
 
-    public Date getidDia() {
+    public String getidDia() {
         return idDia;
     }
 

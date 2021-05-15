@@ -235,6 +235,39 @@ public class ControlBD {
         return regInsertados;
     }
 
+    public String insertar(Usuario usuario){
+        String regInsertados = "Registro insertado No. ";
+        long contador = 0;
+
+        ContentValues esc = new ContentValues();
+        esc.put("usuario", usuario.getUsuario());
+        esc.put("contrasenia", usuario.getCont());
+        esc.put("nombreusuario", usuario.getNombre());
+        contador = db.insert("usuario", null, esc);
+        if (contador==-1 || contador == 0){
+            regInsertados = "Error de inserción, registro duplicado. Verificar datos.";
+        }
+        else{
+            regInsertados = regInsertados + contador;
+        }
+        return regInsertados;
+    }
+
+    public void insertar(AccesoUsuario acceso){
+        ContentValues cv = new ContentValues();
+        cv.put("usuario", acceso.getUsuario());
+        cv.put("idopcion", acceso.getIdopcion());
+        db.insert("accesousuario", null, cv);
+    }
+
+    public void insertar(OpcionCrud opcion){
+        ContentValues cv = new ContentValues();
+        cv.put("idopcion", opcion.getIdopcion());
+        cv.put("descripcionop", opcion.getDescripcion());
+        cv.put("numcrud", opcion.getNumcrud());
+        db.insert("opcioncrud", null, cv);
+    }
+
     //Consulta
     public Escuela consultarEscuela(String id){
 
@@ -491,6 +524,9 @@ public class ControlBD {
         db.execSQL("DELETE FROM ciclo");
         db.execSQL("DELETE FROM escuela");
         db.execSQL("DELETE FROM materia");
+        db.execSQL("DELETE FROM usuario");
+        db.execSQL("DELETE FROM accesousuario");
+        db.execSQL("DELETE FROM opcioncrud");
 
         for(int i=0; i<5; i++){
             Ciclo ciclo = new Ciclo(Vidciclo[i], Vfechainicio[i], Vfechafin[i]);
@@ -507,6 +543,25 @@ public class ControlBD {
         insertar(mate1);
         insertar(prn1);
         insertar(bad1);
+        /*^^^^^datos para escuela, ciclo y materia^^^^^^^*/
+
+        final String[] Vusuario = {"admin", "1", "2", "3"};
+        Usuario admin = new Usuario(Vusuario[0], "admin123", "Administrador");
+        Usuario carlos = new Usuario(Vusuario[1], "Ch1q2", "Carlos");
+        Usuario alberto = new Usuario(Vusuario[2], "jA3f2", "Alberto");
+        Usuario hernan = new Usuario(Vusuario[3], "gD21d", "Hernan");
+        insertar(admin); insertar(carlos); insertar(alberto); insertar(hernan);
+
+        String[] Vtablas = {"Escuela", "Ciclo", "Materia", "4", "5", "6", "7","8","9","Asignación", "Encargado", "Salón", "Laboratorio", "Horario", "Propuesta"};
+        for(int i=0; i<15; i++){
+            OpcionCrud crud = new OpcionCrud(String.valueOf(i), "Menu de "+Vtablas[i], i);
+            insertar(crud);
+        }
+
+        for(int i=0; i<4; i++){
+            AccesoUsuario acceso = new AccesoUsuario(Vusuario[i], String.valueOf(i));
+            insertar(acceso);
+        }
 
         cerrar();
         return "Se realizó correctamente";

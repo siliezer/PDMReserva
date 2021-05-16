@@ -32,12 +32,12 @@ public class Propuesta {
         this.idPropuesta = idPropuesta;
     }
 
-    public String getidteorico() {
+    public String getidTeorico() {
         return idteorico;
     }
 
-    public void setidteorico(String idteorico) {
-        this.idteorico = idteorico;
+    public void setIdteorico(String idPropuesta) {
+        this.idteorico = idPropuesta;
     }
 
     public String getidMat() {
@@ -84,7 +84,7 @@ public class Propuesta {
         return aprobado;
     }
 
-    public void setaprobado(boolean aprobado) {
+    public void setaprobado(String aprobado) {
         this.aprobado = aprobado;
     }
 }

@@ -38,15 +38,15 @@ public class Horario {
         return Horainicio;
     }
 
-    public void setHorainicio(Date Horainicio) {
+    public void setHorainicio(String Horainicio) {
         this.Horainicio = Horainicio;
     }
 
-    public Date getHorafin() {
+    public String getHorafin() {
         return Horainicio;
     }
 
-    public void setHorafin(Date Horafin) {
+    public void setHorafin(String Horafin) {
         this.Horafin = Horafin;
     }
 }

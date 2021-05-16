@@ -24,7 +24,7 @@ public class Ciclo {
         this.id = id;
     }
 
-    public Date getInicio() {
+    public String getInicio() {
         return inicio;
     }
 
@@ -32,7 +32,7 @@ public class Ciclo {
         this.inicio = inicio;
     }
 
-    public Date getFin() {
+    public String getFin() {
         return fin;
     }
 

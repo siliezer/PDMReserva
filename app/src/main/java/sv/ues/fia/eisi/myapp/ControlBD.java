@@ -155,7 +155,7 @@ public class ControlBD {
 
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // TODO Auto-generated method stub
+            // TODO Auto-generated method stub
         }
     }
 
@@ -170,7 +170,7 @@ public class ControlBD {
 
     //Métodos CRUD SH15001
     //Este método pasa fechas a string para usar en ContentValues.put()
-    private String getDateTime(Date date) {
+    private String getDateTime(String date) {
         SimpleDateFormat dateFormat = new SimpleDateFormat(
                 "yyyy-MM-dd HH:mm:ss", Locale.getDefault());
         return dateFormat.format(date);
@@ -181,7 +181,7 @@ public class ControlBD {
     }
 
     //Inserción
-    public String insertar(Escuela escuela){
+    public String insertar(Escuela escuela) {
         String regInsertados = "Registro insertado No. ";
         long contador = 0;
 
@@ -189,16 +189,15 @@ public class ControlBD {
         esc.put("idescuela", escuela.getId());
         esc.put("nombreescuela", escuela.getNombre());
         contador = db.insert("escuela", null, esc);
-        if (contador==-1 || contador == 0){
+        if (contador == -1 || contador == 0) {
             regInsertados = "Error de inserción, registro duplicado. Verificar datos.";
-        }
-        else{
+        } else {
             regInsertados = regInsertados + contador;
         }
         return regInsertados;
     }
 
-    public String insertar(Ciclo ciclo){
+    public String insertar(Ciclo ciclo) {
         String regInsertados = "Registro insertado No. ";
         long contador = 0;
 
@@ -207,19 +206,18 @@ public class ControlBD {
         cv.put("fechainicio", getDateTime(ciclo.getInicio()));
         cv.put("fechafin", getDateTime(ciclo.getFin()));
         contador = db.insert("ciclo", null, cv);
-        if (contador==-1 || contador == 0){
+        if (contador == -1 || contador == 0) {
             regInsertados = "Error de inserción, registro duplicado. Verificar datos.";
-        }
-        else{
+        } else {
             regInsertados = regInsertados + contador;
         }
         return regInsertados;
     }
 
-    public String insertar(Materia materia){
+    public String insertar(Materia materia) {
         String regInsertados = "Registro insertado No. ";
         long contador = 0;
-        if(verificarIntegridad(materia, 5)){
+        if (verificarIntegridad(materia, 5)) {
             ContentValues cv = new ContentValues();
             cv.put("idmat", materia.getId());
             cv.put("idciclo", materia.getIdCiclo());
@@ -228,14 +226,13 @@ public class ControlBD {
             cv.put("nombremateria", materia.getNombre());
             contador = db.insert("materia", null, cv);
         }
-        if(contador == -1 || contador ==0){
+        if (contador == -1 || contador == 0) {
             regInsertados = "Error de inserción. ¡Verificar datos!";
-        }
-        else regInsertados = regInsertados + contador;
+        } else regInsertados = regInsertados + contador;
         return regInsertados;
     }
 
-    public String insertar(Usuario usuario){
+    public String insertar(Usuario usuario) {
         String regInsertados = "Registro insertado No. ";
         long contador = 0;
 
@@ -244,23 +241,22 @@ public class ControlBD {
         esc.put("contrasenia", usuario.getCont());
         esc.put("nombreusuario", usuario.getNombre());
         contador = db.insert("usuario", null, esc);
-        if (contador==-1 || contador == 0){
+        if (contador == -1 || contador == 0) {
             regInsertados = "Error de inserción, registro duplicado. Verificar datos.";
-        }
-        else{
+        } else {
             regInsertados = regInsertados + contador;
         }
         return regInsertados;
     }
 
-    public void insertar(AccesoUsuario acceso){
+    public void insertar(AccesoUsuario acceso) {
         ContentValues cv = new ContentValues();
         cv.put("usuario", acceso.getUsuario());
         cv.put("idopcion", acceso.getIdopcion());
         db.insert("accesousuario", null, cv);
     }
 
-    public void insertar(OpcionCrud opcion){
+    public void insertar(OpcionCrud opcion) {
         ContentValues cv = new ContentValues();
         cv.put("idopcion", opcion.getIdopcion());
         cv.put("descripcionop", opcion.getDescripcion());
@@ -269,17 +265,16 @@ public class ControlBD {
     }
 
     //Consulta
-    public Escuela consultarEscuela(String id){
+    public Escuela consultarEscuela(String id) {
 
         String[] camposEscuela = {"idescuela", "nombreescuela"}, idescuela = {id};
-        Cursor cursor = db.query("escuela", camposEscuela, "idescuela = ?", idescuela, null, null, null );
-        if(cursor.moveToFirst()){
+        Cursor cursor = db.query("escuela", camposEscuela, "idescuela = ?", idescuela, null, null, null);
+        if (cursor.moveToFirst()) {
             Escuela escuela = new Escuela();
             escuela.setId(cursor.getString(0));
             escuela.setNombre(cursor.getString(1));
             return escuela;
-        }
-        else {
+        } else {
             return null;
         }
     }
@@ -287,24 +282,23 @@ public class ControlBD {
     public Ciclo consultarCiclo(String id) throws ParseException {
 
         String[] camposCiclo = {"idciclo", "fechainicio", "fechafin"}, idciclo = {id};
-        Cursor cursor = db.query("ciclo", camposCiclo, "idciclo = ?", idciclo, null, null, null );
-        if(cursor.moveToFirst()){
+        Cursor cursor = db.query("ciclo", camposCiclo, "idciclo = ?", idciclo, null, null, null);
+        if (cursor.moveToFirst()) {
             Ciclo ciclo = new Ciclo();
             ciclo.setId(cursor.getString(0));
             ciclo.setInicio(getStringDate(cursor.getString(1)));
             ciclo.setFin(getStringDate(cursor.getString(2)));
             return ciclo;
-        }
-        else {
+        } else {
             return null;
         }
     }
 
-    public Materia consultarMateria(String id){
+    public Materia consultarMateria(String id) {
         String[] camposMateria = {"idmat", "idciclo", "carnetdocente", "idescuela", "nombremateria"};
         String[] idMat = {id};
         Cursor c = db.query("materia", camposMateria, "idmat = ?", idMat, null, null, null);
-        if(c.moveToFirst()){
+        if (c.moveToFirst()) {
             Materia materia = new Materia();
             materia.setId(c.getString(0));
             materia.setIdCiclo(c.getString(1));
@@ -312,48 +306,44 @@ public class ControlBD {
             materia.setIdEscuela(c.getString(3));
             materia.setNombre(c.getString(4));
             return materia;
-        }
-        else return null;
+        } else return null;
     }
 
-    public Usuario consultarUsuario(String id){
+    public Usuario consultarUsuario(String id) {
         String[] camposUsuario = {"usuario", "contrasenia", "nombreusuario"};
         String[] idUsuario = {id};
         Cursor c = db.query("usuario", camposUsuario, "usuario = ?", idUsuario, null, null, null);
-        if (c.moveToFirst()){
+        if (c.moveToFirst()) {
             Usuario usuario = new Usuario(c.getString(0), c.getString(1), c.getString(2));
             return usuario;
-        }
-        else return null;
+        } else return null;
     }
 
-    public boolean consultarAcceso(String usuario, String opcion){
+    public boolean consultarAcceso(String usuario, String opcion) {
         String[] camposAcceso = {"usuario", "idopcion"};
         String[] id = {usuario, opcion};
         Cursor c = db.query("accesousuario", camposAcceso, "usuario = ? AND idopcion = ?", id, null, null, null);
-        if(c.moveToFirst()){
+        if (c.moveToFirst()) {
             return true;
-        }
-        else return false;
+        } else return false;
     }
 
     //Actualización
-    public String actualizar(Escuela escuela){
-        if(verificarIntegridad(escuela, 1)){
+    public String actualizar(Escuela escuela) {
+        if (verificarIntegridad(escuela, 1)) {
             String[] id = {escuela.getId()};
             ContentValues cv = new ContentValues();
 
             cv.put("nombreescuela", escuela.getNombre());
             db.update("escuela", cv, "idescuela = ?", id);
             return "¡Registro actualizado correctamente!";
-        }
-        else{
-            return "La escuela con id "+escuela.getId()+" no existe.";
+        } else {
+            return "La escuela con id " + escuela.getId() + " no existe.";
         }
     }
 
-    public String actualizar(Ciclo ciclo){
-        if(verificarIntegridad(ciclo, 2)){
+    public String actualizar(Ciclo ciclo) {
+        if (verificarIntegridad(ciclo, 2)) {
             String[] id = {ciclo.getId()};
             ContentValues cv = new ContentValues();
 
@@ -361,14 +351,13 @@ public class ControlBD {
             cv.put("fechafin", getDateTime(ciclo.getFin()));
             db.update("ciclo", cv, "idciclo = ?", id);
             return "¡Registro actualizado correctamente!";
-        }
-        else{
-            return "El ciclo con id "+ciclo.getId()+" no existe";
+        } else {
+            return "El ciclo con id " + ciclo.getId() + " no existe";
         }
     }
 
-    public String actualizar(Materia materia){
-        if (verificarIntegridad(materia, 6)){
+    public String actualizar(Materia materia) {
+        if (verificarIntegridad(materia, 6)) {
             String[] id = {materia.getId()};
             ContentValues cv = new ContentValues();
 
@@ -378,73 +367,260 @@ public class ControlBD {
             cv.put("nombremateria", materia.getNombre());
             db.update("materia", cv, "idmat = ?", id);
             return "¡Registro actualizado correctamente!";
-        }
-        else{
-            return "El código de materia "+materia.getId()+" no existe.";
+        } else {
+            return "El código de materia " + materia.getId() + " no existe.";
         }
     }
 
     //Eliminacion
-    public String eliminar(Escuela escuela){
+    public String eliminar(Escuela escuela) {
         String afectados = "Filas afectadas: ";
         int cont = 0;
 
-        if (verificarIntegridad(escuela, 3)){
-            cont += db.delete("materia", "idescuela='"+
-                    escuela.getId()+"'", null);
+        if (verificarIntegridad(escuela, 3)) {
+            cont += db.delete("materia", "idescuela='" +
+                    escuela.getId() + "'", null);
         }
-        cont += db.delete("escuela", "idescuela='"+
-                escuela.getId()+"'", null);
-        return afectados+=cont;
+        cont += db.delete("escuela", "idescuela='" +
+                escuela.getId() + "'", null);
+        return afectados += cont;
     }
 
-    public String eliminar(Ciclo ciclo){
+    public String eliminar(Ciclo ciclo) {
         String afectados = "Filas afectadas: ";
         int cont = 0;
 
-        if(verificarIntegridad(ciclo, 4)){
-            cont += db.delete("materia", "idciclo='"+
-                    ciclo.getId()+"'", null);
+        if (verificarIntegridad(ciclo, 4)) {
+            cont += db.delete("materia", "idciclo='" +
+                    ciclo.getId() + "'", null);
         }
-        cont += db.delete("ciclo", "idciclo='"+
-                ciclo.getId()+"'", null);
-        return afectados+=cont;
+        cont += db.delete("ciclo", "idciclo='" +
+                ciclo.getId() + "'", null);
+        return afectados += cont;
     }
 
-    public String eliminar(Materia materia){
+    public String eliminar(Materia materia) {
         String afectados = "Filas afectadas: ";
         int cont = 0;
 
-        if(verificarIntegridad(materia, 7)){
-            cont += db.delete("laboratorio", "idmat='"+
-                    materia.getId()+"'", null);
+        if (verificarIntegridad(materia, 7)) {
+            cont += db.delete("laboratorio", "idmat='" +
+                    materia.getId() + "'", null);
         }
-        if(verificarIntegridad(materia, 8)){
-            cont += db.delete("teorico", "idmat='"+
-                    materia.getId()+"'", null);
+        if (verificarIntegridad(materia, 8)) {
+            cont += db.delete("teorico", "idmat='" +
+                    materia.getId() + "'", null);
         }
-        cont += db.delete("materia", "idmat='"+
-                materia.getId()+"'", null);
-        return afectados+=cont;
+        cont += db.delete("materia", "idmat='" +
+                materia.getId() + "'", null);
+        return afectados += cont;
     }
     //Fin SH15001
 
-    private boolean verificarIntegridad(Object dato, int relacion) throws SQLException{
-        switch (relacion){
-            case 1:{//verificación de existencia de escuela
+    //inicio NA15004
+//Inserción
+    public String insertar(Propuesta propuesta) {
+        String regInsertados = "Registro insertado No. ";
+        long contador = 0;
+
+        ContentValues esc = new ContentValues();
+        esc.put("idPropuesta", propuesta.getidPropuesta());
+        esc.put("idteorico", propuesta.getidTeorico());
+        esc.put("idmat", propuesta.getidMat());
+        esc.put("idlaboratorio", propuesta.getidLab());
+        esc.put("idHorario", propuesta.getidHorario());
+        esc.put("idsalon", propuesta.getidSalon());
+        esc.put("Dia", getDateTime(propuesta.getidDia()));
+        esc.put("aprobado", propuesta.getaprobado());
+        contador = db.insert("idPropuesta", null, esc);
+        if (contador == -1 || contador == 0) {
+            regInsertados = "Error de inserción, registro duplicado. Verificar datos.";
+        } else {
+            regInsertados = regInsertados + contador;
+        }
+        return regInsertados;
+    }
+
+    public String insertar(Horario horario) {
+        String regInsertados = "Registro insertado No. ";
+        long contador = 0;
+
+        ContentValues esc = new ContentValues();
+        esc.put("idPropuesta", getDateTime(horario.getidDia()));
+        esc.put("idteorico", horario.getidHorario());
+        esc.put("idmat", getDateTime(horario.getHorainicio()));
+        esc.put("idlaboratorio", getDateTime(horario.getHorafin()));
+        contador = db.insert("idPropuesta", null, esc);
+        if (contador == -1 || contador == 0) {
+            regInsertados = "Error de inserción, registro duplicado. Verificar datos.";
+        } else {
+            regInsertados = regInsertados + contador;
+        }
+        return regInsertados;
+    }
+
+    public String insertar(Laboratorio laboratorio) {
+        String regInsertados = "Registro insertado No. ";
+        long contador = 0;
+
+        ContentValues esc = new ContentValues();
+        esc.put("idmat", laboratorio.getidMat());
+        esc.put("idlaboratorio", laboratorio.getidLab());
+        contador = db.insert("idPropuesta", null, esc);
+        if (contador == -1 || contador == 0) {
+            regInsertados = "Error de inserción, registro duplicado. Verificar datos.";
+        } else {
+            regInsertados = regInsertados + contador;
+        }
+        return regInsertados;
+    }
+
+    //Consulta
+    public Propuesta consultarPropuesta(String id) {
+        String[] camposPropuesta = {"idpropuesta", "idteorico", "idmat", "idlab", "idhorario", "iddia", "idsalon", "aprobado"};
+        String[] idPropuesta = {id};
+        Cursor c = db.query("Propuesta", camposPropuesta, "idpropuesta = ?", idPropuesta, null, null, null);
+        if (c.moveToFirst()) {
+            Propuesta propuesta = new Propuesta();
+            propuesta.setidPropuesta(c.getString(0));
+            propuesta.setIdteorico(c.getString(1));
+            propuesta.setidMat(c.getString(2));
+            propuesta.setidLab(c.getString(3));
+            propuesta.setidHorario(c.getString(4));
+            propuesta.setidDia(c.getString(5));
+            propuesta.setidSalon(c.getString(6));
+            propuesta.setaprobado(c.getString(7));
+            return propuesta;
+        } else return null;
+    }
+
+    public Laboratorio consultarLaboratorio(String id) throws ParseException {
+
+        String[] camposidLaboratorio = {"idMat", "idLab",}, idLaboratorio = {id};
+        Cursor cursor = db.query("laboratorio", camposidLaboratorio, "idciclo = ?", idLaboratorio, null, null, null);
+        if (cursor.moveToFirst()) {
+            Laboratorio laboratorio = new Laboratorio();
+            laboratorio.setidMat(cursor.getString(0));
+            laboratorio.setidLab(cursor.getString(1));
+            return laboratorio;
+        } else {
+            return null;
+        }
+    }
+
+    public Horario consultarHorario(String id) {
+        String[] camposHorario = {"idHorario", "idDia", "HoraInicio", "HoraFin"};
+        String[] idHorario = {id};
+        Cursor c = db.query("materia", camposHorario, "idmat = ?", idHorario, null, null, null);
+        if (c.moveToFirst()) {
+            Horario horario = new Horario();
+            horario.setidHorario(c.getString(0));
+            horario.setidDia(c.getString(1));
+            horario.setHorainicio(c.getString(2));
+            horario.setHorafin(c.getString(3));
+            return horario;
+        } else return null;
+    }
+
+    //Actualización
+    public String actualizar(Propuesta propuesta) {
+        if (verificarIntegridad(propuesta, 1)) {
+            String[] id = {propuesta.getidPropuesta()};
+            ContentValues cv = new ContentValues();
+
+            cv.put("estado", propuesta.getaprobado());
+            db.update("estado", cv, "idpropuesta = ?", id);
+            return "¡Registro actualizado correctamente!";
+        } else {
+            return "La propuesta con id " + propuesta.getidPropuesta() + " no existe.";
+        }
+    }
+
+    public String actualizar(Laboratorio laboratorio) {
+        if (verificarIntegridad(laboratorio, 2)) {
+            String[] id = {laboratorio.getidLab()};
+            ContentValues cv = new ContentValues();
+
+            cv.put("laboratorio", laboratorio.getidLab());
+            db.update("laboratorio", cv, "idlaboratorio = ?", id);
+            return "¡Registro actualizado correctamente!";
+        } else {
+            return "El laboratorio con id " + laboratorio.getidLab() + " no existe";
+        }
+    }
+
+    public String actualizar(Horario horario) {
+        if (verificarIntegridad(horario, 6)) {
+            String[] id = {horario.getidHorario()};
+            ContentValues cv = new ContentValues();
+
+            cv.put("idhorario", horario.getidHorario());
+            cv.put("horainicio", getDateTime(horario.getHorainicio()));
+            cv.put("horafin", getDateTime(horario.getHorafin()));
+            db.update("materia", cv, "idmat = ?", id);
+            return "¡Registro actualizado correctamente!";
+        } else {
+            return "El horario de materia " + horario.getidHorario() + " no existe.";
+        }
+    }
+
+    //Eliminacion
+    public String eliminar(Propuesta propuesta) {
+        String afectados = "Filas afectadas: ";
+        int cont = 0;
+
+        if (verificarIntegridad(propuesta, 24)) {
+            cont += db.delete("propuesta", "idpropuesta='" +
+                    propuesta.getidPropuesta() + "'", null);
+        }
+        cont += db.delete("propuesta", "idpropuesta='" +
+                propuesta.getidPropuesta() + "'", null);
+        return afectados += cont;
+    }
+
+    public String eliminar(Laboratorio laboratorio) {
+        String afectados = "Filas afectadas: ";
+        int cont = 0;
+
+        if (verificarIntegridad(laboratorio, 25)) {
+            cont += db.delete("laboratorio", "idlaboratorio='" +
+                    laboratorio.getidLab() + "'", null);
+        }
+        cont += db.delete("ciclo", "idlaboratorio='" +
+                laboratorio.getidLab() + "'", null);
+        return afectados += cont;
+    }
+
+    public String eliminar(Horario horario) {
+        String afectados = "Filas afectadas: ";
+        int cont = 0;
+
+        if (verificarIntegridad(horario, 26)) {
+            cont += db.delete("horario", "idhorario='" +
+                    horario.getidHorario() + "'", null);
+        }
+        cont += db.delete("horario", "idhorario='" +
+                horario.getidHorario() + "'", null);
+        return afectados += cont;
+    }
+
+    //Fin NA15004
+    private boolean verificarIntegridad(Object dato, int relacion) throws SQLException {
+        switch (relacion) {
+            case 1: {//verificación de existencia de escuela
                 Escuela escuela = (Escuela) dato;
                 String[] id = {escuela.getId()};
 
                 abrir();
                 Cursor cursor = db.query("escuela", null, "idescuela = ?", id, null, null, null);
                 //cerrar();
-                if(cursor.moveToFirst()){
+                if (cursor.moveToFirst()) {
                     return true;
                 }
                 return false;
             }
 
-            case 2:{//verificación de existencia de ciclo
+            case 2: {//verificación de existencia de ciclo
                 Ciclo ciclo = (Ciclo) dato;
                 String[] id = {ciclo.getId()};
 
@@ -457,31 +633,30 @@ public class ControlBD {
                 return false;
             }
 
-            case 3:{//verifica si hay materia(s) impartida por la escuela
+            case 3: {//verifica si hay materia(s) impartida por la escuela
                 Escuela escuela = (Escuela) dato;
                 String[] id = {"idescuela"};
-                Cursor c = db.query(true, "materia", id,  "idescuela='"
-                        +escuela.getId()+"'", null, null, null, null, null);
-                if(c.moveToFirst()){
+                Cursor c = db.query(true, "materia", id, "idescuela='"
+                        + escuela.getId() + "'", null, null, null, null, null);
+                if (c.moveToFirst()) {
                     return true;
-                }
-                else{
+                } else {
                     return false;
                 }
             }
 
-            case 4:{//verifica si hay materia(s) impartida en el ciclo
+            case 4: {//verifica si hay materia(s) impartida en el ciclo
                 Ciclo ciclo = (Ciclo) dato;
                 String[] id = {"idciclo"};
-                Cursor c = db.query(true, "materia", id, "idciclo='"+
-                        ciclo.getId()+"'", null, null, null, null, null);
-                if(c.moveToFirst())
+                Cursor c = db.query(true, "materia", id, "idciclo='" +
+                        ciclo.getId() + "'", null, null, null, null, null);
+                if (c.moveToFirst())
                     return true;
                 else
                     return false;
             }
 
-            case 5:{//Verifica que existan las llaves foraneas
+            case 5: {//Verifica que existan las llaves foraneas
                 Materia materia = (Materia) dato;
                 String[] id1 = {materia.getIdEscuela()};
                 String[] id2 = {materia.getIdCiclo()};
@@ -490,123 +665,208 @@ public class ControlBD {
                 Cursor c1 = db.query("escuela", null, "idescuela = ?", id1, null, null, null);
                 Cursor c2 = db.query("ciclo", null, "idciclo = ?", id2, null, null, null);
                 Cursor c3 = db.query("docente", null, "carnetdocente = ?", id3, null, null, null);
-                if(c1.moveToFirst() && c2.moveToFirst() || c3.moveToFirst()){ //Cambiar a && cuando existan datos de docente
+                if (c1.moveToFirst() && c2.moveToFirst() || c3.moveToFirst()) { //Cambiar a && cuando existan datos de docente
                     return true;
                 }
                 return false;
 
             }
 
-            case 6:{//Verificar existencia de Materia
+            case 6: {//Verificar existencia de Materia
                 Materia materia = (Materia) dato;
                 String[] id = {materia.getId()};
                 abrir();
                 Cursor c = db.query("Materia", null, "idmat = ?", id, null, null, null);
-                if(c.moveToFirst()) return true;
+                if (c.moveToFirst()) return true;
                 else return false;
 
             }
 
-            case 7:{
+            case 7: {
                 Materia materia = (Materia) dato;
                 String[] id = {"idmat"};
-                Cursor c = db.query(true, "teorico", id, "idmat='"+
-                        materia.getId()+"'", null, null, null, null, null);
+                Cursor c = db.query(true, "teorico", id, "idmat='" +
+                        materia.getId() + "'", null, null, null, null, null);
                 if (c.moveToFirst()) return true;
                 else return false;
             }
 
-            case 8:{
+            case 8: {
                 Materia materia = (Materia) dato;
                 String[] id = {"idmat"};
-                Cursor c = db.query(true, "laboratorio", id, "idmat='"+
-                        materia.getId()+"'", null, null, null, null, null);
+                Cursor c = db.query(true, "laboratorio", id, "idmat='" +
+                        materia.getId() + "'", null, null, null, null, null);
                 if (c.moveToFirst()) return true;
                 else return false;
             }
-            default:
+
+            case 24: {//verificación de existencia de propuesta
+                Propuesta propuesta = (Propuesta) dato;
+                String[] id = {propuesta.getidPropuesta()};
+
+                abrir();
+                Cursor cursor = db.query("propuesta", null, "idpropuesta = ?", id, null, null, null);
+                //cerrar();
+                if (cursor.moveToFirst()) {
+                    return true;
+                }
                 return false;
-        }
-    }
+            }
 
-    public String llenarBD() throws ParseException {
-        final String[] Vidciclo = {"P2019", "I2020", "P2020", "I2021", "P2021"};
-        final Date[] Vfechainicio = {
-                getStringDate("2019-08-19 00:00:00"), getStringDate("2020-02-18 00:00:00"),  getStringDate("2020-08-10 00:00:00"), getStringDate("2021-02-18 00:00:00"), getStringDate("2021-08-10 00:00:00")
-        };
-        final Date[] Vfechafin = {
-                getStringDate("2019-12-15 00:00:00"), getStringDate("2020-07-30 00:00:00"),  getStringDate("2021-01-15 00:00:00"), getStringDate("2021-08-08 00:00:00"), getStringDate("2021-12-10 00:00:00")
-        };
-        final String[] Videscuela = {"EISI", "EA", "EIM", "EII", "UCB"};
-        final String[] Vnomescuela = {"Escuela de Ingenieria de Sistemas Informaticos", "Escuela de Arquitectura", "Escuela de Ingenieria Mecanica",
-                "Escuela de Ingenieria Industrial", "Unidad de Ciencias Basicas"};
-        final String[] Vcarnetmateria = {"SH15001", "HH15002", "SS15003"};
-        abrir();
-        db.execSQL("DELETE FROM ciclo");
-        db.execSQL("DELETE FROM escuela");
-        db.execSQL("DELETE FROM materia");
-        db.execSQL("DELETE FROM usuario");
-        db.execSQL("DELETE FROM accesousuario");
-        db.execSQL("DELETE FROM opcioncrud");
+            case 25: {//verificación de existencia de Horario
+                Horario horario = (Horario) dato;
+                String[] id = {horario.getidDia()};
 
-        for(int i=0; i<5; i++){
-            Ciclo ciclo = new Ciclo(Vidciclo[i], Vfechainicio[i], Vfechafin[i]);
-            insertar(ciclo);
-        }
-        for(int i=0; i<5; i++){
-            Escuela escuela = new Escuela(Videscuela[i], Vnomescuela[i]);
-            insertar(escuela);
-        }
+                abrir();
+                Cursor cursor = db.query("horario", null, "idhorario = ?", id, null, null, null);
+                //cerrar();
+                if (cursor.moveToFirst()) {
+                    return true;
+                }
+                return false;
+            }
 
-        Materia mate1 = new Materia("MAT115", Vidciclo[1], Videscuela[4], "Matematicas 1", Vcarnetmateria[0]);
-        Materia prn1 = new Materia("PRN115", Vidciclo[3], Videscuela[0], "Programacion 1", Vcarnetmateria[1]);
-        Materia bad1 = new Materia("BAD115", Vidciclo[2], Videscuela[0], "Bases de Datos", Vcarnetmateria[2]);
-        insertar(mate1);
-        insertar(prn1);
-        insertar(bad1);
-        /*^^^^^datos para escuela, ciclo y materia^^^^^^^*/
+            case 26: {//verificación de existencia de Laboratorio
+                Laboratorio laboratorio = (Laboratorio) dato;
+                String[] id = {laboratorio.getidLab()};
 
-        final String[] Vusuario = {"admin", "krlos", "albrto", "herni"};
-        Usuario admin = new Usuario(Vusuario[0], "admin123", "Administrador");
-        Usuario carlos = new Usuario(Vusuario[1], "Ch1q2", "Carlos Argueta");
-        Usuario alberto = new Usuario(Vusuario[2], "jA3f2", "Alberto Luna");
-        Usuario hernan = new Usuario(Vusuario[3], "gD21d", "Hernan Morales");
-        insertar(admin); insertar(carlos); insertar(alberto); insertar(hernan);
+                abrir();
+                Cursor cursor = db.query("laboratorio", null, "idlaboratorio = ?", id, null, null, null);
+                //cerrar();
+                if (cursor.moveToFirst()) {
+                    return true;
+                }
+                return false;
+            }
 
-        String[] Vtablas = {"Escuela", "Ciclo", "Materia", "4", "5", "6", "7","8","9","Asignación", "Encargado", "Salón", "Laboratorio", "Horario", "Propuesta"};
-        for(int i=0; i<15; i++){
-            OpcionCrud crud = new OpcionCrud(String.valueOf(i), "Menu de "+Vtablas[i], i);
-            insertar(crud);
-        }
+            case 27: {//Verifica que existan las llaves foraneas
+                Propuesta propuestaforeneas = (Propuesta) dato;
+                String[] id1 = {propuestaforeneas.getidTeorico()};
+                String[] id2 = {propuestaforeneas.getidMat()};
+                String[] id3 = {propuestaforeneas.getidLab()};
+
+                Cursor c1 = db.query("teorico", null, "idteorico = ?", id1, null, null, null);
+                Cursor c2 = db.query("materia", null, "idmateria = ?", id2, null, null, null);
+                Cursor c3 = db.query("laboratorio", null, "idlaboratorio = ?", id3, null, null, null);
+                if (c1.moveToFirst() && c2.moveToFirst() || c3.moveToFirst()) {
+                    return true;
+                }
+                return false;
+
+            }
+
+                case 28: {//Verifica que existan las llaves foraneas
+                    Laboratorio laboratorioforeneas = (Laboratorio) dato;
+                    String[] id1 = {laboratorioforeneas.getidMat()};
+
+                    Cursor c1 = db.query("materia", null, "idteorico = ?", id1, null, null, null);
+                    if (c1.moveToFirst()) {
+                        return true;
+                    }
+                    return false;
+
+            }
+
+                    case 29: {//Verifica que existan las llaves foraneas
+                        Horario horarioforeneas = (Horario) dato;
+                        String[] id1 = {horarioforeneas.getidDia()};
+
+                        Cursor c1 = db.query("iddia", null, "iddia = ?", id1, null, null, null);
+                        if (c1.moveToFirst()) {
+                            return true;
+                        }
+                        return false;
+
+            }
+
+                        default:
+                            return false;
+                    }
+
+
+                }
+
+                public String llenarBD () throws ParseException {
+                    final String[] Vidciclo = {"P2019", "I2020", "P2020", "I2021", "P2021"};
+                    final Date[] Vfechainicio = {
+                            getStringDate("2019-08-19 00:00:00"), getStringDate("2020-02-18 00:00:00"), getStringDate("2020-08-10 00:00:00"), getStringDate("2021-02-18 00:00:00"), getStringDate("2021-08-10 00:00:00")
+                    };
+                    final Date[] Vfechafin = {
+                            getStringDate("2019-12-15 00:00:00"), getStringDate("2020-07-30 00:00:00"), getStringDate("2021-01-15 00:00:00"), getStringDate("2021-08-08 00:00:00"), getStringDate("2021-12-10 00:00:00")
+                    };
+                    final String[] Videscuela = {"EISI", "EA", "EIM", "EII", "UCB"};
+                    final String[] Vnomescuela = {"Escuela de Ingenieria de Sistemas Informaticos", "Escuela de Arquitectura", "Escuela de Ingenieria Mecanica",
+                            "Escuela de Ingenieria Industrial", "Unidad de Ciencias Basicas"};
+                    final String[] Vcarnetmateria = {"SH15001", "HH15002", "SS15003"};
+                    abrir();
+                    db.execSQL("DELETE FROM ciclo");
+                    db.execSQL("DELETE FROM escuela");
+                    db.execSQL("DELETE FROM materia");
+                    db.execSQL("DELETE FROM usuario");
+                    db.execSQL("DELETE FROM accesousuario");
+                    db.execSQL("DELETE FROM opcioncrud");
+
+                    for (int i = 0; i < 5; i++) {
+                        Ciclo ciclo = new Ciclo(Vidciclo[i], Vfechainicio[i], Vfechafin[i]);
+                        insertar(ciclo);
+                    }
+                    for (int i = 0; i < 5; i++) {
+                        Escuela escuela = new Escuela(Videscuela[i], Vnomescuela[i]);
+                        insertar(escuela);
+                    }
+
+                    Materia mate1 = new Materia("MAT115", Vidciclo[1], Videscuela[4], "Matematicas 1", Vcarnetmateria[0]);
+                    Materia prn1 = new Materia("PRN115", Vidciclo[3], Videscuela[0], "Programacion 1", Vcarnetmateria[1]);
+                    Materia bad1 = new Materia("BAD115", Vidciclo[2], Videscuela[0], "Bases de Datos", Vcarnetmateria[2]);
+                    insertar(mate1);
+                    insertar(prn1);
+                    insertar(bad1);
+                    /*^^^^^datos para escuela, ciclo y materia^^^^^^^*/
+
+                    final String[] Vusuario = {"admin", "krlos", "albrto", "herni"};
+                    Usuario admin = new Usuario(Vusuario[0], "admin123", "Administrador");
+                    Usuario carlos = new Usuario(Vusuario[1], "Ch1q2", "Carlos Argueta");
+                    Usuario alberto = new Usuario(Vusuario[2], "jA3f2", "Alberto Luna");
+                    Usuario hernan = new Usuario(Vusuario[3], "gD21d", "Hernan Morales");
+                    insertar(admin);
+                    insertar(carlos);
+                    insertar(alberto);
+                    insertar(hernan);
+
+                    String[] Vtablas = {"Escuela", "Ciclo", "Materia", "4", "5", "6", "7", "8", "9", "Asignación", "Encargado", "Salón", "Laboratorio", "Horario", "Propuesta"};
+                    for (int i = 0; i < 15; i++) {
+                        OpcionCrud crud = new OpcionCrud(String.valueOf(i), "Menu de " + Vtablas[i], i);
+                        insertar(crud);
+                    }
         /*
         for(int i=0; i<4; i++){
             AccesoUsuario acceso = new AccesoUsuario(Vusuario[i], String.valueOf(i));
             insertar(acceso);
         }*/
 
-        for(int i=0; i<15; i++){
-            AccesoUsuario acceso = new AccesoUsuario(Vusuario[0], String.valueOf(i));
-            insertar(acceso);
-        }
+                    for (int i = 0; i < 15; i++) {
+                        AccesoUsuario acceso = new AccesoUsuario(Vusuario[0], String.valueOf(i));
+                        insertar(acceso);
+                    }
 
-        for(int i=0; i<7; i++){
-            AccesoUsuario acceso = new AccesoUsuario(Vusuario[1], String.valueOf(i));
-            insertar(acceso);
-        }
+                    for (int i = 0; i < 7; i++) {
+                        AccesoUsuario acceso = new AccesoUsuario(Vusuario[1], String.valueOf(i));
+                        insertar(acceso);
+                    }
 
-        for(int i=7; i<15; i++){
-            AccesoUsuario acceso = new AccesoUsuario(Vusuario[2], String.valueOf(i));
-            insertar(acceso);
-        }
+                    for (int i = 7; i < 15; i++) {
+                        AccesoUsuario acceso = new AccesoUsuario(Vusuario[2], String.valueOf(i));
+                        insertar(acceso);
+                    }
 
-        for(int i=0; i<15; i=i+2){
-            AccesoUsuario acceso = new AccesoUsuario(Vusuario[3], String.valueOf(i));
-            insertar(acceso);
-        }
+                    for (int i = 0; i < 15; i = i + 2) {
+                        AccesoUsuario acceso = new AccesoUsuario(Vusuario[3], String.valueOf(i));
+                        insertar(acceso);
+                    }
 
-        /*^^^^^datos para usuarios y permisos^^^^^^^*/
+                    /*^^^^^datos para usuarios y permisos^^^^^^^*/
 
-        cerrar();
-        return "Se realizó correctamente";
-    }
-}
+                    cerrar();
+                    return "Se realizó correctamente";
+                }
+            }

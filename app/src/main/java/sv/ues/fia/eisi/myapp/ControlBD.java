@@ -170,7 +170,7 @@ public class ControlBD {
 
     //Métodos CRUD SH15001
     //Este método pasa fechas a string para usar en ContentValues.put()
-    private String getDateTime(String date) {
+    private String getDateTime(Date date) {
         SimpleDateFormat dateFormat = new SimpleDateFormat(
                 "yyyy-MM-dd HH:mm:ss", Locale.getDefault());
         return dateFormat.format(date);
@@ -179,6 +179,8 @@ public class ControlBD {
     private Date getStringDate(String date) throws ParseException {
         return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(date);
     }
+
+
 
     //Inserción
     public String insertar(Escuela escuela) {
@@ -430,7 +432,7 @@ public class ControlBD {
         esc.put("idlaboratorio", propuesta.getidLab());
         esc.put("idHorario", propuesta.getidHorario());
         esc.put("idsalon", propuesta.getidSalon());
-        esc.put("Dia", getDateTime(propuesta.getidDia()));
+        esc.put("Dia", propuesta.getidDia());
         esc.put("aprobado", propuesta.getaprobado());
         contador = db.insert("idPropuesta", null, esc);
         if (contador == -1 || contador == 0) {
@@ -446,7 +448,7 @@ public class ControlBD {
         long contador = 0;
 
         ContentValues esc = new ContentValues();
-        esc.put("idPropuesta", getDateTime(horario.getidDia()));
+        esc.put("idPropuesta", horario.getidDia());
         esc.put("idteorico", horario.getidHorario());
         esc.put("idmat", getDateTime(horario.getHorainicio()));
         esc.put("idlaboratorio", getDateTime(horario.getHorafin()));
@@ -476,7 +478,7 @@ public class ControlBD {
     }
 
     //Consulta
-    public Propuesta consultarPropuesta(String id) {
+    public Propuesta consultarPropuesta(String id) throws ParseException{
         String[] camposPropuesta = {"idpropuesta", "idteorico", "idmat", "idlab", "idhorario", "iddia", "idsalon", "aprobado"};
         String[] idPropuesta = {id};
         Cursor c = db.query("Propuesta", camposPropuesta, "idpropuesta = ?", idPropuesta, null, null, null);
@@ -489,7 +491,7 @@ public class ControlBD {
             propuesta.setidHorario(c.getString(4));
             propuesta.setidDia(c.getString(5));
             propuesta.setidSalon(c.getString(6));
-            propuesta.setaprobado(c.getString(7));
+            propuesta.setAprobado(c.getString(7));
             return propuesta;
         } else return null;
     }
@@ -508,16 +510,16 @@ public class ControlBD {
         }
     }
 
-    public Horario consultarHorario(String id) {
+    public Horario consultarHorario(String id) throws ParseException{
         String[] camposHorario = {"idHorario", "idDia", "HoraInicio", "HoraFin"};
         String[] idHorario = {id};
-        Cursor c = db.query("materia", camposHorario, "idmat = ?", idHorario, null, null, null);
+        Cursor c = db.query("horario", camposHorario, "idmat = ?", idHorario, null, null, null);
         if (c.moveToFirst()) {
             Horario horario = new Horario();
             horario.setidHorario(c.getString(0));
             horario.setidDia(c.getString(1));
-            horario.setHorainicio(c.getString(2));
-            horario.setHorafin(c.getString(3));
+            horario.setHorainicio(getStringDate(c.getString(2)));
+            horario.setHorafin(getStringDate(c.getString(3)));
             return horario;
         } else return null;
     }
@@ -605,6 +607,199 @@ public class ControlBD {
     }
 
     //Fin NA15004
+
+    //Inicio metodos CRUD GM15003
+
+
+    //Insertar registros
+    public String insertar(Asignacion asignacion){
+        String regInsertados = "Registro insertado No. ";
+        long contador = 0;
+        if(verificarIntegridad(asignacion, 9)){
+            ContentValues cv = new ContentValues();
+            cv.put("idpropuesta", asignacion.getIdPropuesta());
+            cv.put("idhorario", asignacion.getIdHorario());
+            cv.put("iddia", asignacion.getIdDia());
+            contador = db.insert("asignacion", null, cv);
+        }
+        if(contador == -1 || contador ==0){
+            regInsertados = "Error de inserción. ¡Verificar datos!";
+        }
+        else regInsertados = regInsertados + contador;
+        return regInsertados;
+    }
+
+    public String insertar(Encargado encargado){
+        String regInsertados = "Registro insertado No. ";
+        long contador = 0;
+
+        ContentValues cv = new ContentValues();
+        cv.put("idencargado", encargado.getIdEncargado());
+        cv.put("nombresencargado", encargado.getNombresEncargado());
+        cv.put("apellidosencargado", encargado.getApellidosEncargado());
+        contador = db.insert("encargado", null, cv);
+
+        if(contador == -1 || contador ==0){
+            regInsertados = "Error de inserción. ¡Verificar datos!";
+        }
+        else regInsertados = regInsertados + contador;
+        return regInsertados;
+    }
+
+    public String insertar(Salon salon){
+        String regInsertados = "Registro insertado No. ";
+        long contador = 0;
+        if(verificarIntegridad(salon, 10)){
+            ContentValues cv = new ContentValues();
+            cv.put("idsalon", salon.getIdSalon());
+            cv.put("idencargado", salon.getIdEncargado());
+            cv.put("tipo", salon.getTipo());
+            cv.put("nombre", salon.getNombre());
+            contador = db.insert("salon", null, cv);
+        }
+        if(contador == -1 || contador ==0){
+            regInsertados = "Error de inserción. ¡Verificar datos!";
+        }
+        else regInsertados = regInsertados + contador;
+        return regInsertados;
+    }
+
+
+    //Consultar registros
+    public Asignacion consultarAsignacion(String idPropuesta) throws ParseException {
+
+        String[] camposAsignacion = {"idpropuesta", "idhorario", "iddia"}, idPro = {idPropuesta};
+        Cursor cursor = db.query("asignacion", camposAsignacion, "idpropuesta = ?", idPro, null, null, null );
+        if(cursor.moveToFirst()){
+            Asignacion asignacion = new Asignacion();
+            asignacion.setIdPropuesta(cursor.getString(0));
+            asignacion.setIdHorario(cursor.getString(1));
+            asignacion.setIdDia(cursor.getString(2));
+            return asignacion;
+        }
+        else {
+            return null;
+        }
+    }
+
+    public Encargado consultarEncargado(String idEncargado){
+        String[] camposEncargado = {"idencargado", "nombreencargado", "apellidoencargado"};
+        String[] idEnc = {idEncargado};
+        Cursor c = db.query("encargado", camposEncargado, "idenc = ?", idEnc, null, null, null);
+        if(c.moveToFirst()){
+            Encargado encargado = new Encargado();
+            encargado.setIdEncargado(c.getString(0));
+            encargado.setNombresEncargado(c.getString(1));
+            encargado.setApellidosEncargado(c.getString(2));
+            return encargado;
+        }
+        else return null;
+    }
+
+    public Salon consultarSalon(String idSalon){
+        String[] camposSalon = {"idsalon", "idencargado", "tipo", "nombresalon"};
+        String[] idSal = {idSalon};
+        Cursor c = db.query("salon", camposSalon, "idsal = ?", idSal, null, null, null);
+        if(c.moveToFirst()){
+            Salon salon = new Salon();
+            salon.setIdSalon(c.getString(0));
+            salon.setIdEncargado(c.getString(1));
+            salon.setTipo(c.getString(2));
+            salon.setNombre(c.getString(3));
+            return salon;
+        }
+        else return null;
+    }
+
+    //Actualizar registros
+    public String actualizar(Asignacion asignacion){
+        if(verificarIntegridad(asignacion, 11)){
+            String[] idPropuesta = {asignacion.getIdPropuesta()};
+            ContentValues cv = new ContentValues();
+
+            cv.put("idhorario", asignacion.getIdHorario());
+            cv.put("iddia", asignacion.getIdDia());
+            db.update("asignacion", cv, "idpropuesta = ?", idPropuesta);
+            return "¡Registro actualizado correctamente!";
+        }
+        else{
+            return "La asignacion con id "+asignacion.getIdPropuesta()+" no existe";
+        }
+    }
+
+    public String actualizar(Encargado encargado){
+        if(verificarIntegridad(encargado, 12)){
+            String[] idEncargado = {encargado.getIdEncargado()};
+            ContentValues cv = new ContentValues();
+
+            cv.put("nombresencargado", encargado.getNombresEncargado());
+            cv.put("apellidosencargado", encargado.getApellidosEncargado());
+            db.update("encargado", cv, "idencargado = ?", idEncargado);
+            return "¡Registro actualizado correctamente!";
+        }
+        else{
+            return "El encargado con id "+encargado.getIdEncargado()+" no existe.";
+        }
+    }
+
+    public String actualizar(Salon salon){
+        if(verificarIntegridad(salon, 13)){
+            String[] idSalon = {salon.getIdSalon()};
+            ContentValues cv = new ContentValues();
+
+            cv.put("idencargado", salon.getIdEncargado());
+            cv.put("tipo", salon.getTipo());
+            cv.put("nombresalon", salon.getNombre());
+            db.update("salon", cv, "idsalon = ?", idSalon);
+            return "¡Registro actualizado correctamente!";
+        }
+        else{
+            return "El salon con id "+salon.getIdSalon()+" no existe.";
+        }
+    }
+
+    //Eliminar registros
+    public String eliminar(Asignacion asignacion){
+        String afectados = "Filas afectadas: ";
+        int cont = 0;
+
+        if(verificarIntegridad(asignacion,14)){
+            cont += db.delete("asignacion", "idpropuesta='"+
+                    asignacion.getIdPropuesta()+"'", null);
+        }
+        cont += db.delete("asignacion", "idpropuesta='"+
+                asignacion.getIdPropuesta()+"'", null);
+        return afectados+=cont;
+    }
+
+    public String eliminar(Encargado encargado){
+        String afectados = "Filas afectadas: ";
+        int cont = 0;
+
+        if(verificarIntegridad(encargado,15)){
+            cont += db.delete("encargado", "idencargado='"+
+                    encargado.getIdEncargado()+"'", null);
+        }
+        cont += db.delete("encargado", "idencargado='"+
+                encargado.getIdEncargado()+"'", null);
+        return afectados+=cont;
+    }
+
+    public String eliminar(Salon salon){
+        String afectados = "Filas afectadas: ";
+        int cont = 0;
+
+        if(verificarIntegridad(salon,16)){
+            cont += db.delete("salon", "idsalon='"+
+                    salon.getIdSalon()+"'", null);
+        }
+        cont += db.delete("salon", "idsalon='"+
+                salon.getIdSalon()+"'", null);
+        return afectados+=cont;
+    }
+
+    //Fin GM15003
+
     private boolean verificarIntegridad(Object dato, int relacion) throws SQLException {
         switch (relacion) {
             case 1: {//verificación de existencia de escuela

@@ -448,11 +448,11 @@ public class ControlBD {
         long contador = 0;
 
         ContentValues esc = new ContentValues();
-        esc.put("idDia", horario.getidDia());
-        esc.put("idHorario", horario.getidHorario());
-        esc.put("Horainicio", horario.getHorainicio());
-        esc.put("Horafin", horario.getHorafin());
-        contador = db.insert("idHorario", null, esc);
+        esc.put("idPropuesta", horario.getidDia());
+        esc.put("idteorico", horario.getidHorario());
+        esc.put("idmat", getDateTime(horario.getHorainicio()));
+        esc.put("idlaboratorio", getDateTime(horario.getHorafin()));
+        contador = db.insert("idPropuesta", null, esc);
         if (contador == -1 || contador == 0) {
             regInsertados = "Error de inserción, registro duplicado. Verificar datos.";
         } else {
@@ -468,7 +468,7 @@ public class ControlBD {
         ContentValues esc = new ContentValues();
         esc.put("idmat", laboratorio.getidMat());
         esc.put("idlaboratorio", laboratorio.getidLab());
-        contador = db.insert("idLaboratorio", null, esc);
+        contador = db.insert("idPropuesta", null, esc);
         if (contador == -1 || contador == 0) {
             regInsertados = "Error de inserción, registro duplicado. Verificar datos.";
         } else {
@@ -518,8 +518,8 @@ public class ControlBD {
             Horario horario = new Horario();
             horario.setidHorario(c.getString(0));
             horario.setidDia(c.getString(1));
-            horario.setHorainicio(c.getString(2));
-            horario.setHorafin(c.getString(3));
+            horario.setHorainicio(getStringDate(c.getString(2)));
+            horario.setHorafin(getStringDate(c.getString(3)));
             return horario;
         } else return null;
     }
@@ -557,8 +557,8 @@ public class ControlBD {
             ContentValues cv = new ContentValues();
 
             cv.put("idhorario", horario.getidHorario());
-            cv.put("horainicio", horario.getHorainicio());
-            cv.put("horafin", horario.getHorafin());
+            cv.put("horainicio", getDateTime(horario.getHorainicio()));
+            cv.put("horafin", getDateTime(horario.getHorafin()));
             db.update("materia", cv, "idmat = ?", id);
             return "¡Registro actualizado correctamente!";
         } else {
@@ -993,18 +993,6 @@ public class ControlBD {
                     final String[] Vnomescuela = {"Escuela de Ingenieria de Sistemas Informaticos", "Escuela de Arquitectura", "Escuela de Ingenieria Mecanica",
                             "Escuela de Ingenieria Industrial", "Unidad de Ciencias Basicas"};
                     final String[] Vcarnetmateria = {"SH15001", "HH15002", "SS15003"};
-                    //na15004
-                    final String[] Vaidpropuesta = {"p01","p02","p03","p04","p05"};
-                    final String[] Vaidteorico = {"gt01","gt02","gt03","gt04","gt05"};
-                    final String[] Vaidmateria = {"pdm115","mat115","hdp115","mip115","cet115"};
-                    final String[] Vaidlab = {"gl01","gl02","gl03","gl04","gl05"};
-                    final String[] Vaidhorario = {"b1","b2","b3","b4","b5"};
-                    final String[] Vaiddia = {"2019-12-16 00:00:00", "2020-07-30 00:00:00", "2021-01-15 00:00:00", "2021-08-08 00:00:00", "2021-12-10 00:00:00"};
-                    final String[] Vaidsalon = {"b11","c21","c11","d11","b21"};
-                    final String[] Vaaprobado = {"aprobado","no aprobado","aprobado","no aprobado","aprobado"};
-                    final String[] VaHorainicio = {"2019-12-16 00:00:00", "2020-07-30 00:00:00", "2021-01-15 00:00:00", "2021-08-08 00:00:00", "2021-12-10 00:00:00"};
-                    final String[] VaHorafin = {"2019-12-16 00:00:00", "2020-07-30 00:00:00", "2021-01-15 00:00:00", "2021-08-08 00:00:00", "2021-12-10 00:00:00"};
-
                     abrir();
                     db.execSQL("DELETE FROM ciclo");
                     db.execSQL("DELETE FROM escuela");
@@ -1012,10 +1000,6 @@ public class ControlBD {
                     db.execSQL("DELETE FROM usuario");
                     db.execSQL("DELETE FROM accesousuario");
                     db.execSQL("DELETE FROM opcioncrud");
-                    //na15004
-                    db.execSQL("DELETE FROM propuesta");
-                    db.execSQL("DELETE FROM laboratorio");
-                    db.execSQL("DELETE FROM horario");
 
                     for (int i = 0; i < 5; i++) {
                         Ciclo ciclo = new Ciclo(Vidciclo[i], Vfechainicio[i], Vfechafin[i]);
@@ -1024,20 +1008,6 @@ public class ControlBD {
                     for (int i = 0; i < 5; i++) {
                         Escuela escuela = new Escuela(Videscuela[i], Vnomescuela[i]);
                         insertar(escuela);
-                    }
-                    //na15004
-                    for (int i = 0; i < 5; i++) {
-                        Propuesta propuesta = new Propuesta(Vaidpropuesta[i], Vaidteorico[i], Vaidmateria[i], Vaidlab[i], Vaidhorario[i], Vaiddia[i], Vaidsalon[i], Vaaprobado[i]);
-                        insertar(propuesta);
-                    }
-                    for (int i = 0; i < 5; i++) {
-                        Laboratorio laboratorio = new Laboratorio(Vaidmateria[i], Vaidlab[i]);
-                        insertar(laboratorio);
-                    }
-
-                    for (int i = 0; i < 5; i++) {
-                        Horario horario = new Horario(Vaidhorario[i], Vaiddia[i], VaHorainicio[i], VaHorafin[i]);
-                        insertar(horario);
                     }
 
                     Materia mate1 = new Materia("MAT115", Vidciclo[1], Videscuela[4], "Matematicas 1", Vcarnetmateria[0]);

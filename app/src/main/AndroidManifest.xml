@@ -75,6 +75,21 @@
         <activity android:name=".MateriaMenuActivity" />
         <activity android:name=".CicloMenuActivity" />
         <activity android:name=".EscuelaMenuActivity" />
+        <activity android:name=".DiaInsertarActivity" />
+        <activity android:name=".DiaConsultarActivity" />
+        <activity android:name=".DiaEliminarActivity" />
+        <activity android:name=".DiaActualizarActivity" />
+        <activity android:name=".DetalleEventoActualizarActivity" />
+        <activity android:name=".DetalleEventoEliminarActivity" />
+        <activity android:name=".DetalleEventoInsertarActivity" />
+        <activity android:name=".DetalleEventoConsultarActivity" />
+        <activity android:name=".EventoMenuActivity" />
+        <activity android:name=".DetalleEventoMenuActivity" />
+        <activity android:name=".DiaMenuActivity" />
+        <activity android:name=".EventoInsertarActivity" />
+        <activity android:name=".EventoActualizarActivity" />
+        <activity android:name=".EventoEliminarActivity" />
+        <activity android:name=".EventoConsultarActivity" />
         <activity android:name=".MainActivity">
 
         </activity>

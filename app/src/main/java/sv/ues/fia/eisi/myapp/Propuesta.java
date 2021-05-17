@@ -1,5 +1,7 @@
 package sv.ues.fia.eisi.myapp;
 
+import java.util.Date;
+
 public class Propuesta {
     private String idPropuesta;
     private String idteorico;
@@ -14,7 +16,7 @@ public class Propuesta {
     public Propuesta() {
     }
 
-    public Propuesta(String idPropuesta, String idteorico, String idMat, String idLab, String idHorario, String idDia, String idSalon, String aprobado) {
+    public Propuesta(String idPropuesta, String idteorico, String idMat, String idLab, String idHorario, String date, String idSalon, String aprobado) {
         this.idPropuesta = idPropuesta;
         this.idteorico = idteorico;
         this.idMat = idMat;

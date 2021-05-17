@@ -1,8 +1,11 @@
 package sv.ues.fia.eisi.myapp;
 
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import sv.ues.fia.eisi.myapp.R;
 
 public class HorarioInsertarActivity extends AppCompatActivity {
 

@@ -450,8 +450,8 @@ public class ControlBD {
         ContentValues esc = new ContentValues();
         esc.put("idPropuesta", horario.getidDia());
         esc.put("idteorico", horario.getidHorario());
-        esc.put("idmat", getDateTime(horario.getHorainicio()));
-        esc.put("idlaboratorio", getDateTime(horario.getHorafin()));
+        esc.put("idmat", horario.getHorainicio());
+        esc.put("idlaboratorio", horario.getHorafin());
         contador = db.insert("idPropuesta", null, esc);
         if (contador == -1 || contador == 0) {
             regInsertados = "Error de inserción, registro duplicado. Verificar datos.";
@@ -518,8 +518,8 @@ public class ControlBD {
             Horario horario = new Horario();
             horario.setidHorario(c.getString(0));
             horario.setidDia(c.getString(1));
-            horario.setHorainicio(getStringDate(c.getString(2)));
-            horario.setHorafin(getStringDate(c.getString(3)));
+            horario.setHorainicio(c.getString(2));
+            horario.setHorafin(c.getString(3));
             return horario;
         } else return null;
     }
@@ -557,8 +557,8 @@ public class ControlBD {
             ContentValues cv = new ContentValues();
 
             cv.put("idhorario", horario.getidHorario());
-            cv.put("horainicio", getDateTime(horario.getHorainicio()));
-            cv.put("horafin", getDateTime(horario.getHorafin()));
+            cv.put("horainicio", horario.getHorainicio());
+            cv.put("horafin", horario.getHorafin());
             db.update("materia", cv, "idmat = ?", id);
             return "¡Registro actualizado correctamente!";
         } else {

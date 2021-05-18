@@ -8,7 +8,7 @@
 
         <TextView android:text="id horario" />
         <EditText
-            android:id="@+id/editCarnet"
+            android:id="@+id/editIdHorario"
             android:inputType="text"
             android:maxLength="7" />
     </TableRow>
@@ -16,7 +16,7 @@
 
         <TextView android:text="Dia" />
         <EditText
-            android:id="@+id/editNombre"
+            android:id="@+id/editIdDia"
             android:inputType="text"
             android:maxLength="30" />
     </TableRow>
@@ -26,15 +26,15 @@
 
         <TextView android:text="Hora Inicio" />
         <EditText
-            android:id="@+id/editCarnet"
+            android:id="@+id/editHorainicio"
             android:inputType="text"
             android:maxLength="7" />
     </TableRow>
     <TableRow>
 
-        <TextView android:text="id materia" />
+        <TextView android:text="Hora fin" />
         <EditText
-            android:id="@+id/editNombre"
+            android:id="@+id/editHorafin"
             android:inputType="text"
             android:maxLength="30" />
     </TableRow>
@@ -44,7 +44,7 @@
     <TableRow>
 
         <Button
-            android:onClick="actualizarAlumno"
+            android:onClick="actualizarHorario"
             android:text="actualizar" />
     </TableRow>
     <TableRow>

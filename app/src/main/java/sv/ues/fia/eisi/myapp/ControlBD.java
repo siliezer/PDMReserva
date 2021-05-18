@@ -478,7 +478,7 @@ public class ControlBD {
     }
 
     //Consulta
-    public Propuesta consultarPropuesta(String id) throws ParseException{
+    public Propuesta consultarPropuesta(String id) {
         String[] camposPropuesta = {"idpropuesta", "idteorico", "idmat", "idlab", "idhorario", "iddia", "idsalon", "aprobado"};
         String[] idPropuesta = {id};
         Cursor c = db.query("Propuesta", camposPropuesta, "idpropuesta = ?", idPropuesta, null, null, null);
@@ -496,7 +496,7 @@ public class ControlBD {
         } else return null;
     }
 
-    public Laboratorio consultarLaboratorio(String id) throws ParseException {
+    public Laboratorio consultarLaboratorio(String id) {
 
         String[] camposidLaboratorio = {"idMat", "idLab",}, idLaboratorio = {id};
         Cursor cursor = db.query("laboratorio", camposidLaboratorio, "idciclo = ?", idLaboratorio, null, null, null);
@@ -510,7 +510,7 @@ public class ControlBD {
         }
     }
 
-    public Horario consultarHorario(String id) throws ParseException{
+    public Horario consultarHorario(String id) {
         String[] camposHorario = {"idHorario", "idDia", "HoraInicio", "HoraFin"};
         String[] idHorario = {id};
         Cursor c = db.query("horario", camposHorario, "idmat = ?", idHorario, null, null, null);

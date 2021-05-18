@@ -14,14 +14,14 @@ public class EncargadoInsertarActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_asignacion_insertar);
+        setContentView(R.layout.activity_encargado_insertar);
         helper = new ControlBD(this);
-        editIdEncargado = (EditText) findViewById(R.id.editIdPropuesta);
-        editNombresEncargado = (EditText) findViewById(R.id.editIdHorario);
-        editApellidosEncargados = (EditText) findViewById(R.id.editIdDia);
+        editIdEncargado = (EditText) findViewById(R.id.editIdEncargado);
+        editNombresEncargado = (EditText) findViewById(R.id.editNombresEncargado);
+        editApellidosEncargados = (EditText) findViewById(R.id.editApellidosEncargado);
     }
 
-    public void insertarMateria(View v){
+    public void insertarEncargado(View v){
         String regInsertados;
         String idEncargado = editIdEncargado.getText().toString();
         String nombresEncargado = editNombresEncargado.getText().toString();

@@ -8,7 +8,7 @@
 
         <TextView android:text="id laboratorio" />
         <EditText
-            android:id="@+id/editCarnet"
+            android:id="@+id/editIdLab"
             android:inputType="text"
             android:maxLength="7" />
     </TableRow>
@@ -16,7 +16,7 @@
 
         <TextView android:text="id materia" />
         <EditText
-            android:id="@+id/editNombre"
+            android:id="@+id/editIdMat"
             android:inputType="text"
             android:maxLength="30" />
     </TableRow>

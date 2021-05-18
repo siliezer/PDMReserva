@@ -8,7 +8,7 @@
 
         <TextView android:text="id propuesta" />
         <EditText
-            android:id="@+id/editCarnet"
+            android:id="@+id/editIdPropuesta"
             android:inputType="text"
             android:maxLength="7" />
     </TableRow>
@@ -16,7 +16,7 @@
 
         <TextView android:text="id teorico" />
         <EditText
-            android:id="@+id/editNombre"
+            android:id="@+id/editIdteorico"
             android:inputType="text"
             android:maxLength="30" />
     </TableRow>
@@ -26,7 +26,7 @@
 
         <TextView android:text="id materia" />
         <EditText
-            android:id="@+id/editCarnet"
+            android:id="@+id/editIdMat"
             android:inputType="text"
             android:maxLength="7" />
     </TableRow>
@@ -34,7 +34,7 @@
 
         <TextView android:text="id laboratorio" />
         <EditText
-            android:id="@+id/editNombre"
+            android:id="@+id/editIdLab"
             android:inputType="text"
             android:maxLength="30" />
     </TableRow>
@@ -44,7 +44,7 @@
 
         <TextView android:text="id horario" />
         <EditText
-            android:id="@+id/editCarnet"
+            android:id="@+id/editIdHorario"
             android:inputType="text"
             android:maxLength="7" />
     </TableRow>
@@ -52,7 +52,7 @@
 
         <TextView android:text="dia" />
         <EditText
-            android:id="@+id/editNombre"
+            android:id="@+id/editIdDia"
             android:inputType="text"
             android:maxLength="30" />
     </TableRow>
@@ -62,7 +62,7 @@
 
         <TextView android:text="id salon" />
         <EditText
-            android:id="@+id/editCarnet"
+            android:id="@+id/editIdSalon"
             android:inputType="text"
             android:maxLength="7" />
     </TableRow>
@@ -70,7 +70,7 @@
 
         <TextView android:text="aprobado" />
         <EditText
-            android:id="@+id/editNombre"
+            android:id="@+id/editAprobado"
             android:inputType="text"
             android:maxLength="30" />
     </TableRow>

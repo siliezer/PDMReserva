@@ -15,7 +15,7 @@ import java.util.Date;
 
 public class PropuestaActualizarActivity extends AppCompatActivity {
     ControlBD helper;
-    EditText editIdPropuesta, editIdteorico, editIdMat, editIdLab, editIdHorario, editIdDia, editIdSalon, editAprobado;
+    EditText editIdPropuesta, editIdTeo, editIdMat, editIdLab, editIdHorario,editIdDia, editIdSal, editIdApr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,25 +23,25 @@ public class PropuestaActualizarActivity extends AppCompatActivity {
         setContentView(R.layout.activity_propuesta_actualizar);
         helper = new ControlBD(this);
         editIdPropuesta = (EditText) findViewById(R.id.editIdPropuesta);
-        editIdteorico = (EditText) findViewById(R.id.editIdteorico);
+        editIdTeo = (EditText) findViewById(R.id.editIdTeo);
         editIdMat = (EditText) findViewById(R.id.editIdMat);
         editIdLab = (EditText) findViewById(R.id.editIdLab);
         editIdHorario = (EditText) findViewById(R.id.editIdHorario);
         editIdDia = (EditText) findViewById(R.id.editIdDia);
-        editIdSalon = (EditText) findViewById(R.id.editIdSalon);
-        editAprobado = (EditText) findViewById(R.id.editAprobado);
+        editIdSal = (EditText) findViewById(R.id.editIdSal);
+        editIdApr = (EditText) findViewById(R.id.editIdApr);
 
     }
 
-    public void actualizarPropuesta(View v) throws ParseException {
+    public void actualizarPropuesta(View v) {
         String idPropuesta = editIdPropuesta.getText().toString();
-        String idteorico = editIdteorico.getText().toString();
+        String idteorico = editIdTeo.getText().toString();
         String idMat = editIdMat.getText().toString();
         String idLab = editIdLab.getText().toString();
         String idHorario = editIdHorario.getText().toString();
         String idDia = editIdDia.getText().toString();
-        String idSalon = editIdSalon.getText().toString();
-        String idAprobado = editAprobado.getText().toString();
+        String idSalon = editIdSal.getText().toString();
+        String idAprobado = editIdApr.getText().toString();
         Propuesta propuesta = new Propuesta(idPropuesta, idteorico, idMat, idLab, idHorario,idDia, idSalon, idAprobado);
 
         helper.abrir();
@@ -52,12 +52,12 @@ public class PropuestaActualizarActivity extends AppCompatActivity {
 
     public void limpiarTexto(View v){
         editIdPropuesta.setText("");
-        editIdteorico.setText("");
+        editIdTeo.setText("");
         editIdMat.setText("");
         editIdLab.setText("");
         editIdHorario.setText("");
         editIdDia.setText("");
-        editIdSalon.setText("");
-        editAprobado.setText("");
+        editIdSal.setText("");
+        editIdApr.setText("");
     }
 }

@@ -434,7 +434,7 @@ public class ControlBD {
         esc.put("idsalon", propuesta.getidSalon());
         esc.put("Dia", propuesta.getidDia());
         esc.put("aprobado", propuesta.getaprobado());
-        contador = db.insert("idPropuesta", null, esc);
+        contador = db.insert("propuesta", null, esc);
         if (contador == -1 || contador == 0) {
             regInsertados = "Error de inserción, registro duplicado. Verificar datos.";
         } else {
@@ -443,16 +443,17 @@ public class ControlBD {
         return regInsertados;
     }
 
+
     public String insertar(Horario horario) {
         String regInsertados = "Registro insertado No. ";
         long contador = 0;
 
         ContentValues esc = new ContentValues();
-        esc.put("idPropuesta", horario.getidDia());
-        esc.put("idteorico", horario.getidHorario());
-        esc.put("idmat", horario.getHorainicio());
-        esc.put("idlaboratorio", horario.getHorafin());
-        contador = db.insert("idPropuesta", null, esc);
+        esc.put("idhorario", horario.getidHorario());
+        esc.put("iddia", horario.getidDia());
+        esc.put("fechainicio", getDateTime(horario.getHorainicio()));
+        esc.put("fechafin", getDateTime(horario.getHorafin()));
+        contador = db.insert("horario", null, esc);
         if (contador == -1 || contador == 0) {
             regInsertados = "Error de inserción, registro duplicado. Verificar datos.";
         } else {
@@ -468,7 +469,7 @@ public class ControlBD {
         ContentValues esc = new ContentValues();
         esc.put("idmat", laboratorio.getidMat());
         esc.put("idlaboratorio", laboratorio.getidLab());
-        contador = db.insert("idPropuesta", null, esc);
+        contador = db.insert("laboratorio", null, esc);
         if (contador == -1 || contador == 0) {
             regInsertados = "Error de inserción, registro duplicado. Verificar datos.";
         } else {
@@ -481,7 +482,7 @@ public class ControlBD {
     public Propuesta consultarPropuesta(String id) {
         String[] camposPropuesta = {"idpropuesta", "idteorico", "idmat", "idlab", "idhorario", "iddia", "idsalon", "aprobado"};
         String[] idPropuesta = {id};
-        Cursor c = db.query("Propuesta", camposPropuesta, "idpropuesta = ?", idPropuesta, null, null, null);
+        Cursor c = db.query("propuesta", camposPropuesta, "idpropuesta = ?", idPropuesta, null, null, null);
         if (c.moveToFirst()) {
             Propuesta propuesta = new Propuesta();
             propuesta.setidPropuesta(c.getString(0));
@@ -499,7 +500,7 @@ public class ControlBD {
     public Laboratorio consultarLaboratorio(String id) {
 
         String[] camposidLaboratorio = {"idMat", "idLab",}, idLaboratorio = {id};
-        Cursor cursor = db.query("laboratorio", camposidLaboratorio, "idciclo = ?", idLaboratorio, null, null, null);
+        Cursor cursor = db.query("laboratorio", camposidLaboratorio, "idlaboratorio = ?", idLaboratorio, null, null, null);
         if (cursor.moveToFirst()) {
             Laboratorio laboratorio = new Laboratorio();
             laboratorio.setidMat(cursor.getString(0));
@@ -510,16 +511,16 @@ public class ControlBD {
         }
     }
 
-    public Horario consultarHorario(String id) {
+    public Horario consultarHorario(String id) throws ParseException{
         String[] camposHorario = {"idHorario", "idDia", "HoraInicio", "HoraFin"};
         String[] idHorario = {id};
-        Cursor c = db.query("horario", camposHorario, "idmat = ?", idHorario, null, null, null);
+        Cursor c = db.query("horario", camposHorario, "idHorario = ?", idHorario, null, null, null);
         if (c.moveToFirst()) {
             Horario horario = new Horario();
             horario.setidHorario(c.getString(0));
             horario.setidDia(c.getString(1));
-            horario.setHorainicio(c.getString(2));
-            horario.setHorafin(c.getString(3));
+            horario.setHorainicio(getStringDate(c.getString(2)));
+            horario.setHorafin(getStringDate(c.getString(3)));
             return horario;
         } else return null;
     }
@@ -530,8 +531,8 @@ public class ControlBD {
             String[] id = {propuesta.getidPropuesta()};
             ContentValues cv = new ContentValues();
 
-            cv.put("estado", propuesta.getaprobado());
-            db.update("estado", cv, "idpropuesta = ?", id);
+            cv.put("aprobado", propuesta.getaprobado());
+            db.update("propuesta", cv, "idpropuesta = ?", id);
             return "¡Registro actualizado correctamente!";
         } else {
             return "La propuesta con id " + propuesta.getidPropuesta() + " no existe.";
@@ -556,10 +557,9 @@ public class ControlBD {
             String[] id = {horario.getidHorario()};
             ContentValues cv = new ContentValues();
 
-            cv.put("idhorario", horario.getidHorario());
-            cv.put("horainicio", horario.getHorainicio());
-            cv.put("horafin", horario.getHorafin());
-            db.update("materia", cv, "idmat = ?", id);
+            cv.put("horainicio", getDateTime(horario.getHorainicio()));
+            cv.put("horafin", getDateTime(horario.getHorafin()));
+            db.update("horario", cv, "idhorario = ?", id);
             return "¡Registro actualizado correctamente!";
         } else {
             return "El horario de materia " + horario.getidHorario() + " no existe.";
@@ -588,7 +588,7 @@ public class ControlBD {
             cont += db.delete("laboratorio", "idlaboratorio='" +
                     laboratorio.getidLab() + "'", null);
         }
-        cont += db.delete("ciclo", "idlaboratorio='" +
+        cont += db.delete("ciclo", "idciclo='" +
                 laboratorio.getidLab() + "'", null);
         return afectados += cont;
     }
@@ -666,7 +666,7 @@ public class ControlBD {
 
 
     //Consultar registros
-    public Asignacion consultarAsignacion(String idPropuesta) {
+    public Asignacion consultarAsignacion(String idPropuesta)  {
 
         String[] camposAsignacion = {"idpropuesta", "idhorario", "iddia"}, idPro = {idPropuesta};
         Cursor cursor = db.query("asignacion", camposAsignacion, "idpropuesta = ?", idPro, null, null, null );
@@ -1327,116 +1327,116 @@ public class ControlBD {
 
             }
 
-            case 28: {//Verifica que existan las llaves foraneas
-                Laboratorio laboratorioforeneas = (Laboratorio) dato;
-                String[] id1 = {laboratorioforeneas.getidMat()};
+                case 28: {//Verifica que existan las llaves foraneas
+                    Laboratorio laboratorioforeneas = (Laboratorio) dato;
+                    String[] id1 = {laboratorioforeneas.getidMat()};
 
-                Cursor c1 = db.query("materia", null, "idteorico = ?", id1, null, null, null);
-                if (c1.moveToFirst()) {
-                    return true;
-                }
-                return false;
-
-            }
-
-            case 29: {//Verifica que existan las llaves foraneas
-                Horario horarioforeneas = (Horario) dato;
-                String[] id1 = {horarioforeneas.getidDia()};
-
-                Cursor c1 = db.query("iddia", null, "iddia = ?", id1, null, null, null);
-                if (c1.moveToFirst()) {
-                    return true;
-                }
-                return false;
+                    Cursor c1 = db.query("materia", null, "idteorico = ?", id1, null, null, null);
+                    if (c1.moveToFirst()) {
+                        return true;
+                    }
+                    return false;
 
             }
 
-            default:
-                return false;
-        }
+                    case 29: {//Verifica que existan las llaves foraneas
+                        Horario horarioforeneas = (Horario) dato;
+                        String[] id1 = {horarioforeneas.getidDia()};
+
+                        Cursor c1 = db.query("iddia", null, "iddia = ?", id1, null, null, null);
+                        if (c1.moveToFirst()) {
+                            return true;
+                        }
+                        return false;
+
+            }
+
+                        default:
+                            return false;
+                    }
 
 
-    }
+                }
 
-    public String llenarBD () throws ParseException {
-        final String[] Vidciclo = {"P2019", "I2020", "P2020", "I2021", "P2021"};
-        final Date[] Vfechainicio = {
-                getStringDate("2019-08-19 00:00:00"), getStringDate("2020-02-18 00:00:00"), getStringDate("2020-08-10 00:00:00"), getStringDate("2021-02-18 00:00:00"), getStringDate("2021-08-10 00:00:00")
-        };
-        final Date[] Vfechafin = {
-                getStringDate("2019-12-15 00:00:00"), getStringDate("2020-07-30 00:00:00"), getStringDate("2021-01-15 00:00:00"), getStringDate("2021-08-08 00:00:00"), getStringDate("2021-12-10 00:00:00")
-        };
-        final String[] Videscuela = {"EISI", "EA", "EIM", "EII", "UCB"};
-        final String[] Vnomescuela = {"Escuela de Ingenieria de Sistemas Informaticos", "Escuela de Arquitectura", "Escuela de Ingenieria Mecanica",
-                "Escuela de Ingenieria Industrial", "Unidad de Ciencias Basicas"};
-        final String[] Vcarnetmateria = {"SH15001", "HH15002", "SS15003"};
-        abrir();
-        db.execSQL("DELETE FROM ciclo");
-        db.execSQL("DELETE FROM escuela");
-        db.execSQL("DELETE FROM materia");
-        db.execSQL("DELETE FROM usuario");
-        db.execSQL("DELETE FROM accesousuario");
-        db.execSQL("DELETE FROM opcioncrud");
+                public String llenarBD () throws ParseException {
+                    final String[] Vidciclo = {"P2019", "I2020", "P2020", "I2021", "P2021"};
+                    final Date[] Vfechainicio = {
+                            getStringDate("2019-08-19 00:00:00"), getStringDate("2020-02-18 00:00:00"), getStringDate("2020-08-10 00:00:00"), getStringDate("2021-02-18 00:00:00"), getStringDate("2021-08-10 00:00:00")
+                    };
+                    final Date[] Vfechafin = {
+                            getStringDate("2019-12-15 00:00:00"), getStringDate("2020-07-30 00:00:00"), getStringDate("2021-01-15 00:00:00"), getStringDate("2021-08-08 00:00:00"), getStringDate("2021-12-10 00:00:00")
+                    };
+                    final String[] Videscuela = {"EISI", "EA", "EIM", "EII", "UCB"};
+                    final String[] Vnomescuela = {"Escuela de Ingenieria de Sistemas Informaticos", "Escuela de Arquitectura", "Escuela de Ingenieria Mecanica",
+                            "Escuela de Ingenieria Industrial", "Unidad de Ciencias Basicas"};
+                    final String[] Vcarnetmateria = {"SH15001", "HH15002", "SS15003"};
+                    abrir();
+                    db.execSQL("DELETE FROM ciclo");
+                    db.execSQL("DELETE FROM escuela");
+                    db.execSQL("DELETE FROM materia");
+                    db.execSQL("DELETE FROM usuario");
+                    db.execSQL("DELETE FROM accesousuario");
+                    db.execSQL("DELETE FROM opcioncrud");
 
-        for (int i = 0; i < 5; i++) {
-            Ciclo ciclo = new Ciclo(Vidciclo[i], Vfechainicio[i], Vfechafin[i]);
-            insertar(ciclo);
-        }
-        for (int i = 0; i < 5; i++) {
-            Escuela escuela = new Escuela(Videscuela[i], Vnomescuela[i]);
-            insertar(escuela);
-        }
+                    for (int i = 0; i < 5; i++) {
+                        Ciclo ciclo = new Ciclo(Vidciclo[i], Vfechainicio[i], Vfechafin[i]);
+                        insertar(ciclo);
+                    }
+                    for (int i = 0; i < 5; i++) {
+                        Escuela escuela = new Escuela(Videscuela[i], Vnomescuela[i]);
+                        insertar(escuela);
+                    }
 
-        Materia mate1 = new Materia("MAT115", Vidciclo[1], Videscuela[4], "Matematicas 1", Vcarnetmateria[0]);
-        Materia prn1 = new Materia("PRN115", Vidciclo[3], Videscuela[0], "Programacion 1", Vcarnetmateria[1]);
-        Materia bad1 = new Materia("BAD115", Vidciclo[2], Videscuela[0], "Bases de Datos", Vcarnetmateria[2]);
-        insertar(mate1);
-        insertar(prn1);
-        insertar(bad1);
-        /*^^^^^datos para escuela, ciclo y materia^^^^^^^*/
+                    Materia mate1 = new Materia("MAT115", Vidciclo[1], Videscuela[4], "Matematicas 1", Vcarnetmateria[0]);
+                    Materia prn1 = new Materia("PRN115", Vidciclo[3], Videscuela[0], "Programacion 1", Vcarnetmateria[1]);
+                    Materia bad1 = new Materia("BAD115", Vidciclo[2], Videscuela[0], "Bases de Datos", Vcarnetmateria[2]);
+                    insertar(mate1);
+                    insertar(prn1);
+                    insertar(bad1);
+                    /*^^^^^datos para escuela, ciclo y materia^^^^^^^*/
 
-        final String[] Vusuario = {"admin", "krlos", "albrto", "herni"};
-        Usuario admin = new Usuario(Vusuario[0], "admin123", "Administrador");
-        Usuario carlos = new Usuario(Vusuario[1], "Ch1q2", "Carlos Argueta");
-        Usuario alberto = new Usuario(Vusuario[2], "jA3f2", "Alberto Luna");
-        Usuario hernan = new Usuario(Vusuario[3], "gD21d", "Hernan Morales");
-        insertar(admin);
-        insertar(carlos);
-        insertar(alberto);
-        insertar(hernan);
+                    final String[] Vusuario = {"admin", "krlos", "albrto", "herni"};
+                    Usuario admin = new Usuario(Vusuario[0], "admin123", "Administrador");
+                    Usuario carlos = new Usuario(Vusuario[1], "Ch1q2", "Carlos Argueta");
+                    Usuario alberto = new Usuario(Vusuario[2], "jA3f2", "Alberto Luna");
+                    Usuario hernan = new Usuario(Vusuario[3], "gD21d", "Hernan Morales");
+                    insertar(admin);
+                    insertar(carlos);
+                    insertar(alberto);
+                    insertar(hernan);
 
-        String[] Vtablas = {"Escuela", "Ciclo", "Materia", "4", "5", "6", "7", "8", "9", "Asignación", "Encargado", "Salón", "Laboratorio", "Horario", "Propuesta"};
-        for (int i = 0; i < 15; i++) {
-            OpcionCrud crud = new OpcionCrud(String.valueOf(i), "Menu de " + Vtablas[i], i);
-            insertar(crud);
-        }
+                    String[] Vtablas = {"Escuela", "Ciclo", "Materia", "4", "5", "6", "7", "8", "9", "Asignación", "Encargado", "Salón", "Laboratorio", "Horario", "Propuesta"};
+                    for (int i = 0; i < 15; i++) {
+                        OpcionCrud crud = new OpcionCrud(String.valueOf(i), "Menu de " + Vtablas[i], i);
+                        insertar(crud);
+                    }
         /*
         for(int i=0; i<4; i++){
             AccesoUsuario acceso = new AccesoUsuario(Vusuario[i], String.valueOf(i));
             insertar(acceso);
         }*/
 
-        for (int i = 0; i < 15; i++) {
-            AccesoUsuario acceso = new AccesoUsuario(Vusuario[0], String.valueOf(i));
-            insertar(acceso);
-        }
+                    for (int i = 0; i < 15; i++) {
+                        AccesoUsuario acceso = new AccesoUsuario(Vusuario[0], String.valueOf(i));
+                        insertar(acceso);
+                    }
 
-        for (int i = 0; i < 7; i++) {
-            AccesoUsuario acceso = new AccesoUsuario(Vusuario[1], String.valueOf(i));
-            insertar(acceso);
-        }
+                    for (int i = 0; i < 7; i++) {
+                        AccesoUsuario acceso = new AccesoUsuario(Vusuario[1], String.valueOf(i));
+                        insertar(acceso);
+                    }
 
-        for (int i = 7; i < 15; i++) {
-            AccesoUsuario acceso = new AccesoUsuario(Vusuario[2], String.valueOf(i));
-            insertar(acceso);
-        }
+                    for (int i = 7; i < 15; i++) {
+                        AccesoUsuario acceso = new AccesoUsuario(Vusuario[2], String.valueOf(i));
+                        insertar(acceso);
+                    }
 
-        for (int i = 0; i < 15; i = i + 2) {
-            AccesoUsuario acceso = new AccesoUsuario(Vusuario[3], String.valueOf(i));
-            insertar(acceso);
-        }
+                    for (int i = 0; i < 15; i = i + 2) {
+                        AccesoUsuario acceso = new AccesoUsuario(Vusuario[3], String.valueOf(i));
+                        insertar(acceso);
+                    }
 
-        /*^^^^^datos para usuarios y permisos^^^^^^^*/
+                    /*^^^^^datos para usuarios y permisos^^^^^^^*/
 
         //llenar tablas evento, detalle evento y dia
         final String[] Videvento = {"E0001", "E0002", "E0003", "E0004", "E0005"};

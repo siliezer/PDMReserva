@@ -16,14 +16,15 @@ public class LaboratorioInsertarActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_laboratorio_insertar);
         helper = new ControlBD(this);
-        editIdMat = (EditText) findViewById(R.id.editIdMat);
         editIdLab = (EditText) findViewById(R.id.editIdLab);
+        editIdMat = (EditText) findViewById(R.id.editIdMat);
+
     }
 
     public void insertarLaboratorio(View v){
         String regInsertados;
-        String idMat = editIdMat.getText().toString();
         String idLab = editIdLab.getText().toString();
+        String idMat = editIdMat.getText().toString();
         Laboratorio laboratorio = new Laboratorio(idMat, idLab);
 
         helper.abrir();

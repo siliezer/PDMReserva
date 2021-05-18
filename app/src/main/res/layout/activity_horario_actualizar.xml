@@ -6,7 +6,7 @@
     android:stretchColumns="1" >
     <TableRow>
 
-        <TextView android:text="id horario" />
+        <TextView android:text="Id del Horario" />
         <EditText
             android:id="@+id/editIdHorario"
             android:inputType="text"
@@ -26,7 +26,7 @@
 
         <TextView android:text="Hora Inicio" />
         <EditText
-            android:id="@+id/editHorainicio"
+            android:id="@+id/editInicio"
             android:inputType="text"
             android:maxLength="7" />
     </TableRow>
@@ -34,7 +34,7 @@
 
         <TextView android:text="Hora fin" />
         <EditText
-            android:id="@+id/editHorafin"
+            android:id="@+id/editFin"
             android:inputType="text"
             android:maxLength="30" />
     </TableRow>

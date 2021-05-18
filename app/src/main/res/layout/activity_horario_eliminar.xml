@@ -7,10 +7,10 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="id horario" />
+        android:text="Id del horario" />
 
     <EditText
-        android:id="@+id/editCarnet"
+        android:id="@+id/editIdHorario"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:inputType="text"
@@ -19,6 +19,6 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="eliminarAlumno"
+        android:onClick="eliminarHorario"
         android:text="eliminar" />
 </LinearLayout>

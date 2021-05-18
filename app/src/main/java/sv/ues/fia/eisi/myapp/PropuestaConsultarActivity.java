@@ -9,7 +9,7 @@ import android.widget.Toast;
 
 public class PropuestaConsultarActivity extends AppCompatActivity {
     ControlBD helper;
-    EditText editIdPropuesta, editIdteorico, editIdMat, editIdLab, editIdHorario, editIdDia, editIdSalon, editAprobado;
+    EditText editIdPropuesta, editIdTeo, editIdMat, editIdLab, editIdHorario,editIdDia, editIdSal, editIdApr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,13 +17,13 @@ public class PropuestaConsultarActivity extends AppCompatActivity {
         setContentView(R.layout.activity_propuesta_consultar);
         helper = new ControlBD(this);
         editIdPropuesta = (EditText) findViewById(R.id.editIdPropuesta);
-        editIdteorico = (EditText) findViewById(R.id.editIdteorico);
+        editIdTeo = (EditText) findViewById(R.id.editIdTeo);
         editIdMat = (EditText) findViewById(R.id.editIdMat);
         editIdLab = (EditText) findViewById(R.id.editIdLab);
         editIdHorario = (EditText) findViewById(R.id.editIdHorario);
         editIdDia = (EditText) findViewById(R.id.editIdDia);
-        editIdSalon = (EditText) findViewById(R.id.editIdSalon);
-        editAprobado = (EditText) findViewById(R.id.editAprobado);
+        editIdSal = (EditText) findViewById(R.id.editIdSal);
+        editIdApr = (EditText) findViewById(R.id.editIdApr);
 
     }
 
@@ -36,25 +36,25 @@ public class PropuestaConsultarActivity extends AppCompatActivity {
         }
         else{
             editIdPropuesta.setText(propuesta.getidPropuesta());
-            editIdteorico.setText(propuesta.getidTeorico());
+            editIdTeo.setText(propuesta.getidTeorico());
             editIdMat.setText(propuesta.getidMat());
             editIdMat.setText(propuesta.getidMat());
             editIdHorario.setText(propuesta.getidHorario());
             editIdDia.setText(propuesta.getidDia());
-            editIdSalon.setText(propuesta.getidSalon());
-            editAprobado.setText(propuesta.getaprobado());
+            editIdSal.setText(propuesta.getidSalon());
+            editIdApr.setText(propuesta.getaprobado());
 
         }
     }
 
     public void limpiarTexto(View v){
         editIdPropuesta.setText("");
-        editIdteorico.setText("");
+        editIdTeo.setText("");
         editIdMat.setText("");
         editIdLab.setText("");
         editIdHorario.setText("");
         editIdDia.setText("");
-        editIdSalon.setText("");
-        editAprobado.setText("");
+        editIdSal.setText("");
+        editIdApr.setText("");
     }
 }

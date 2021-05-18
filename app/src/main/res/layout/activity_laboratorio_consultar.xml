@@ -7,9 +7,9 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="ID Laboratorio" />
+        android:text="Id del Laboratorio" />
     <EditText
-        android:id="@+id/editCarnet"
+        android:id="@+id/editIdLab"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:inputType="text"
@@ -23,7 +23,7 @@
             android:id="@+id/botonConsultar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="consultarAlumno"
+            android:onClick="consultarLaboratorio"
             android:text="consultar" />
 
         <Button
@@ -35,14 +35,20 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/dia"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Materia" />
+        android:text="Id de la Materia:" />
+
     <EditText
-        android:id="@+id/editNombre"
-        android:layout_width="fill_parent"
+        android:id="@+id/editIdMat"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="text" />
+        android:cursorVisible="false"
+        android:enabled="true"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:inputType="textMultiLine"
+        android:longClickable="false"
+        android:textStyle="bold" />
 
 </LinearLayout>

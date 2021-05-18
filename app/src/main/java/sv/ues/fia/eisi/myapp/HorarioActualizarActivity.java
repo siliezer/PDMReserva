@@ -15,7 +15,7 @@ import java.util.Date;
 
 public class HorarioActualizarActivity extends AppCompatActivity {
     ControlBD helper;
-    EditText editIdHorario, editIdDia, editHorainicio, editHorafin;
+    EditText editIdHorario, editIdDia, editInicio, editFin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,17 +24,33 @@ public class HorarioActualizarActivity extends AppCompatActivity {
         helper = new ControlBD(this);
         editIdHorario = (EditText) findViewById(R.id.editIdHorario);
         editIdDia = (EditText) findViewById(R.id.editIdDia);
-        editHorainicio = (EditText) findViewById(R.id.editHorainicio);
-        editHorafin = (EditText) findViewById(R.id.editHorafin);
+        editInicio = (EditText) findViewById(R.id.editInicio);
+        editInicio.setOnClickListener(this::onClick);
+        editFin = (EditText) findViewById(R.id.editFin);
+        editFin.setOnClickListener(this::onClick);
 
     }
 
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.editInicio:
+                showDatePickerDialog(editInicio);
+                break;
+
+            case R.id.editFin:
+                showDatePickerDialog(editFin);
+                break;
+        }
+    }
+
     public void actualizarHorario(View v) throws ParseException {
-        String idHorario = editIdHorario.getText().toString();
+        String id = editIdHorario.getText().toString();
         String idDia = editIdDia.getText().toString();
-        String horainicio = editHorainicio.getText().toString();
-        String horafin = editHorafin.getText().toString();
-        Horario horario = new Horario(idHorario, idDia, horainicio, horafin);
+        String inicio = editInicio.getText().toString();
+        String fin = editFin.getText().toString();
+        Date inicioD = new SimpleDateFormat("dd/MM/yyyy").parse(inicio);
+        Date finD = new SimpleDateFormat("dd/MM/yyyy").parse(fin);
+        Horario horario = new Horario(id, idDia,inicioD, finD);
 
         helper.abrir();
         String tosti = helper.actualizar(horario);
@@ -45,7 +61,24 @@ public class HorarioActualizarActivity extends AppCompatActivity {
     public void limpiarTexto(View v){
         editIdHorario.setText("");
         editIdDia.setText("");
-        editHorainicio.setText("");
-        editHorafin.setText("");
+        editInicio.setText("");
+        editFin.setText("");
+    }
+
+    //Muestra el DatePicker en un diálogo
+    public void showDatePickerDialog(final EditText editText) {
+        DatePickerFragment newFragment = DatePickerFragment.newInstance(new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                final String selectedDate = twoDigits(day) + "/" + twoDigits(month+1) + "/" + year;
+                editText.setText(selectedDate);
+            }
+        });
+
+        newFragment.show(getSupportFragmentManager(), "datePicker");
+    }
+
+    public String twoDigits(int n) {
+        return (n<=9) ? ("0"+n) : String.valueOf(n);
     }
 }

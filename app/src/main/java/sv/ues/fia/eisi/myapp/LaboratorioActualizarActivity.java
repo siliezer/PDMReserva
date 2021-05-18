@@ -27,7 +27,7 @@ public class LaboratorioActualizarActivity extends AppCompatActivity {
 
     }
 
-    public void actualizarLaboratorio(View v) throws ParseException {
+    public void actualizarLaboratorio(View v)  {
         String idMat = editIdMat.getText().toString();
         String idLab = editIdLab.getText().toString();
         Laboratorio laboratorio = new Laboratorio(idMat, idLab);

@@ -5,14 +5,14 @@ import java.util.Date;
 public class Horario {
     private String idHorario;
     private String idDia;
-    private String Horainicio;
-    private String Horafin;
+    private Date Horainicio;
+    private Date Horafin;
 
 
     public Horario() {
     }
 
-    public Horario(String idHorario, String Horafin, String idDia, String Horainicio) {
+    public Horario(String idHorario, String idDia, Date Horainicio, Date Horafin ) {
         this.idHorario = idHorario;
         this.idDia = idDia;
         this.Horainicio = Horainicio;
@@ -35,20 +35,20 @@ public class Horario {
         this.idDia = idDia;
     }
 
-    public String getHorainicio() {
+    public Date getHorainicio() {
         return Horainicio;
     }
 
-    public void setHorainicio(String horainicio) {
+    public void setHorainicio(Date horainicio) {
         Horainicio = horainicio;
     }
 
 
-    public String getHorafin() {
+    public Date getHorafin() {
         return Horafin;
     }
 
-    public void setHorafin(String horafin) {
+    public void setHorafin(Date horafin) {
         Horafin = horafin;
     }
 }

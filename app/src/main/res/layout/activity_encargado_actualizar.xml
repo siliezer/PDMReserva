@@ -1,9 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".EncargadoActualizarActivity">
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="10dip"
+    android:stretchColumns="1" >
+    <TableRow>
+        <TextView android:text="Id de Encargado:" />
+        <EditText
+            android:id="@+id/editIdEncargado"
+            android:inputType="text"
+            android:maxLength="5" />
+    </TableRow>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TableRow android:layout_height="15dp">
+
+        <TextView android:text="Nombre encargado:" />
+
+        <EditText
+            android:id="@+id/editNombresEncargado"
+            android:layout_height="119dp"
+            android:inputType="textMultiLine"
+            android:maxLength="50" />
+    </TableRow>
+    <TableRow android:layout_height="15dp">
+
+        <TextView android:text="Apellidos encargado:" />
+
+        <EditText
+            android:id="@+id/editApellidosEncargado"
+            android:layout_height="119dp"
+            android:inputType="textMultiLine"
+            android:maxLength="50" />
+    </TableRow>
+
+    <TableRow>
+        <Button
+            android:onClick="limpiarTexto"
+            android:text="Limpiar" />
+        <Button
+            android:onClick="actualizarEncargado"
+            android:text="Actualizar registro" />
+
+
+    </TableRow>
+</TableLayout>

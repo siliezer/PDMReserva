@@ -1,9 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".LaboratorioActualizarActivity">
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="10dip"
+    android:stretchColumns="1" >
+    <TableRow>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView android:text="Id del laboratorio" />
+        <EditText
+            android:id="@+id/editIdLab"
+            android:inputType="text"
+            android:maxLength="7" />
+    </TableRow>
+    <TableRow>
+
+        <TextView android:text="Id de la materia" />
+        <EditText
+            android:id="@+id/editIdMat"
+            android:inputType="text"
+            android:maxLength="30" />
+    </TableRow>
+    <TableRow/>
+    <TableRow/>
+    <TableRow>
+
+        <Button
+            android:onClick="actualizarLaboratorio"
+            android:text="actualizar" />
+    </TableRow>
+    <TableRow>
+
+        <Button
+            android:onClick="limpiarTexto"
+            android:text="limpiar" />
+    </TableRow>
+</TableLayout>

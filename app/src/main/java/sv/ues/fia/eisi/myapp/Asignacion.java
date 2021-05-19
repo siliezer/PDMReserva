@@ -3,24 +3,24 @@ package sv.ues.fia.eisi.myapp;
 import java.util.Date;
 
 public class Asignacion {
-    private String idAsignacion, idHorario, idDia;
+    private String idPropuesta, idHorario, idDia;
 
 
     public Asignacion() {
     }
 
-    public Asignacion(String idAsignacion, String idHorario, String idDia) {
-        this.idAsignacion = idAsignacion;
+    public Asignacion(String idPropuesta, String idHorario, String idDia) {
+        this.idPropuesta = idPropuesta;
         this.idHorario = idHorario;
         this.idDia = idDia;
     }
 
-    public String getIdAsignacion() {
-        return idAsignacion;
+    public String getIdPropuesta() {
+        return idPropuesta;
     }
 
-    public void setIdAsignacion(String idAsignacion) {
-        this.idAsignacion = idAsignacion;
+    public void setIdPropuesta(String idAsignacion) {
+        this.idPropuesta = idPropuesta;
     }
 
     public String getIdHorario() {

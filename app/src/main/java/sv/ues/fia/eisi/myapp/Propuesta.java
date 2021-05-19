@@ -1,5 +1,7 @@
 package sv.ues.fia.eisi.myapp;
 
+import java.util.Date;
+
 public class Propuesta {
     private String idPropuesta;
     private String idteorico;
@@ -8,13 +10,13 @@ public class Propuesta {
     private String idHorario;
     private String idDia;
     private String idSalon;
-    private boolean aprobado;
+    private String aprobado;
 
 
     public Propuesta() {
     }
 
-    public Propuesta(String idPropuesta, String idteorico, String idMat, String idLab, String idHorario, String idDia, String idSalon) {
+    public Propuesta(String idPropuesta, String idteorico, String idMat, String idLab, String idHorario, String date, String idSalon, String aprobado) {
         this.idPropuesta = idPropuesta;
         this.idteorico = idteorico;
         this.idMat = idMat;
@@ -22,6 +24,7 @@ public class Propuesta {
         this.idHorario = idHorario;
         this.idDia = idDia;
         this.idSalon = idSalon;
+        this.aprobado = aprobado;
     }
 
     public String getidPropuesta() {
@@ -32,12 +35,12 @@ public class Propuesta {
         this.idPropuesta = idPropuesta;
     }
 
-    public String getidteorico() {
+    public String getidTeorico() {
         return idteorico;
     }
 
-    public void setidteorico(String idteorico) {
-        this.idteorico = idteorico;
+    public void setIdteorico(String idPropuesta) {
+        this.idteorico = idPropuesta;
     }
 
     public String getidMat() {
@@ -80,12 +83,13 @@ public class Propuesta {
         this.idSalon = idSalon;
     }
 
-    public boolean getaprobado() {
+    public String getaprobado() {
         return aprobado;
     }
 
-    public void setaprobado(boolean aprobado) {
+    public void setAprobado(String aprobado) {
         this.aprobado = aprobado;
     }
+
 }
 

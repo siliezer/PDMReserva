@@ -18,6 +18,7 @@ public class ControlBDLj16001 {
 
     public ControlBDLj16001(Context context) {
         CONTEXT = context;
+        DBHelper = new DataBaseHelper(context);
     }
 
     private static class DataBaseHelper
@@ -31,7 +32,7 @@ public class ControlBDLj16001 {
 
         @Override
         public void onCreate(SQLiteDatabase db) {
-            // Vacio.
+
         }
 
         @Override
@@ -126,7 +127,16 @@ public class ControlBDLj16001 {
     }
 
     public String actualizar(RolDocente rolDocente) {
-        return null;
+        if (verificarIntegridad(rolDocente, 5)) {
+            String[] id = {rolDocente.getId()};
+            ContentValues cv = new ContentValues();
+            cv.put("nombre", rolDocente.getNombre());
+            db.update("roldocente", cv, "idrol = ?", id);
+            return "Registro Actualizado Correctamente";
+        }
+        else {
+            return "Registro con id "+ rolDocente.getId() + " no existe";
+        }
     }
 
     public String eliminar(Teorico teorico){
@@ -137,8 +147,16 @@ public class ControlBDLj16001 {
         return null;
     }
 
-    public String eliminar(RolDocente rolDocente){
-        return null;
+    public String eliminar(RolDocente rolDocente) {
+        String regAfectados = "filas afectadas= ";
+        int contador = 0;
+        if (verificarIntegridad(rolDocente,5)) {
+            contador += db.delete("roldocente", "idrol='" +
+                                  rolDocente.getId() + "'", null);
+            regAfectados += contador;
+            return regAfectados;
+        }
+        return "No se ha podido eliminar el registro";
     }
 
     public Teorico consultarTeorico(String idTeorico) {
@@ -150,7 +168,19 @@ public class ControlBDLj16001 {
     }
 
     public RolDocente consultarRolDocente(String idRolDecente) {
-        return null;
+        String[] id = {idRolDecente};
+        String[] campos = {"idrol", "nombrerol"};
+        Cursor cursor = db.query("ROLDOCENTE", campos,
+                                 "IDROL = ?", id, null, null, null);
+        if (cursor.moveToFirst()) {
+            RolDocente rd = new RolDocente();
+            rd.setId(cursor.getString(0));
+            rd.setNombre(cursor.getString(1));
+            return rd;
+        }
+        else {
+            return null;
+        }
     }
 
     private boolean verificarIntegridad(Object t, int relacion) {
@@ -158,7 +188,7 @@ public class ControlBDLj16001 {
         Cursor cursor;
         String[] id;
         switch (relacion) {
-            case 1: // ver si existe la roldocente al crear docente.
+            case 1: // ver si existe roldocente al crear docente.
                 Docente d = (Docente) t;
                 id = new String[]{d.getIdRol()};
                 cursor = db.query("roldocente", null, "idrol=?",

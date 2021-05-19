@@ -1405,16 +1405,11 @@ public class ControlBD {
                     insertar(alberto);
                     insertar(hernan);
 
-                    String[] Vtablas = {"Escuela", "Ciclo", "Materia", "4", "5", "6", "7", "8", "9", "Asignación", "Encargado", "Salón", "Laboratorio", "Horario", "Propuesta"};
+                    String[] Vtablas = {"Escuela", "Ciclo", "Materia", "Docente", "Rol de docente", "Teorico", "Evento", "Detalle Evento", "Dia", "Asignación", "Encargado", "Salón", "Laboratorio", "Horario", "Propuesta"};
                     for (int i = 0; i < 15; i++) {
                         OpcionCrud crud = new OpcionCrud(String.valueOf(i), "Menu de " + Vtablas[i], i);
                         insertar(crud);
                     }
-        /*
-        for(int i=0; i<4; i++){
-            AccesoUsuario acceso = new AccesoUsuario(Vusuario[i], String.valueOf(i));
-            insertar(acceso);
-        }*/
 
                     for (int i = 0; i < 15; i++) {
                         AccesoUsuario acceso = new AccesoUsuario(Vusuario[0], String.valueOf(i));

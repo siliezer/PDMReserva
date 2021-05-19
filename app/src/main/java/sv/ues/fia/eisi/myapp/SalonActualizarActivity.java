@@ -15,7 +15,7 @@ import java.util.Date;
 
 public class SalonActualizarActivity extends AppCompatActivity {
     ControlBD helper;
-    EditText editIdSalon, editIdEncargado, editTipo, editNombreSalon;
+    EditText editIdSalon, editIdEncargado, editTipo, editNombre;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,15 +25,15 @@ public class SalonActualizarActivity extends AppCompatActivity {
         editIdSalon = (EditText) findViewById(R.id.editIdSalon);
         editIdEncargado = (EditText) findViewById(R.id.editIdEncargado);
         editTipo = (EditText) findViewById(R.id.editTipo);
-        editNombreSalon = (EditText) findViewById(R.id.editNombreSalon);
+        editNombre = (EditText) findViewById(R.id.editNombre);
     }
 
     public void actualizarSalon(View v) throws ParseException {
         String idSalon = editIdSalon.getText().toString();
         String idEncargado = editIdEncargado.getText().toString();
         String tipo = editTipo.getText().toString();
-        String nombreSalon = editNombreSalon.getText().toString();
-        Salon salon = new Salon(idSalon, idEncargado, tipo, nombreSalon);
+        String nombre = editNombre.getText().toString();
+        Salon salon = new Salon(idSalon, idEncargado, tipo, nombre);
 
         helper.abrir();
         String tosti = helper.actualizar(salon);
@@ -45,6 +45,6 @@ public class SalonActualizarActivity extends AppCompatActivity {
         editIdSalon.setText("");
         editIdEncargado.setText("");
         editTipo.setText("");
-        editNombreSalon.setText("");
+        editNombre.setText("");
     }
 }

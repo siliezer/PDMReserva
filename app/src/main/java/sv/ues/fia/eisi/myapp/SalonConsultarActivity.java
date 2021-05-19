@@ -9,7 +9,7 @@ import android.widget.Toast;
 
 public class SalonConsultarActivity extends AppCompatActivity {
     ControlBD helper;
-    EditText editIdSalon, editIdEncargado, editTipo, editNombreSalon;
+    EditText editIdSalon, editIdEncargado, editTipo, editNombre;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,7 +19,7 @@ public class SalonConsultarActivity extends AppCompatActivity {
         editIdSalon = (EditText)findViewById(R.id.editIdSalon);
         editIdEncargado=(EditText)findViewById(R.id.editIdEncargado);
         editTipo = (EditText)findViewById(R.id.editTipo);
-        editNombreSalon = (EditText)findViewById(R.id.editNombreSalon);
+        editNombre = (EditText)findViewById(R.id.editNombre);
 
     }
 
@@ -34,7 +34,7 @@ public class SalonConsultarActivity extends AppCompatActivity {
             editIdSalon.setText(salon.getIdSalon());
             editIdEncargado.setText(salon.getIdEncargado());
             editTipo.setText(salon.getTipo());
-            editNombreSalon.setText(salon.getNombre());
+            editNombre.setText(salon.getNombre());
 
         }
     }
@@ -43,6 +43,6 @@ public class SalonConsultarActivity extends AppCompatActivity {
         editIdSalon.setText("");
         editIdEncargado.setText("");
         editTipo.setText("");
-        editNombreSalon.setText("");
+        editNombre.setText("");
     }
 }

@@ -23,6 +23,7 @@ public class MainActivity extends ListActivity {
             "DetalleEventoMenuActivity","DiaMenuActivity","AsignacionMenuActivity","EncargadoMenuActivity","SalonMenuActivity","LaboratorioMenuActivity","HorarioMenuActivity","PropuestaMenuActivity","Llenar Base de Datos"};
 
     ControlBD helper;
+    String idUsuario;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -30,6 +31,7 @@ public class MainActivity extends ListActivity {
         setListAdapter(new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, menu));
         helper = new ControlBD(this);
+        idUsuario = getIntent().getExtras().getString("IdUsuario");
 
     }
 
@@ -40,15 +42,23 @@ public class MainActivity extends ListActivity {
         if(position!=15){
 
             String nombreValue=activities[position];
-
-            try{
-                Class<?>
-                        clase=Class.forName("sv.ues.fia.eisi.myapp."+nombreValue);
-                Intent inte = new Intent(this,clase);
-                this.startActivity(inte);
-            }catch(ClassNotFoundException e){
-                e.printStackTrace();
+            helper.abrir();
+            Boolean acceso = helper.consultarAcceso(idUsuario, String.valueOf(position));
+            helper.cerrar();
+            if(acceso){
+                try{
+                    Class<?>
+                            clase=Class.forName("sv.ues.fia.eisi.myapp."+nombreValue);
+                    Intent inte = new Intent(this,clase);
+                    this.startActivity(inte);
+                }catch(ClassNotFoundException e){
+                    e.printStackTrace();
+                }
             }
+            else {
+                Toast.makeText(this, "No posee permisos para ver el menú", Toast.LENGTH_SHORT).show();
+            }
+
         }else{
             helper.abrir();
             String t = "Error de llamado";

@@ -4,13 +4,15 @@ public class Docente {
     private String carnet;
     private String nombre;
     private String apellido;
+    private String idRol;
 
     public Docente() { }
 
-    public Docente(String carnet, String nombre, String apellido) {
+    public Docente(String carnet, String nombre, String apellido, String idRol) {
         this.carnet = carnet;
         this.nombre = nombre;
         this.apellido = apellido;
+        this.idRol = idRol;
     }
 
     public String getCarnet() {
@@ -35,5 +37,13 @@ public class Docente {
 
     public void setApellido(String apellido) {
         this.apellido = apellido;
+    }
+
+    public String getIdRol() {
+        return idRol;
+    }
+
+    public void setIdRol(String idRol) {
+        this.idRol = idRol;
     }
 }

@@ -30,7 +30,7 @@
     <TableRow>
 
         <TextView
-            android:text="Nombre del encargado:"
+            android:text="Apellidos del encargado:"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
         <EditText
             android:id="@+id/editApellidosEncargado"

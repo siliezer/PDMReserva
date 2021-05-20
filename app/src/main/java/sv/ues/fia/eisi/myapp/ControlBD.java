@@ -115,7 +115,7 @@ public class ControlBD {
                         "   IDHORARIO            CHAR(5)                         not null,\n" +
                         "   IDDIA                CHAR(5)                         not null,\n" +
                         "   IDSALON              CHAR(6)                         not null,\n" +
-                        "   APROBADO             SMALLINT                        not null,\n" +
+                        "   APROBADO             VARCHAR(10)                     not null,\n" +
                         "   constraint PK_PROPUESTA primary key (IDPROPUESTA)\n" +
                         ");");//13
                 db.execSQL("create table ROLDOCENTE  (\n" +
@@ -1105,7 +1105,7 @@ public class ControlBD {
                 Salon salon = (Salon) dato;
                 String[] id1 = {salon.getIdEncargado()};
 
-                Cursor c1 = db.query("salon", null, "idsalon = ?", id1, null, null, null);
+                Cursor c1 = db.query("encargado", null, "idencargado = ?", id1, null, null, null);
 
                 if(c1.moveToFirst()){
                     return true;
@@ -1506,6 +1506,50 @@ public class ControlBD {
                     insertar(asignacion4);
                     insertar(asignacion5);
                     //Fin tablas Asingacion, encargado, salon
+
+                    //llenar tablas Propuesta, Laboratorio, Horario
+
+                    final String[] Vidteorico = {"TE01", "TE02", "TE03", "TE04", "TE05"};
+                    final String[] Vidmat = {"PRN115", "MAT115", "PDM115", "TAD115", "HDP115"};
+                    final String[] Vidlab = {"LA01", "LA02", "LA03", "LA04", "LA05"};
+                    final String[] Vaprobado = {"SI", "NO", "PENDIENTE"};
+
+                    final Date[] Vhorainicio = {getStringDate("2021-08-15 16:00:00"), getStringDate("2021-08-30 10:00:00"), getStringDate("2021-10-15 09:00:00"), getStringDate("2021-08-08 00:00:00"), getStringDate("2021-09-10 08:00:00")};
+                    final Date[] Vhorafin = {getStringDate("2021-08-15 17:30:00"), getStringDate("2021-08-30 10:30:00"), getStringDate("2021-10-15 10:30:00"), getStringDate("2021-08-08 00:00:00"), getStringDate("2021-09-10 11:00:00")};
+
+                    abrir();
+                    db.execSQL("DELETE FROM propuesta");
+                    db.execSQL("DELETE FROM laboratorio");
+                    db.execSQL("DELETE FROM horario");
+
+                    Propuesta propuesta1 = new Propuesta(Vidpropuesta[0], Vidteorico[0], Vidmat[0], Vidlab[0], Vidhorario[0], Viddia[0], Vidsalon[0], Vaprobado[0]);
+                    Propuesta propuesta2 = new Propuesta(Vidpropuesta[1], Vidteorico[1], Vidmat[1], Vidlab[1], Vidhorario[1], Viddia[1], Vidsalon[1], Vaprobado[1]);
+                    Propuesta propuesta3 = new Propuesta(Vidpropuesta[2], Vidteorico[2], Vidmat[2], Vidlab[2], Vidhorario[2], Viddia[2], Vidsalon[2], Vaprobado[2]);
+                    Propuesta propuesta4 = new Propuesta(Vidpropuesta[3], Vidteorico[3], Vidmat[3], Vidlab[3], Vidhorario[0], Viddia[3], Vidsalon[1], Vaprobado[1]);
+                    Propuesta propuesta5 = new Propuesta(Vidpropuesta[4], Vidteorico[4], Vidmat[4], Vidlab[4], Vidhorario[1], Viddia[4], Vidsalon[2], Vaprobado[2]);
+                    insertar(propuesta1);
+                    insertar(propuesta2);
+                    insertar(propuesta3);
+                    insertar(propuesta3);
+                    insertar(propuesta4);
+                    insertar(propuesta5);
+
+                    for(int i=0; i<5; i++){
+                        Laboratorio laboratorio = new Laboratorio(Vidmat[i], Vidlab[i]);
+                        insertar(laboratorio);
+                    }
+
+                    Horario horario1 = new Horario(Vidhorario[0], Viddia[0], Vhorainicio[4], Vhorafin[4]);
+                    Horario horario2 = new Horario(Vidhorario[1], Viddia[1], Vhorainicio[3], Vhorafin[3]);
+                    Horario horario3 = new Horario(Vidhorario[2], Viddia[2], Vhorainicio[2], Vhorafin[2]);
+                    Horario horario4 = new Horario(Vidhorario[0], Viddia[3], Vhorainicio[1], Vhorafin[1]);
+                    Horario horario5 = new Horario(Vidhorario[1], Viddia[4], Vhorainicio[0], Vhorafin[0]);
+
+                    insertar(horario1);
+                    insertar(horario2);
+                    insertar(horario3);
+                    insertar(horario4);
+                    insertar(horario5);
 
 
                     cerrar();

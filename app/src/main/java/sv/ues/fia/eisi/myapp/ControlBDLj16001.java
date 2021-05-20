@@ -119,7 +119,22 @@ public class ControlBDLj16001 {
     }
 
     public String actualizar(Teorico teorico) {
-        return null;
+        if (verificarIntegridad(teorico, 4)) {
+            String[] id = {teorico.getIdTeorico()};
+
+            ContentValues cv = new ContentValues();
+
+            cv.put("idteorico", teorico.getIdTeorico());
+            cv.put("idmat", teorico.getIdMateria());
+
+
+            db.update("teorico", cv, "idteorico = ?", id);
+
+            return "Registro Actualizado Correctamente";
+        }
+        else {
+            return "Registro con carnet "+ teorico.getIdTeorico() + " no existe";
+        }
     }
 
     public String actualizar(Docente docente) {
@@ -156,7 +171,15 @@ public class ControlBDLj16001 {
     }
 
     public String eliminar(Teorico teorico){
-        return null;
+        String regAfectados = "filas afectadas= ";
+        int contador = 0;
+        if (verificarIntegridad(teorico,4)) {
+            contador += db.delete("teorico", "idteorico='" +
+                    teorico.getIdTeorico() + "'", null);
+            regAfectados += contador;
+            return regAfectados;
+        }
+        else return null;
     }
 
     public String eliminar(Docente docente){
@@ -183,8 +206,22 @@ public class ControlBDLj16001 {
         return "No se ha podido eliminar el registro";
     }
 
-    public Teorico consultarTeorico(String idTeorico) {
-        return null;
+    public Teorico consultarTeorico(String idTeorico, String idmat) {
+        String[] id = {idTeorico, idmat};
+        //String[] campos = {"idrol", "nombredocente", "apellidosdocente"};
+        Cursor cursor = db.query("teorico", null,
+                "idteorico = ? and idmat = ?", id, null, null, null);
+        if (cursor.moveToFirst()) {
+            Teorico t = new Teorico();
+            t.setIdTeorico(cursor.getString(0));
+            t.setIdMateria(cursor.getString(1));
+
+            return t;
+        }
+        else {
+            return null;
+        }
+
     }
 
     public Docente consultarDocente(String carnet) {

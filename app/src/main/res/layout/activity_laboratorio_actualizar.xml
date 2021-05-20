@@ -6,17 +6,17 @@
     android:stretchColumns="1" >
     <TableRow>
 
-        <TextView android:text="id laboratorio" />
+        <TextView android:text="Id del laboratorio" />
         <EditText
-            android:id="@+id/editCarnet"
+            android:id="@+id/editIdLab"
             android:inputType="text"
             android:maxLength="7" />
     </TableRow>
     <TableRow>
 
-        <TextView android:text="id materia" />
+        <TextView android:text="Id de la materia" />
         <EditText
-            android:id="@+id/editNombre"
+            android:id="@+id/editIdMat"
             android:inputType="text"
             android:maxLength="30" />
     </TableRow>
@@ -25,7 +25,7 @@
     <TableRow>
 
         <Button
-            android:onClick="actualizarAlumno"
+            android:onClick="actualizarLaboratorio"
             android:text="actualizar" />
     </TableRow>
     <TableRow>

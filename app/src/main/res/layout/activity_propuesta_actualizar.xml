@@ -6,17 +6,17 @@
     android:stretchColumns="1" >
     <TableRow>
 
-        <TextView android:text="id propuesta" />
+        <TextView android:text="Id de la Propuesta" />
         <EditText
-            android:id="@+id/editCarnet"
+            android:id="@+id/editIdPropuesta"
             android:inputType="text"
             android:maxLength="7" />
     </TableRow>
     <TableRow>
 
-        <TextView android:text="id teorico" />
+        <TextView android:text="Id del teorico" />
         <EditText
-            android:id="@+id/editNombre"
+            android:id="@+id/editIdTeo"
             android:inputType="text"
             android:maxLength="30" />
     </TableRow>
@@ -24,17 +24,17 @@
     <TableRow/>
     <TableRow>
 
-        <TextView android:text="id materia" />
+        <TextView android:text="Id de la Materia" />
         <EditText
-            android:id="@+id/editCarnet"
+            android:id="@+id/editIdMat"
             android:inputType="text"
             android:maxLength="7" />
     </TableRow>
     <TableRow>
 
-        <TextView android:text="id laboratorio" />
+        <TextView android:text="Id del Laboratorio" />
         <EditText
-            android:id="@+id/editNombre"
+            android:id="@+id/editIdLab"
             android:inputType="text"
             android:maxLength="30" />
     </TableRow>
@@ -42,17 +42,17 @@
     <TableRow/>
     <TableRow>
 
-        <TextView android:text="id horario" />
+        <TextView android:text="Id del Horario" />
         <EditText
-            android:id="@+id/editCarnet"
+            android:id="@+id/editIdHorario"
             android:inputType="text"
             android:maxLength="7" />
     </TableRow>
     <TableRow>
 
-        <TextView android:text="dia" />
+        <TextView android:text="Id del Dia" />
         <EditText
-            android:id="@+id/editNombre"
+            android:id="@+id/editIdDia"
             android:inputType="text"
             android:maxLength="30" />
     </TableRow>
@@ -60,17 +60,17 @@
     <TableRow/>
     <TableRow>
 
-        <TextView android:text="id salon" />
+        <TextView android:text="Id del Salon" />
         <EditText
-            android:id="@+id/editCarnet"
+            android:id="@+id/editIdSal"
             android:inputType="text"
             android:maxLength="7" />
     </TableRow>
     <TableRow>
 
-        <TextView android:text="aprobado" />
+        <TextView android:text="Aprobado" />
         <EditText
-            android:id="@+id/editNombre"
+            android:id="@+id/editIdApr"
             android:inputType="text"
             android:maxLength="30" />
     </TableRow>
@@ -80,7 +80,7 @@
     <TableRow>
 
         <Button
-            android:onClick="actualizarAlumno"
+            android:onClick="actualizarPropuesta"
             android:text="actualizar" />
     </TableRow>
     <TableRow>

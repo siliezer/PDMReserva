@@ -16,13 +16,14 @@ import java.text.ParseException;
 
 public class MainActivity extends ListActivity {
 
-    String[] menu={"Tabla Escuela","Tabla Ciclo","Tabla Materia","Tabla 4","Tabla 5","Tabla 6","Tabla Evento",
+    String[] menu={"Tabla Escuela","Tabla Ciclo","Tabla Materia","Docente","Rol de docente","Teorico","Tabla Evento",
             "Tabla Detalle Evento","Tabla Dia","Asignacion","Encargado","Salon","Tabla Laboratorio","Tabla Horario","Tabla Propuesta","Llenar Base de Datos"};
     
-    String[] activities={"EscuelaMenuActivity","CicloMenuActivity","MateriaMenuActivity","Tabla 4","Tabla 5","Tabla 6","EventoMenuActivity",
+    String[] activities={"EscuelaMenuActivity","CicloMenuActivity","MateriaMenuActivity","DocenteMenuActivity","RolDocenteMenuActivity","TeoricoMenuActivity","EventoMenuActivity",
             "DetalleEventoMenuActivity","DiaMenuActivity","AsignacionMenuActivity","EncargadoMenuActivity","SalonMenuActivity","LaboratorioMenuActivity","HorarioMenuActivity","PropuestaMenuActivity","Llenar Base de Datos"};
 
     ControlBD helper;
+    String idUsuario;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -30,6 +31,7 @@ public class MainActivity extends ListActivity {
         setListAdapter(new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, menu));
         helper = new ControlBD(this);
+        idUsuario = getIntent().getExtras().getString("IdUsuario");
 
     }
 
@@ -40,15 +42,23 @@ public class MainActivity extends ListActivity {
         if(position!=15){
 
             String nombreValue=activities[position];
-
-            try{
-                Class<?>
-                        clase=Class.forName("sv.ues.fia.eisi.myapp."+nombreValue);
-                Intent inte = new Intent(this,clase);
-                this.startActivity(inte);
-            }catch(ClassNotFoundException e){
-                e.printStackTrace();
+            helper.abrir();
+            Boolean acceso = helper.consultarAcceso(idUsuario, String.valueOf(position));
+            helper.cerrar();
+            if(acceso){
+                try{
+                    Class<?>
+                            clase=Class.forName("sv.ues.fia.eisi.myapp."+nombreValue);
+                    Intent inte = new Intent(this,clase);
+                    this.startActivity(inte);
+                }catch(ClassNotFoundException e){
+                    e.printStackTrace();
+                }
             }
+            else {
+                Toast.makeText(this, "No posee permisos para ver el menú", Toast.LENGTH_SHORT).show();
+            }
+
         }else{
             helper.abrir();
             String t = "Error de llamado";

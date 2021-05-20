@@ -7,9 +7,9 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="ID horario" />
+        android:text="Id del Horario" />
     <EditText
-        android:id="@+id/editCarnet"
+        android:id="@+id/editIdHorario"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:inputType="text"
@@ -23,7 +23,7 @@
             android:id="@+id/botonConsultar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="consultarAlumno"
+            android:onClick="consultarHorario"
             android:text="consultar" />
 
         <Button
@@ -35,12 +35,11 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/dia"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Dia" />
+        android:text="Id del Dia:" />
     <EditText
-        android:id="@+id/editNombre"
+        android:id="@+id/editIdDia"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:inputType="text"
@@ -53,31 +52,35 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hora Inicio" />
+        android:text="Inicio del Horario:" />
+
     <EditText
-        android:id="@+id/editApellido"
-        android:layout_width="fill_parent"
+        android:id="@+id/editInicio"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="text"
-        android:enabled="false"
+        android:cursorVisible="false"
+        android:enabled="true"
         android:focusable="false"
         android:focusableInTouchMode="false"
-        android:cursorVisible="false"
-        android:longClickable="false"/>
+        android:inputType="textMultiLine"
+        android:longClickable="false"
+        android:textStyle="bold" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hora Fin" />
+        android:text="Fin del Horario:" />
+
     <EditText
-        android:id="@+id/editSexo"
-        android:layout_width="100dp"
+        android:id="@+id/editFin"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="text"
-        android:enabled ="false"
+        android:cursorVisible="false"
+        android:enabled="true"
         android:focusable="false"
         android:focusableInTouchMode="false"
-        android:cursorVisible="false"
-        android:longClickable="false" />
+        android:inputType="textMultiLine"
+        android:longClickable="false"
+        android:textStyle="bold" />
 
 </LinearLayout>

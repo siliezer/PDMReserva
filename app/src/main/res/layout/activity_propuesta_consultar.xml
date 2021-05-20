@@ -7,9 +7,9 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="ID propuesta" />
+        android:text="Id de la propuesta" />
     <EditText
-        android:id="@+id/editCarnet"
+        android:id="@+id/editIdPropuesta"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:inputType="text"
@@ -23,7 +23,7 @@
             android:id="@+id/botonConsultar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="consultarAlumno"
+            android:onClick="consultarPropuesta"
             android:text="consultar" />
 
         <Button
@@ -38,9 +38,9 @@
         android:id="@+id/dia"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="id teorico" />
+        android:text="id del teorico" />
     <EditText
-        android:id="@+id/editNombre"
+        android:id="@+id/editIdTeo"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:inputType="text"
@@ -53,9 +53,9 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="id materia" />
+        android:text="id de la Materia" />
     <EditText
-        android:id="@+id/editApellido"
+        android:id="@+id/editIdMat"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:inputType="text"
@@ -66,12 +66,11 @@
         android:longClickable="false"/>
 
     <TextView
-        android:id="@+id/lab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="id laboratorio" />
+        android:text="id del laboratorio" />
     <EditText
-        android:id="@+id/labo"
+        android:id="@+id/editIdLab"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:inputType="text"
@@ -82,12 +81,11 @@
         android:longClickable="false" />
 
     <TextView
-        android:id="@+id/horario"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="id horario" />
+        android:text="id del Horario" />
     <EditText
-        android:id="@+id/horaio"
+        android:id="@+id/editIdHorario"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:inputType="text"
@@ -98,12 +96,11 @@
         android:longClickable="false" />
 
     <TextView
-        android:id="@+id/diaa"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="dia" />
+        android:text="Id del Dia" />
     <EditText
-        android:id="@+id/iddiaa"
+        android:id="@+id/editIdDia"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:inputType="text"
@@ -114,12 +111,11 @@
         android:longClickable="false" />
 
     <TextView
-        android:id="@+id/aprobado"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="aprobado" />
     <EditText
-        android:id="@+id/aprobadoestado"
+        android:id="@+id/editIdApr"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:inputType="text"

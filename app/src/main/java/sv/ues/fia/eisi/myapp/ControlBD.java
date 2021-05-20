@@ -115,7 +115,7 @@ public class ControlBD {
                         "   IDHORARIO            CHAR(5)                         not null,\n" +
                         "   IDDIA                CHAR(5)                         not null,\n" +
                         "   IDSALON              CHAR(6)                         not null,\n" +
-                        "   APROBADO             SMALLINT                        not null,\n" +
+                        "   APROBADO             VARCHAR(10)                     not null,\n" +
                         "   constraint PK_PROPUESTA primary key (IDPROPUESTA)\n" +
                         ");");//13
                 db.execSQL("create table ROLDOCENTE  (\n" +
@@ -697,7 +697,7 @@ public class ControlBD {
     }
 
     public Salon consultarSalon(String idSalon){
-        String[] camposSalon = {"idsalon", "idencargado", "tipo", "nombresalon"};
+        String[] camposSalon = {"idsalon", "idencargado", "tipo", "nombre"};
         String[] idSal = {idSalon};
         Cursor c = db.query("salon", camposSalon, "idsal = ?", idSal, null, null, null);
         if(c.moveToFirst()){
@@ -749,7 +749,7 @@ public class ControlBD {
 
             cv.put("idencargado", salon.getIdEncargado());
             cv.put("tipo", salon.getTipo());
-            cv.put("nombresalon", salon.getNombre());
+            cv.put("nombre", salon.getNombre());
             db.update("salon", cv, "idsalon = ?", idSalon);
             return "¡Registro actualizado correctamente!";
         }
@@ -1105,9 +1105,9 @@ public class ControlBD {
                 Salon salon = (Salon) dato;
                 String[] id1 = {salon.getIdEncargado()};
 
-                Cursor c1 = db.query("salon", null, "idsalon = ?", id1, null, null, null);
+                Cursor c1 = db.query("encargado", null, "idencargado = ?", id1, null, null, null);
 
-                if(c1.moveToFirst()){ //Cambiar a && cuando existan datos de docente
+                if(c1.moveToFirst()){
                     return true;
                 }
                 return false;
@@ -1442,7 +1442,7 @@ public class ControlBD {
         final String[] Viddia = {"LUNES", "MARTE", "MIERC", "JUEVE", "VIERN"};
         final String[] Vnomdia = {"Lunes", "Martes", "Miercoles", "Jueves", "Viernes"};
 
-        final String[] Vidsalon = {"SAB41", "SAC11", "SAD11","LCOMP1"};
+        final String[] Vidsalon = {"SAB41", "SAC11", "SAD11"};
         final String[] Vidhorario = {"MATUT", "VESPE", "NOCTU"};
 
         abrir();
@@ -1467,15 +1467,15 @@ public class ControlBD {
         insertar(detalleevento3);
         //fin llenar tablas evento, detalle evento y dia
 
-        //llenar tablas Asignacion, Encargado, Salon
+                    //llenar tablas Asignacion, Encargado, Salon
                     final String[] Vidpropuesta = {"P0001", "P0002", "P0003", "P0004", "P0005"};
 
                     final String[] Videncargado = {"EN001", "EN002", "EN003", "EN004", "EN005"};
                     final String[] Vnombresencargado = {"Jose Alejandro", "Ernesto Benjamin", "Isaac Roberto", "Maria Elizabeth", "Rosa Margarita"};
                     final String[] Vapellidosencargado = {"Castro Martinez", "Mendez Nuñes", "Guerrero Lopez", "Rivas Hernandez", "Cortez Ardon"};
 
-                    final String[] Vtipo = {"Salon pequeño", "Salon  grande", "Salon grande", "Laboratorio"};
-                    final String[] Vnombresalon = {"C41", "C11", "D11", "LCOMP1"};
+                    final String[] Vtipo = {"Salon pequeño", "Salon grande", "Salon grande"};
+                    final String[] Vnombre = {"C41", "C11", "D11", "LCOMP"};
 
                     abrir();
                     db.execSQL("DELETE FROM asignacion");
@@ -1486,22 +1486,26 @@ public class ControlBD {
                         Encargado encargado = new Encargado(Videncargado[i], Vnombresencargado[i],  Vapellidosencargado[i]);
                         insertar(encargado);
                     }
-                    for(int i=0; i<4; i++){
-                        Salon salon = new Salon(Vidsalon[i], Videncargado[i], Vtipo[i], Vnombresalon[i]);
-                        insertar(salon);
-                    }
 
-                    Asignacion asignacion1 = new Asignacion(Vidpropuesta[1], Vidhorario[1], Vidhorario[1]);
-                    Asignacion asignacion2 = new Asignacion(Vidpropuesta[2], Vidhorario[2], Vidhorario[2]);
-                    Asignacion asignacion3 = new Asignacion(Vidpropuesta[3], Vidhorario[3], Vidhorario[3]);
-                    Asignacion asignacion4 = new Asignacion(Vidpropuesta[4], Vidhorario[1], Vidhorario[4]);
-                    Asignacion asignacion5 = new Asignacion(Vidpropuesta[5], Vidhorario[2], Vidhorario[5]);
+                    Salon salon = new Salon(Vidsalon[0], Videncargado[0], Vtipo[0], Vnombre[0]);
+                    Salon salon1 = new Salon(Vidsalon[1], Videncargado[1], Vtipo[1], Vnombre[1]);
+                    Salon salon2 = new Salon(Vidsalon[2], Videncargado[2], Vtipo[2], Vnombre[2]);
+                    insertar(salon);
+                    insertar(salon1);
+                    insertar(salon2);
+
+
+                    Asignacion asignacion1 = new Asignacion(Vidpropuesta[0], Vidhorario[0], Viddia[0]);
+                    Asignacion asignacion2 = new Asignacion(Vidpropuesta[1], Vidhorario[1], Viddia[1]);
+                    Asignacion asignacion3 = new Asignacion(Vidpropuesta[2], Vidhorario[2], Viddia[2]);
+                    Asignacion asignacion4 = new Asignacion(Vidpropuesta[3], Vidhorario[1], Viddia[3]);
+                    Asignacion asignacion5 = new Asignacion(Vidpropuesta[4], Vidhorario[2], Viddia[4]);
                     insertar(asignacion1);
                     insertar(asignacion2);
                     insertar(asignacion3);
                     insertar(asignacion4);
                     insertar(asignacion5);
-        //Fin tablas Asingacion, encargado, salon
+                    //Fin tablas Asingacion, encargado, salon
 
                     //llenar tablas Propuesta, Laboratorio, Horario
 
@@ -1518,11 +1522,11 @@ public class ControlBD {
                     db.execSQL("DELETE FROM laboratorio");
                     db.execSQL("DELETE FROM horario");
 
-                    Propuesta propuesta1 = new Propuesta(Vidpropuesta[1], Vidteorico[1], Vidmat[1], Vidlab[1], Vidhorario[1], Viddia[1], Vidsalon[1], Vaprobado[1]);
-                    Propuesta propuesta2 = new Propuesta(Vidpropuesta[2], Vidteorico[2], Vidmat[2], Vidlab[3], Vidhorario[2], Viddia[2], Vidsalon[2], Vaprobado[1]);
-                    Propuesta propuesta3 = new Propuesta(Vidpropuesta[3], Vidteorico[3], Vidmat[3], Vidlab[2], Vidhorario[3], Viddia[3], Vidsalon[3], Vaprobado[3]);
-                    Propuesta propuesta4 = new Propuesta(Vidpropuesta[4], Vidteorico[4], Vidmat[4], Vidlab[4], Vidhorario[1], Viddia[4], Vidsalon[2], Vaprobado[2]);
-                    Propuesta propuesta5 = new Propuesta(Vidpropuesta[5], Vidteorico[5], Vidmat[5], Vidlab[5], Vidhorario[2], Viddia[5], Vidsalon[4], Vaprobado[2]);
+                    Propuesta propuesta1 = new Propuesta(Vidpropuesta[0], Vidteorico[0], Vidmat[0], Vidlab[0], Vidhorario[0], Viddia[0], Vidsalon[0], Vaprobado[0]);
+                    Propuesta propuesta2 = new Propuesta(Vidpropuesta[1], Vidteorico[1], Vidmat[1], Vidlab[1], Vidhorario[1], Viddia[1], Vidsalon[1], Vaprobado[1]);
+                    Propuesta propuesta3 = new Propuesta(Vidpropuesta[2], Vidteorico[2], Vidmat[2], Vidlab[2], Vidhorario[2], Viddia[2], Vidsalon[2], Vaprobado[2]);
+                    Propuesta propuesta4 = new Propuesta(Vidpropuesta[3], Vidteorico[3], Vidmat[3], Vidlab[3], Vidhorario[0], Viddia[3], Vidsalon[1], Vaprobado[1]);
+                    Propuesta propuesta5 = new Propuesta(Vidpropuesta[4], Vidteorico[4], Vidmat[4], Vidlab[4], Vidhorario[1], Viddia[4], Vidsalon[2], Vaprobado[2]);
                     insertar(propuesta1);
                     insertar(propuesta2);
                     insertar(propuesta3);
@@ -1535,11 +1539,11 @@ public class ControlBD {
                         insertar(laboratorio);
                     }
 
-                    Horario horario1 = new Horario(Vidhorario[1], Viddia[1], Vhorainicio[5], Vhorafin[1]);
-                    Horario horario2 = new Horario(Vidhorario[2], Viddia[2], Vhorainicio[4], Vhorafin[2]);
-                    Horario horario3 = new Horario(Vidhorario[3], Viddia[3], Vhorainicio[3], Vhorafin[3]);
-                    Horario horario4 = new Horario(Vidhorario[1], Viddia[4], Vhorainicio[2], Vhorafin[4]);
-                    Horario horario5 = new Horario(Vidhorario[2], Viddia[5], Vhorainicio[1], Vhorafin[5]);
+                    Horario horario1 = new Horario(Vidhorario[0], Viddia[0], Vhorainicio[4], Vhorafin[4]);
+                    Horario horario2 = new Horario(Vidhorario[1], Viddia[1], Vhorainicio[3], Vhorafin[3]);
+                    Horario horario3 = new Horario(Vidhorario[2], Viddia[2], Vhorainicio[2], Vhorafin[2]);
+                    Horario horario4 = new Horario(Vidhorario[0], Viddia[3], Vhorainicio[1], Vhorafin[1]);
+                    Horario horario5 = new Horario(Vidhorario[1], Viddia[4], Vhorainicio[0], Vhorafin[0]);
 
                     insertar(horario1);
                     insertar(horario2);
@@ -1547,7 +1551,8 @@ public class ControlBD {
                     insertar(horario4);
                     insertar(horario5);
 
-        cerrar();
+
+                    cerrar();
         return "Se realizó correctamente";
     }
 }

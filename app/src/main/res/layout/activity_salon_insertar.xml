@@ -44,7 +44,7 @@
             android:text="Nombre del salon:"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
         <EditText
-            android:id="@+id/editNombreSalon"
+            android:id="@+id/editNombre"
             android:inputType="text"
             android:maxLength="50" />
     </TableRow>

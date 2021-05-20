@@ -45,7 +45,7 @@
         <TextView android:text="Nombre del salon:" />
 
         <EditText
-            android:id="@+id/editNombreSalon"
+            android:id="@+id/editNombre"
             android:layout_width="183dp"
             android:layout_height="wrap_content"
             android:cursorVisible="false"

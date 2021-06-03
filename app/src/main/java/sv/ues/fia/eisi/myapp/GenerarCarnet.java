@@ -11,6 +11,7 @@ import android.widget.TextView;
 import org.json.JSONObject;
 
 public class GenerarCarnet extends AppCompatActivity {
+    ControlBDLj16001 helper;
     EditText apellido1, apellido2, anio;
     TextView resultado;
     private static String urlHosting = "https://sh15001-pdm115.000webhostapp.com/GenerarCarnet.php?";
@@ -21,6 +22,7 @@ public class GenerarCarnet extends AppCompatActivity {
         setContentView(R.layout.activity_generar_carnet);
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
+        helper = new ControlBDLj16001(this);
         apellido1 = (EditText) findViewById(R.id.editTextApellido1);
         apellido2 = (EditText) findViewById(R.id.editTextApellido2);
         anio = (EditText) findViewById(R.id.editTextAnio);
@@ -36,8 +38,17 @@ public class GenerarCarnet extends AppCompatActivity {
         String json = parser.obtenerRespuestaDeURL(url, this);
         try {
             JSONObject obj = new JSONObject(json);
-            resultado.setText("Carnet generado: "+obj.getString("resultado"));
+            String carnet = obj.getString("resultado");
 
+            /*----------No puedo implementar esto si ni siquiera funciona-----
+            int i = 1;
+            helper.abrir();
+            do{
+                carnet = carnet + i;
+                i++;
+            }while(helper.consultarDocente(carnet)!=null);
+            helper.cerrar();*/
+            resultado.setText("Carnet generado: "+carnet);
         } catch (Exception e){
             resultado.setText(e.getMessage());
         }

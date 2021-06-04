@@ -1411,7 +1411,7 @@ public class ControlBD {
                         insertar(crud);
                     }
 
-                    for (int i = 0; i < 15; i++) {
+                    for (int i = 0; i < 17; i++) {
                         AccesoUsuario acceso = new AccesoUsuario(Vusuario[0], String.valueOf(i));
                         insertar(acceso);
                     }

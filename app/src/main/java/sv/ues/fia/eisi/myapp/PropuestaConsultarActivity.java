@@ -35,14 +35,14 @@ public class PropuestaConsultarActivity extends AppCompatActivity {
             Toast.makeText(this, "Propuesta no se encuentra registrada", Toast.LENGTH_LONG).show();
         }
         else{
-            editIdPropuesta.setText(propuesta.getidPropuesta());
-            editIdTeo.setText(propuesta.getidTeorico());
-            editIdMat.setText(propuesta.getidMat());
-            editIdMat.setText(propuesta.getidMat());
-            editIdHorario.setText(propuesta.getidHorario());
-            editIdDia.setText(propuesta.getidDia());
-            editIdSal.setText(propuesta.getidSalon());
-            editIdApr.setText(propuesta.getaprobado());
+            editIdPropuesta.setText(propuesta.getIdPropuesta());
+            editIdTeo.setText(propuesta.getIdteorico());
+            editIdMat.setText(propuesta.getIdMat());
+            editIdMat.setText(propuesta.getIdMat());
+            editIdHorario.setText(propuesta.getIdHorario());
+            editIdDia.setText(propuesta.getIdDia());
+            editIdSal.setText(propuesta.getIdSalon());
+            editIdApr.setText(propuesta.getAprobado());
 
         }
     }

@@ -451,8 +451,8 @@ public class ControlBD {
         ContentValues esc = new ContentValues();
         esc.put("idhorario", horario.getidHorario());
         esc.put("iddia", horario.getidDia());
-        esc.put("fechainicio", getDateTime(horario.getHorainicio()));
-        esc.put("fechafin", getDateTime(horario.getHorafin()));
+        esc.put("horainicio", getDateTime(horario.getHorainicio()));
+        esc.put("horafin", getDateTime(horario.getHorafin()));
         contador = db.insert("horario", null, esc);
         if (contador == -1 || contador == 0) {
             regInsertados = "Error de inserción, registro duplicado. Verificar datos.";
@@ -468,7 +468,7 @@ public class ControlBD {
 
         ContentValues esc = new ContentValues();
         esc.put("idmat", laboratorio.getidMat());
-        esc.put("idlaboratorio", laboratorio.getidLab());
+        esc.put("idlab", laboratorio.getidLab());
         contador = db.insert("laboratorio", null, esc);
         if (contador == -1 || contador == 0) {
             regInsertados = "Error de inserción, registro duplicado. Verificar datos.";
@@ -485,13 +485,13 @@ public class ControlBD {
         Cursor c = db.query("propuesta", camposPropuesta, "idpropuesta = ?", idPropuesta, null, null, null);
         if (c.moveToFirst()) {
             Propuesta propuesta = new Propuesta();
-            propuesta.setidPropuesta(c.getString(0));
+            propuesta.setIdPropuesta(c.getString(0));
             propuesta.setIdteorico(c.getString(1));
-            propuesta.setidMat(c.getString(2));
-            propuesta.setidLab(c.getString(3));
-            propuesta.setidHorario(c.getString(4));
-            propuesta.setidDia(c.getString(5));
-            propuesta.setidSalon(c.getString(6));
+            propuesta.setIdMat(c.getString(2));
+            propuesta.setIdLab(c.getString(3));
+            propuesta.setIdHorario(c.getString(4));
+            propuesta.setIdDia(c.getString(5));
+            propuesta.setIdSalon(c.getString(6));
             propuesta.setAprobado(c.getString(7));
             return propuesta;
         } else return null;
@@ -527,20 +527,20 @@ public class ControlBD {
 
     //Actualización
     public String actualizar(Propuesta propuesta) {
-        if (verificarIntegridad(propuesta, 1)) {
-            String[] id = {propuesta.getidPropuesta()};
+        if (verificarIntegridad(propuesta, 27)) {
+            String[] id = {propuesta.getIdPropuesta()};
             ContentValues cv = new ContentValues();
 
-            cv.put("aprobado", propuesta.getaprobado());
+            cv.put("aprobado", propuesta.getAprobado());
             db.update("propuesta", cv, "idpropuesta = ?", id);
             return "¡Registro actualizado correctamente!";
         } else {
-            return "La propuesta con id " + propuesta.getidPropuesta() + " no existe.";
+            return "La propuesta con id " + propuesta.getIdPropuesta() + " no existe.";
         }
     }
 
     public String actualizar(Laboratorio laboratorio) {
-        if (verificarIntegridad(laboratorio, 2)) {
+        if (verificarIntegridad(laboratorio, 28)) {
             String[] id = {laboratorio.getidLab()};
             ContentValues cv = new ContentValues();
 
@@ -553,7 +553,7 @@ public class ControlBD {
     }
 
     public String actualizar(Horario horario) {
-        if (verificarIntegridad(horario, 6)) {
+        if (verificarIntegridad(horario, 29)) {
             String[] id = {horario.getidHorario()};
             ContentValues cv = new ContentValues();
 
@@ -573,10 +573,10 @@ public class ControlBD {
 
         if (verificarIntegridad(propuesta, 24)) {
             cont += db.delete("propuesta", "idpropuesta='" +
-                    propuesta.getidPropuesta() + "'", null);
+                    propuesta.getIdPropuesta() + "'", null);
         }
         cont += db.delete("propuesta", "idpropuesta='" +
-                propuesta.getidPropuesta() + "'", null);
+                propuesta.getIdPropuesta() + "'", null);
         return afectados += cont;
     }
 
@@ -1274,7 +1274,7 @@ public class ControlBD {
 
             case 24: {//verificación de existencia de propuesta
                 Propuesta propuesta = (Propuesta) dato;
-                String[] id = {propuesta.getidPropuesta()};
+                String[] id = {propuesta.getIdPropuesta()};
 
                 abrir();
                 Cursor cursor = db.query("propuesta", null, "idpropuesta = ?", id, null, null, null);
@@ -1313,9 +1313,9 @@ public class ControlBD {
 
             case 27: {//Verifica que existan las llaves foraneas
                 Propuesta propuestaforeneas = (Propuesta) dato;
-                String[] id1 = {propuestaforeneas.getidTeorico()};
-                String[] id2 = {propuestaforeneas.getidMat()};
-                String[] id3 = {propuestaforeneas.getidLab()};
+                String[] id1 = {propuestaforeneas.getIdteorico()};
+                String[] id2 = {propuestaforeneas.getIdMat()};
+                String[] id3 = {propuestaforeneas.getIdLab()};
 
                 Cursor c1 = db.query("teorico", null, "idteorico = ?", id1, null, null, null);
                 Cursor c2 = db.query("materia", null, "idmateria = ?", id2, null, null, null);
@@ -1411,7 +1411,7 @@ public class ControlBD {
                         insertar(crud);
                     }
 
-                    for (int i = 0; i < 15; i++) {
+                    for (int i = 0; i < 17; i++) {
                         AccesoUsuario acceso = new AccesoUsuario(Vusuario[0], String.valueOf(i));
                         insertar(acceso);
                     }

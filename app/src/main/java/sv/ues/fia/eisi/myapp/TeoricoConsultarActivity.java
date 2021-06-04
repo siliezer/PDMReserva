@@ -15,8 +15,9 @@ public class TeoricoConsultarActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teorico_consultar);
-        editTextIdTeorico = (EditText) findViewById(R.id.edit_id_teorico);
-        editTextIdMateria = (EditText) findViewById(R.id.edit_id_mat);
+        helper = new ControlBDLj16001(this);
+        editTextIdTeorico = (EditText) findViewById(R.id.edit_id_teoricod);
+        editTextIdMateria = (EditText) findViewById(R.id.edit_id_matd);
 
     }
 
@@ -26,12 +27,13 @@ public class TeoricoConsultarActivity extends Activity {
                 editTextIdMateria.getText().toString());
         helper.cerrar();
         if (t == null) {
-            Toast.makeText(this, "Rol con id " +
+            Toast.makeText(this, "Teorico con id " +
                             editTextIdTeorico.getText().toString() + " no encontrado.",
                     Toast.LENGTH_LONG).show();
         }
         else {
-            editTextIdMateria.setText(t.getIdMateria());
+            Toast.makeText(this, "El teorico existe",
+                    Toast.LENGTH_LONG).show();
         }
     }
 

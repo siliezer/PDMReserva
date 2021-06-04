@@ -15,9 +15,9 @@
     </TableRow>
     <TableRow>
         <TextView
-            android:text="id docente"/>
+            android:text="id materia"/>
         <EditText
-            android:id="@+id/edit_id_docente"
+            android:id="@+id/edit_id_materia"
             android:inputType="text"
             android:maxLength="7"/>
     </TableRow>

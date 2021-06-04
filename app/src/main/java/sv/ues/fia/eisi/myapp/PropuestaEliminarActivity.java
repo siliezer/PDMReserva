@@ -22,7 +22,7 @@ public class PropuestaEliminarActivity extends AppCompatActivity {
     public void eliminarPropuesta(View v){
         String afectados;
         Propuesta propuesta = new Propuesta();
-        propuesta.setidPropuesta(editIdPropuesta.getText().toString());
+        propuesta.setIdPropuesta(editIdPropuesta.getText().toString());
         helper.abrir();
         afectados = helper.eliminar(propuesta);
         helper.cerrar();

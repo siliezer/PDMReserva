@@ -12,11 +12,10 @@ public class Propuesta {
     private String idSalon;
     private String aprobado;
 
-
     public Propuesta() {
     }
 
-    public Propuesta(String idPropuesta, String idteorico, String idMat, String idLab, String idHorario, String date, String idSalon, String aprobado) {
+    public Propuesta(String idPropuesta, String idteorico, String idMat, String idLab, String idHorario, String idDia, String idSalon, String aprobado) {
         this.idPropuesta = idPropuesta;
         this.idteorico = idteorico;
         this.idMat = idMat;
@@ -27,69 +26,68 @@ public class Propuesta {
         this.aprobado = aprobado;
     }
 
-    public String getidPropuesta() {
+    public String getIdPropuesta() {
         return idPropuesta;
     }
 
-    public void setidPropuesta(String idPropuesta) {
+    public void setIdPropuesta(String idPropuesta) {
         this.idPropuesta = idPropuesta;
     }
 
-    public String getidTeorico() {
+    public String getIdteorico() {
         return idteorico;
     }
 
-    public void setIdteorico(String idPropuesta) {
-        this.idteorico = idPropuesta;
+    public void setIdteorico(String idteorico) {
+        this.idteorico = idteorico;
     }
 
-    public String getidMat() {
+    public String getIdMat() {
         return idMat;
     }
 
-    public void setidMat(String idMat) {
+    public void setIdMat(String idMat) {
         this.idMat = idMat;
     }
 
-    public String getidLab() {
+    public String getIdLab() {
         return idLab;
     }
 
-    public void setidLab(String idLab) {
+    public void setIdLab(String idLab) {
         this.idLab = idLab;
     }
 
-    public String getidHorario() {
+    public String getIdHorario() {
         return idHorario;
     }
 
-    public void setidHorario(String idHorario) {
+    public void setIdHorario(String idHorario) {
         this.idHorario = idHorario;
     }
 
-    public String getidDia() {
+    public String getIdDia() {
         return idDia;
     }
 
-    public void setidDia(String idDia) {
+    public void setIdDia(String idDia) {
         this.idDia = idDia;
     }
 
-    public String getidSalon() {
+    public String getIdSalon() {
         return idSalon;
     }
 
-    public void setidSalon(String idSalon) {
+    public void setIdSalon(String idSalon) {
         this.idSalon = idSalon;
     }
 
-    public String getaprobado() {
+    public String getAprobado() {
         return aprobado;
     }
 
     public void setAprobado(String aprobado) {
         this.aprobado = aprobado;
     }
-
 }
 

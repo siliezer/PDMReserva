@@ -16,8 +16,9 @@ public class TeoricoInsertarActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teorico_insertar);
+        helper = new ControlBDLj16001(this);
         editTextIdTeorico = (EditText) findViewById(R.id.edit_id_teorico);
-        editTextIdMateria = (EditText) findViewById(R.id.edit_id_docente);
+        editTextIdMateria = (EditText) findViewById(R.id.edit_id_materia);
     }
 
     public void insertarTeorico(View view) {

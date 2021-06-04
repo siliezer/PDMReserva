@@ -23,7 +23,7 @@ public class ControlBDLj16001 {
 
     private static class DataBaseHelper
             extends android.database.sqlite.SQLiteOpenHelper {
-        private static final String DATA_BASE = "reserva.3sdb";
+        private static final String DATA_BASE = "reserva.s3db";
         private static final int VERSION= 1;
 
         public DataBaseHelper(Context context) {
@@ -62,12 +62,15 @@ public class ControlBDLj16001 {
     public String insertar(Teorico teorico) {
         String regInsertados = "Registro insertado No. ";
         long contador = 0;
-        if (verificarIntegridad(teorico, 3)){
-            ContentValues cv = new ContentValues();
-            cv.put("idteorico", teorico.getIdTeorico());
-            cv.put("idmat", teorico.getIdMateria());
+        if (!verificarIntegridad(teorico, 4)) {
+            if(verificarIntegridad(teorico, 3)) {
+                ContentValues cv = new ContentValues();
 
-            contador = db.insert("teorico", null, cv);
+                cv.put("IDTEORICO", teorico.getIdTeorico());
+                cv.put("IDMAT", teorico.getIdMateria());
+
+                contador = db.insert("TEORICO", null, cv);
+            }
         }
         if (contador == -1 || contador == 0) {
             regInsertados = "Error de inserción. ¡Verificar datos!";
@@ -83,11 +86,11 @@ public class ControlBDLj16001 {
         long contador = 0;
         if (verificarIntegridad(docente, 1)){
             ContentValues cv = new ContentValues();
-            cv.put("carnetdocente", docente.getCarnet());
-            cv.put("idrol", docente.getIdRol());
-            cv.put("nombredocente", docente.getNombre());
-            cv.put("apellidodocente", docente.getApellido());
-            contador = db.insert("docente", null, cv);
+            cv.put("CARNETDOCENTE", docente.getCarnet());
+            cv.put("IDROL", docente.getIdRol());
+            cv.put("NOMBREDOCENTE", docente.getNombre());
+            cv.put("APELLIDOSDOCENTE", docente.getApellido());
+            contador = db.insert("DOCENTE", null, cv);
         }
         if (contador == -1 || contador == 0) {
             regInsertados = "Error de inserción. ¡Verificar datos!";
@@ -102,17 +105,17 @@ public class ControlBDLj16001 {
         String regInsertados = "Registro insertado No. ";
         long contador = 0;
 
-        ContentValues rol = new ContentValues();
+        ContentValues cv = new ContentValues();
 
-        rol.put("nomberol", rolDocente.getNombre());
-        rol.put("idrol", rolDocente.getId());
+        cv.put("IDROL", rolDocente.getId());
+        cv.put("NOMBREROL", rolDocente.getNombre());
 
-        contador = db.insert("roldecente", null, rol);
+        contador = db.insert("ROLDOCENTE", null, cv);
 
-        if (contador == -1 || contador == 0) {
-            regInsertados = "Error al Insertar el registro, Registro duplicado. Verificar inserción";
+        if (contador==-1 || contador == 0){
+            regInsertados = "Error de inserción, registro duplicado. Verificar datos.";
         }
-        else {
+        else{
             regInsertados = regInsertados + contador;
         }
         return regInsertados;
@@ -161,10 +164,13 @@ public class ControlBDLj16001 {
         if (verificarIntegridad(rolDocente, 5)) {
             String[] id = {rolDocente.getId()};
             ContentValues cv = new ContentValues();
-            cv.put("nombre", rolDocente.getNombre());
-            db.update("roldocente", cv, "idrol = ?", id);
+            cv.put("NOMBREROL", rolDocente.getNombre());
+
+            db.update("ROLDOCENTE", cv, "IDROL = ?", id);
+
             return "Registro Actualizado Correctamente";
         }
+
         else {
             return "Registro con id "+ rolDocente.getId() + " no existe";
         }
@@ -185,8 +191,8 @@ public class ControlBDLj16001 {
     public String eliminar(Docente docente){
         String regAfectados = "filas afectadas= ";
         int contador = 0;
-        if (verificarIntegridad(docente,5)) {
-            contador += db.delete("docente", "carnetdocente='" +
+        if (verificarIntegridad(docente,6)) {
+            contador += db.delete("DOCENTE", "CARNETDOCENTE='" +
                     docente.getCarnet() + "'", null);
             regAfectados += contador;
             return regAfectados;
@@ -208,9 +214,9 @@ public class ControlBDLj16001 {
 
     public Teorico consultarTeorico(String idTeorico, String idmat) {
         String[] id = {idTeorico, idmat};
-        //String[] campos = {"idrol", "nombredocente", "apellidosdocente"};
-        Cursor cursor = db.query("teorico", null,
-                "idteorico = ? and idmat = ?", id, null, null, null);
+        String[] campos = {"IDTEORICO", "IDMAT"};
+        Cursor cursor = db.query("TEORICO", campos,
+                "IDTEORICO = ? and IDMAT = ?", id, null, null, null);
         if (cursor.moveToFirst()) {
             Teorico t = new Teorico();
             t.setIdTeorico(cursor.getString(0));
@@ -226,13 +232,16 @@ public class ControlBDLj16001 {
 
     public Docente consultarDocente(String carnet) {
         String[] id = {carnet};
-        String[] campos = {"idrol", "nombredocente", "apellidosdocente"};
-        Cursor cursor = db.query("docente", campos,
-                                 "carnetdocente = ?", id, null, null, null);
+        String[] campos = {"CARNETDOCENTE", "IDROL", "NOMBREDOCENTE", "APELLIDOSDOCENTE"};
+        Cursor cursor = db.query("DOCENTE", campos,
+                                 "CARNETDOCENTE = ?", id,
+                                 null, null, null);
         if (cursor.moveToFirst()) {
             Docente d = new Docente();
-            d.setIdRol(cursor.getString(0));
-            d.setNombre(cursor.getString(1));
+
+            d.setCarnet(cursor.getString(0));
+            d.setIdRol(cursor.getString(1));
+            d.setNombre(cursor.getString(2));
             d.setApellido(cursor.getString(2));
             return d;
         }
@@ -280,21 +289,21 @@ public class ControlBDLj16001 {
             case 3: // ver si existe la materia al crear teorico.
                 Teorico t1 = (Teorico) t;
                 id = new String[]{t1.getIdMateria()};
-                cursor = db.query("materia", null, "idmat=?", id, null, null,
+                cursor = db.query("materia", null, "idmat = ?", id, null, null,
                                   null, null);
                 returnValue = (cursor.moveToFirst())? true: false;
                 break;
             case 4: // ver si existe el teorico al editarlo.
                 Teorico t3 = (Teorico) t;
-                id = new String[]{t3.getIdMateria(), t3.getIdMateria()};
-                cursor = db.query("teorico", null, "idteorico=? and idmat=?",
+                id = new String[]{t3.getIdTeorico(), t3.getIdMateria()};
+                cursor = db.query("TEORICO", null, "IDTEORICO = ? and IDMAT = ?",
                                   id, null, null, null, null);
                 returnValue = (cursor.moveToFirst())? true: false;
                 break;
             case 5:  // ver si existe el roldocente.
                 RolDocente r = (RolDocente) t;
                 id = new String[]{r.getId()};
-                cursor = db.query("roldocente", null, "idrol=?",
+                cursor = db.query("ROLDOCENTE", null, "IDROL = ?",
                         id, null, null, null, null);
                 returnValue = (cursor.moveToFirst())? true: false;
                 break;
@@ -303,7 +312,7 @@ public class ControlBDLj16001 {
                 Docente d2 = (Docente) t;
                 id = new String[]{d2.getCarnet()};
                 cursor = db.query("docente", null,
-                                  "carnetdocente=?", id,
+                                  "carnetdocente = ?", id,
                                   null,null,null);
                 returnValue = (cursor.moveToFirst())? true: false;
                 break;

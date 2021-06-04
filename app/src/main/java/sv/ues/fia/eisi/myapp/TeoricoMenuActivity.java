@@ -12,10 +12,10 @@ import android.widget.ListView;
 public class TeoricoMenuActivity extends android.app.ListActivity {
     private String[] menu = {"Insertar registro", "Eliminar registro",
                              "Consultar registro", "Actualizar registro"};
-    private String[] activities = {"AlumnoInsertarActivity",
-                                   "AlumnoEliminarActivity",
-                                   "AlumnoConsultarActivity",
-                                   "AlumnoActualizarActivity"};
+    private String[] activities = {"TeoricoInsertarActivity",
+                                   "TeoricoEliminarActivity",
+                                   "TeoricoConsultarActivity",
+                                   "TeoricoActualizarActivity"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +34,9 @@ public class TeoricoMenuActivity extends android.app.ListActivity {
         super.onListItemClick(l, v, position, id);
 
         String selectedActivity = activities[position];
-        // l.getChildAt(position).setBackground(android.graphics.Color.rgb(66, 221, 245));
+        l.getChildAt(position).setBackgroundColor(android.graphics.Color.rgb(66,
+                179,
+                245));
 
         try {
             Class<?> selectedClass = Class.forName("sv.ues.fia.eisi.myapp."

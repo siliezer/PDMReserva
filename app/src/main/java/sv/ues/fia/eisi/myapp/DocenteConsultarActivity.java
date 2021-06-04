@@ -18,8 +18,9 @@ public class DocenteConsultarActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_docente_consultar);
+
         helper = new ControlBDLj16001(this);
-        editTextCarnetDocente = (EditText) findViewById(R.id.edit_carnet_docente);
+        editTextCarnetDocente = (EditText) findViewById(R.id.edit_id);
         editTextIdRol = (EditText) findViewById(R.id.id_rol_docente);
         editTextNombre = (EditText) findViewById(R.id.nombre_docente);
         editTextApellido = (EditText) findViewById(R.id.apellido_docente);

@@ -99,5 +99,39 @@
             android:layout_height="wrap_content"
             android:text="Carnet: "
             android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textViewIndicaciones"
+            android:layout_width="match_parent"
+            android:layout_height="43dp"
+            android:text="Ingrese los siguientes datos para insertar el registro en el servicio php externo:"
+            android:visibility="invisible" />
+
+        <EditText
+            android:id="@+id/editTextNombres"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Ingrese sus nombres"
+            android:inputType="textPersonName"
+            android:visibility="invisible" />
+
+        <EditText
+            android:id="@+id/editTextRol"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Ingrese su rol"
+            android:inputType="textPersonName"
+            android:maxLength="5"
+            android:visibility="invisible" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Registrar"
+            android:onClick="insertarDocente1"
+            android:visibility="invisible" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

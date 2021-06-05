@@ -75,12 +75,12 @@
             android:layout_weight="1"
             android:onClick="insertarPropuesta"
             android:text="INSERTAR" />
-        30
+
 
         <Button
             android:layout_width="match_parent"
             android:layout_weight="1"
-            android:onClick="limpiarHorario"
+            android:onClick="limpiarTexto"
             android:text="Limpiar" />
     </TableRow>
 </TableLayout>

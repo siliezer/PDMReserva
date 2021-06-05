@@ -10,7 +10,7 @@
         <EditText
             android:id="@+id/editIdLab"
             android:inputType="text"
-            android:maxLength="7" />
+            android:maxLength="4" />
     </TableRow>
     <TableRow>
 
@@ -18,7 +18,7 @@
         <EditText
             android:id="@+id/editIdMat"
             android:inputType="text"
-            android:maxLength="30" />
+            android:maxLength="6" />
     </TableRow>
     <TableRow/>
     <TableRow/>

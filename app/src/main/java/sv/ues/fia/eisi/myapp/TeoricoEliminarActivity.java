@@ -15,6 +15,7 @@ public class TeoricoEliminarActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teorico_eliminar);
+        helper = new ControlBDLj16001(this);
         editTextIdTeorico = (EditText)findViewById(R.id.edit_id_teorico);
         editTextIdMateria = (EditText)findViewById(R.id.edit_id_mat);
     }

@@ -15,6 +15,7 @@ public class TeoricoActualizarActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teorico_actualizar);
+        helper = new ControlBDLj16001(this);
         editTextIdTeorico = (EditText) findViewById(R.id.edit_id_teorico);
         editTextIdMateria = (EditText) findViewById(R.id.edit_id_materia);
     }

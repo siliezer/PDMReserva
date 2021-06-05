@@ -16,6 +16,8 @@
         <activity android:name=".EliminarEvento" />
         <activity android:name=".GenerarEvento" />
         <activity android:name=".GenerarCarnet" />
+        <activity android:name=".GenerarEncargado" />
+        <activity android:name=".EliminarEncargado" />
         <activity android:name=".ServiciosWebMenuActivity" />
         <activity android:name=".LoginActivity">
             <intent-filter>

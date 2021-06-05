@@ -29,15 +29,15 @@ public class GenerarEncargado extends AppCompatActivity {
         StrictMode.setThreadPolicy(policy);
         helper = new ControlBD(this);
         idencargado = (EditText) findViewById(R.id.editTextIdEncargado);
-        nombres = (EditText) findViewById(R.id.editTextNombres);
-        apellidos = (EditText) findViewById(R.id.editTextApellidos);
+        nombres = (EditText) findViewById(R.id.editTextNombre);
+        apellidos = (EditText) findViewById(R.id.editTextApellido);
         resultado = (TextView) findViewById(R.id.textViewCarnet);
         indicaciones = (TextView) findViewById(R.id.textViewIndicaciones);
         registro = (Button) findViewById(R.id.button2);
 
     }
 
-    public void insertarEncargado(View v){
+    public void insertarEncargado1(View v){
         Controlador parser = new Controlador();
         String idencargado1 = idencargado.getText().toString();
         String nombres1 = nombres.getText().toString();

@@ -34,21 +34,21 @@
         <EditText
             android:id="@+id/editIdLab"
             android:inputType="text"
-            android:maxLength="1" />
+            android:maxLength="4" />
     </TableRow>
     <TableRow>
         <TextView android:text="Id del Horario"/>
         <EditText
             android:id="@+id/editIdHorario"
             android:inputType="text"
-            android:maxLength="7" />
+            android:maxLength="5" />
     </TableRow>
     <TableRow>
         <TextView android:text="Id del Dia" />
         <EditText
             android:id="@+id/editIdDia"
             android:inputType="text"
-            android:maxLength="30" />
+            android:maxLength="5" />
     </TableRow>
     <TableRow>
 
@@ -56,7 +56,7 @@
         <EditText
             android:id="@+id/editIdSal"
             android:inputType="text"
-            android:maxLength="30" />
+            android:maxLength="6" />
     </TableRow>
     <TableRow>
 
@@ -64,7 +64,7 @@
         <EditText
             android:id="@+id/editIdApr"
             android:inputType="text"
-            android:maxLength="1" />
+            android:maxLength="10" />
     </TableRow>
 
 

@@ -584,11 +584,11 @@ public class ControlBD {
         String afectados = "Filas afectadas: ";
         int cont = 0;
 
-        if (verificarIntegridad(laboratorio, 25)) {
-            cont += db.delete("laboratorio", "idlaboratorio='" +
+        if (verificarIntegridad(laboratorio, 26)) {
+            cont += db.delete("laboratorio", "idlab='" +
                     laboratorio.getidLab() + "'", null);
         }
-        cont += db.delete("ciclo", "idciclo='" +
+        cont += db.delete("laboratorio", "idlab='" +
                 laboratorio.getidLab() + "'", null);
         return afectados += cont;
     }
@@ -597,7 +597,7 @@ public class ControlBD {
         String afectados = "Filas afectadas: ";
         int cont = 0;
 
-        if (verificarIntegridad(horario, 26)) {
+        if (verificarIntegridad(horario, 25)) {
             cont += db.delete("horario", "idhorario='" +
                     horario.getidHorario() + "'", null);
         }
@@ -1290,7 +1290,7 @@ public class ControlBD {
                 String[] id = {horario.getidDia()};
 
                 abrir();
-                Cursor cursor = db.query("horario", null, "idhorario = ?", id, null, null, null);
+                Cursor cursor = db.query("horario", null, "iddia = ?", id, null, null, null);
                 //cerrar();
                 if (cursor.moveToFirst()) {
                     return true;
@@ -1303,7 +1303,7 @@ public class ControlBD {
                 String[] id = {laboratorio.getidLab()};
 
                 abrir();
-                Cursor cursor = db.query("laboratorio", null, "idlaboratorio = ?", id, null, null, null);
+                Cursor cursor = db.query("laboratorio", null, "idlab = ?", id, null, null, null);
                 //cerrar();
                 if (cursor.moveToFirst()) {
                     return true;

@@ -24,7 +24,7 @@
             android:text="Fecha de inicio:"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
         <EditText
-            android:id="@+id/editInicio"
+            android:id="@+id/editHoraInicio"
             android:hint=""
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -39,7 +39,7 @@
             android:text="Fecha de fin:"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
         <EditText
-            android:id="@+id/editFin"
+            android:id="@+id/editHoraFin"
             android:hint=""
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -61,7 +61,7 @@
         <Button
             android:layout_width="match_parent"
             android:layout_weight="1"
-            android:onClick="limpiarHorario"
+            android:onClick="limpiarTexto"
             android:text="Limpiar" />
     </TableRow>
 </TableLayout>

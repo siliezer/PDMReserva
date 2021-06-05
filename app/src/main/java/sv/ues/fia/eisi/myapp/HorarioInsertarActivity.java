@@ -14,27 +14,29 @@ import java.util.Date;
 
 public class HorarioInsertarActivity extends AppCompatActivity {
     ControlBD helper;
-    EditText editIdHorario, editIdDia, editInicio, editFin;
+    EditText editIdHorario, editIdDia, editHoraInicio, editHoraFin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_asignacion_insertar);
+        setContentView(R.layout.activity_horario_insertar);
         helper = new ControlBD(this);
         editIdHorario = (EditText) findViewById(R.id.editIdHorario);
         editIdDia = (EditText) findViewById(R.id.editIdDia);
-        editInicio = (EditText) findViewById(R.id.editInicio);
-        editFin = (EditText) findViewById(R.id.editFin);
+        editHoraInicio = (EditText) findViewById(R.id.editHoraInicio);
+        editHoraInicio.setOnClickListener(this::onClick);
+        editHoraFin = (EditText) findViewById(R.id.editHoraFin);
+        editHoraFin.setOnClickListener(this::onClick);
     }
 
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.editInicio:
-                showDatePickerDialog(editInicio);
+            case R.id.editHoraInicio:
+                showDatePickerDialog(editHoraInicio);
                 break;
 
-            case R.id.editFin:
-                showDatePickerDialog(editFin);
+            case R.id.editHoraFin:
+                showDatePickerDialog(editHoraFin);
                 break;
         }
     }
@@ -42,8 +44,8 @@ public class HorarioInsertarActivity extends AppCompatActivity {
     public void insertarHorario(View v) throws ParseException{
         String id = editIdHorario.getText().toString();
         String idDia = editIdHorario.getText().toString();
-        String inicio = editInicio.getText().toString();
-        String fin = editFin.getText().toString();
+        String inicio = editHoraInicio.getText().toString();
+        String fin = editHoraFin.getText().toString();
         Date inicioD = new SimpleDateFormat("dd/MM/yyyy").parse(inicio);
         Date finD = new SimpleDateFormat("dd/MM/yyyy").parse(fin);
         String regInsertados;
@@ -58,8 +60,8 @@ public class HorarioInsertarActivity extends AppCompatActivity {
     public void limpiarTexto(View v){
         editIdHorario.setText("");
         editIdDia.setText("");
-        editInicio.setText("");
-        editFin.setText("");
+        editHoraInicio.setText("");
+        editHoraFin.setText("");
     }
     //Muestra el DatePicker en un diálogo
     public void showDatePickerDialog(final EditText editText) {

@@ -11,7 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
-        <activity android:name=".EliminarHorario"></activity>
+        <activity android:name=".EliminarEncargado"></activity>
+        <activity android:name=".GenerarEncargado" />
+        <activity android:name=".EliminarHorario" />
         <activity android:name=".GenerarHorario" />
         <activity android:name=".EliminarEvento" />
         <activity android:name=".GenerarEvento" />

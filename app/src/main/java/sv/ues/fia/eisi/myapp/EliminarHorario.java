@@ -16,7 +16,7 @@ import org.json.JSONObject;
 public class EliminarHorario extends AppCompatActivity {
 
     ControlBD helper;
-    EditText horafin, horainicio, iddia, idhorario;
+    EditText horafin, horainicio, iddia, idhorario, idhorario2;
     TextView resultado, indicaciones;
     Button registro;
     private static String urlHosting6 = "https://sh15001-pdm115.000webhostapp.com/EliminarHorario.php?";
@@ -31,6 +31,7 @@ public class EliminarHorario extends AppCompatActivity {
         horainicio = (EditText) findViewById(R.id.editTextHoraInicio);
         iddia = (EditText) findViewById(R.id.editTextDia);
         idhorario = (EditText) findViewById(R.id.editTextIdHorario);
+        idhorario2 = (EditText) findViewById(R.id.editTextHorario);
         resultado = (TextView) findViewById(R.id.textViewCarnet);
         indicaciones = (TextView) findViewById(R.id.textViewIndicaciones);
         registro = (Button) findViewById(R.id.button2);
@@ -40,7 +41,7 @@ public class EliminarHorario extends AppCompatActivity {
 
     public void eliminarHorario1(View v){
         Controlador parser = new Controlador();
-        String idhorario1 = idhorario.getText().toString();
+        String idhorario1 = idhorario2.getText().toString();
         String url = urlHosting6+ "idhorario="+ idhorario1;
         //Toast.makeText(this, url,Toast.LENGTH_SHORT).show();
         String json = parser.obtenerRespuestaDeURL(url, this);

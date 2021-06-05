@@ -23,14 +23,14 @@ public class LaboratorioConsultarActivity extends AppCompatActivity {
 
     public void consultarLaboratorio(View v){
         helper.abrir();
-        Laboratorio laboratorio = helper.consultarLaboratorio(editIdMat.getText().toString());
+        Laboratorio laboratorio = helper.consultarLaboratorio(editIdLab.getText().toString());
         helper.cerrar();
         if (laboratorio == null){
             Toast.makeText(this, "laboratorio no se encuentra registrada", Toast.LENGTH_LONG).show();
         }
         else{
-            editIdMat.setText(laboratorio.getidMat());
             editIdLab.setText(laboratorio.getidLab());
+            editIdMat.setText(laboratorio.getidMat());
 
         }
     }

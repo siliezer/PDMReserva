@@ -48,8 +48,10 @@ public class HorarioActualizarActivity extends AppCompatActivity {
         String idDia = editIdDia.getText().toString();
         String inicio = editInicio.getText().toString();
         String fin = editFin.getText().toString();
+
         Date inicioD = new SimpleDateFormat("dd/MM/yyyy").parse(inicio);
         Date finD = new SimpleDateFormat("dd/MM/yyyy").parse(fin);
+
         Horario horario = new Horario(id, idDia,inicioD, finD);
 
         helper.abrir();

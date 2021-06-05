@@ -499,12 +499,13 @@ public class ControlBD {
 
     public Laboratorio consultarLaboratorio(String id) {
 
-        String[] camposidLaboratorio = {"idMat", "idLab",}, idLaboratorio = {id};
-        Cursor cursor = db.query("laboratorio", camposidLaboratorio, "idlaboratorio = ?", idLaboratorio, null, null, null);
+        String[] camposidLaboratorio = {"idlab", "idmat",}, idLaboratorio = {id};
+        Cursor cursor = db.query("laboratorio", camposidLaboratorio, "idlab = ?", idLaboratorio, null, null, null);
         if (cursor.moveToFirst()) {
             Laboratorio laboratorio = new Laboratorio();
-            laboratorio.setidMat(cursor.getString(0));
-            laboratorio.setidLab(cursor.getString(1));
+            laboratorio.setidLab(cursor.getString(0));
+            laboratorio.setidMat(cursor.getString(1));
+
             return laboratorio;
         } else {
             return null;
@@ -531,6 +532,12 @@ public class ControlBD {
             String[] id = {propuesta.getIdPropuesta()};
             ContentValues cv = new ContentValues();
 
+            cv.put("idteorico", propuesta.getIdteorico());
+            cv.put("idmat", propuesta.getIdMat());
+            cv.put("idlab", propuesta.getIdLab());
+            cv.put("idhorario", propuesta.getIdHorario());
+            cv.put("idsalon", propuesta.getIdSalon());
+            cv.put("iddia", propuesta.getIdDia());
             cv.put("aprobado", propuesta.getAprobado());
             db.update("propuesta", cv, "idpropuesta = ?", id);
             return "¡Registro actualizado correctamente!";
@@ -557,8 +564,10 @@ public class ControlBD {
             String[] id = {horario.getidHorario()};
             ContentValues cv = new ContentValues();
 
+            cv.put("iddia", horario.getidDia());
             cv.put("horainicio", getDateTime(horario.getHorainicio()));
             cv.put("horafin", getDateTime(horario.getHorafin()));
+
             db.update("horario", cv, "idhorario = ?", id);
             return "¡Registro actualizado correctamente!";
         } else {
@@ -1317,11 +1326,17 @@ public class ControlBD {
                 String[] id1 = {propuestaforeneas.getIdteorico()};
                 String[] id2 = {propuestaforeneas.getIdMat()};
                 String[] id3 = {propuestaforeneas.getIdLab()};
+                String[] id4 = {propuestaforeneas.getIdHorario()};
+                String[] id5 = {propuestaforeneas.getIdSalon()};
+                String[] id6 = {propuestaforeneas.getIdDia()};
 
                 Cursor c1 = db.query("teorico", null, "idteorico = ?", id1, null, null, null);
-                Cursor c2 = db.query("materia", null, "idmateria = ?", id2, null, null, null);
+                Cursor c2 = db.query("materia", null, "idmat = ?", id2, null, null, null);
                 Cursor c3 = db.query("laboratorio", null, "idlab = ?", id3, null, null, null);
-                if (c1.moveToFirst() && c2.moveToFirst() || c3.moveToFirst()) {
+                Cursor c4 = db.query("horario", null, "idhorario = ?", id4, null, null, null);
+                Cursor c5 = db.query("salon", null, "idsalon = ?", id5, null, null, null);
+                Cursor c6 = db.query("dia", null, "iddia = ?", id6, null, null, null);
+                if (c2.moveToFirst() && c3.moveToFirst() && c4.moveToFirst() && c5.moveToFirst() && c6.moveToFirst()) {
                     return true;
                 }
                 return false;
@@ -1342,9 +1357,10 @@ public class ControlBD {
 
                     case 29: {//Verifica que existan las llaves foraneas
                         Horario horarioforeneas = (Horario) dato;
+
                         String[] id1 = {horarioforeneas.getidDia()};
 
-                        Cursor c1 = db.query("iddia", null, "iddia = ?", id1, null, null, null);
+                        Cursor c1 = db.query("dia", null, "iddia = ?", id1, null, null, null);
                         if (c1.moveToFirst()) {
                             return true;
                         }

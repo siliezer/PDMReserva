@@ -38,7 +38,7 @@ public class PropuestaConsultarActivity extends AppCompatActivity {
             editIdPropuesta.setText(propuesta.getIdPropuesta());
             editIdTeo.setText(propuesta.getIdteorico());
             editIdMat.setText(propuesta.getIdMat());
-            editIdMat.setText(propuesta.getIdMat());
+            editIdLab.setText(propuesta.getIdLab());
             editIdHorario.setText(propuesta.getIdHorario());
             editIdDia.setText(propuesta.getIdDia());
             editIdSal.setText(propuesta.getIdSalon());

@@ -24,19 +24,29 @@
     <TableRow/>
     <TableRow>
 
-        <TextView android:text="Hora Inicio" />
+        <TextView android:text="Inicio" />
         <EditText
             android:id="@+id/editInicio"
-            android:inputType="text"
-            android:maxLength="7" />
+            android:hint=""
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="date"
+            android:focusable="false"
+            android:clickable="true"
+            android:maxLines="1" />
     </TableRow>
     <TableRow>
 
-        <TextView android:text="Hora fin" />
+        <TextView android:text="fin" />
         <EditText
             android:id="@+id/editFin"
-            android:inputType="text"
-            android:maxLength="30" />
+            android:hint=""
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="date"
+            android:focusable="false"
+            android:clickable="true"
+            android:maxLines="1" />
     </TableRow>
     <TableRow/>
     <TableRow/>

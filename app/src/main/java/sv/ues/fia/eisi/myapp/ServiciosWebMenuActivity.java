@@ -10,9 +10,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 public class ServiciosWebMenuActivity extends ListActivity {
-    String[] menu={"Generar Carnet Docente", "Insertar Evento","Eliminar Evento","Servicio4","Servicio5","Servicio6",
+    String[] menu={"Generar Carnet Docente", "Insertar Evento","Eliminar Evento","Insertar Horario","Eliminar Horario","Servicio6",
             "Servicio7","Servicio8"};
-    String[] activities={"GenerarCarnet", "GenerarEvento", "EliminarEvento"};
+    String[] activities={"GenerarCarnet", "GenerarEvento", "EliminarEvento", "GenerarHorario", "EliminarHorario" };
 
 
     @Override

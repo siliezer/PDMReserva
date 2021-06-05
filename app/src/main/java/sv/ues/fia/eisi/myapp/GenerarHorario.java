@@ -2,10 +2,12 @@ package sv.ues.fia.eisi.myapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,7 +31,9 @@ public class GenerarHorario extends AppCompatActivity {
         StrictMode.setThreadPolicy(policy);
         helper = new ControlBD(this);
         horafin = (EditText) findViewById(R.id.editTextHoraFin);
+        horafin.setOnClickListener(this::onClick);
         horainicio = (EditText) findViewById(R.id.editTextHoraInicio);
+        horainicio.setOnClickListener(this::onClick);
         iddia = (EditText) findViewById(R.id.editTextDia);
         idhorario = (EditText) findViewById(R.id.editTextIdHorario);
         resultado = (TextView) findViewById(R.id.textViewCarnet);
@@ -37,6 +41,20 @@ public class GenerarHorario extends AppCompatActivity {
         registro = (Button) findViewById(R.id.button2);
 
     }
+
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.editTextHoraInicio:
+                showDatePickerDialog1(horainicio);
+                break;
+
+            case R.id.editTextHoraFin:
+                showDatePickerDialog1(horafin);
+                break;
+        }
+    }
+
+
 
     public void insertarHorario1(View v){
         Controlador parser = new Controlador();
@@ -70,4 +88,21 @@ public class GenerarHorario extends AppCompatActivity {
 //        }
 //
 //    }
+
+    //Muestra el DatePicker en un diálogo
+    public void showDatePickerDialog1(final EditText editText) {
+        DatePickerFragment newFragment = DatePickerFragment.newInstance(new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                final String selectedDate = year + "/"  + twoDigits(month+1) + "/"+ twoDigits(day) ;
+                editText.setText(selectedDate);
+            }
+        });
+
+        newFragment.show(getSupportFragmentManager(), "datePicker");
+    }
+
+    public String twoDigits(int n) {
+        return (n<=9) ? ("0"+n) : String.valueOf(n);
+    }
 }

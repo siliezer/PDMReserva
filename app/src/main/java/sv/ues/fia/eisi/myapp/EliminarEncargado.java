@@ -16,7 +16,7 @@ import org.json.JSONObject;
 public class EliminarEncargado extends AppCompatActivity {
 
     ControlBD helper;
-    EditText idencargado;
+    EditText nombre;
     TextView resultado, indicaciones;
     Button registro;
     private static String urlHosting8 = "https://sh15001-pdm115.000webhostapp.com/EliminarEncargado.php?";
@@ -27,7 +27,7 @@ public class EliminarEncargado extends AppCompatActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         helper = new ControlBD(this);
-        idencargado = (EditText) findViewById(R.id.editTextIdEncargado);
+        nombre = (EditText) findViewById(R.id.editTextNomEncargado);
         resultado = (TextView) findViewById(R.id.textViewCarnet);
         indicaciones = (TextView) findViewById(R.id.textViewIndicaciones);
         registro = (Button) findViewById(R.id.button2);
@@ -35,10 +35,10 @@ public class EliminarEncargado extends AppCompatActivity {
     }
 
 
-    public void eliminarEncargado(View v){
+    public void eliminarEncargado1(View v){
         Controlador parser = new Controlador();
-        String idencargado1 = idencargado.getText().toString();
-        String url = urlHosting8+ "idencargado="+ idencargado1;
+        String nombre1 = nombre.getText().toString();
+        String url = urlHosting8+ "nombre="+ nombre1;
         //Toast.makeText(this, url,Toast.LENGTH_SHORT).show();
         String json = parser.obtenerRespuestaDeURL(url, this);
         try {

@@ -74,10 +74,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Apellidos del Encargado:" />
+                android:text="Apellido del Encargado:" />
 
             <EditText
-                android:id="@+id/editTextApellidos"
+                android:id="@+id/editTextApellido"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -97,33 +97,8 @@
             android:id="@+id/button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="insertarEncargado"
+            android:onClick="insertarEncargado1"
             android:text="Insertar Encargado" />
 
-
-        <TextView
-            android:id="@+id/textViewIndicaciones"
-            android:layout_width="match_parent"
-            android:layout_height="43dp"
-            android:text="Ingrese los siguientes datos para eliminar el registro en el servicio php externo:"
-            android:visibility="invisible" />
-
-        <EditText
-            android:id="@+id/editTextNomEvento"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Ingrese el nombre del Evento"
-            android:inputType="textPersonName"
-            android:visibility="invisible" />
-
-
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Registrar"
-            android:onClick="eliminarEvento1"
-            android:visibility="invisible" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -512,9 +512,9 @@ public class ControlBD {
     }
 
     public Horario consultarHorario(String id) throws ParseException{
-        String[] camposHorario = {"idHorario", "idDia", "HoraInicio", "HoraFin"};
+        String[] camposHorario = {"idHorario", "iddia", "horainicio", "horafin"};
         String[] idHorario = {id};
-        Cursor c = db.query("horario", camposHorario, "idHorario = ?", idHorario, null, null, null);
+        Cursor c = db.query("horario", camposHorario, "idhorario = ?", idHorario, null, null, null);
         if (c.moveToFirst()) {
             Horario horario = new Horario();
             horario.setidHorario(c.getString(0));
@@ -544,8 +544,8 @@ public class ControlBD {
             String[] id = {laboratorio.getidLab()};
             ContentValues cv = new ContentValues();
 
-            cv.put("laboratorio", laboratorio.getidLab());
-            db.update("laboratorio", cv, "idlaboratorio = ?", id);
+            cv.put("idmat", laboratorio.getidMat());
+            db.update("laboratorio", cv, "idlab = ?", id);
             return "¡Registro actualizado correctamente!";
         } else {
             return "El laboratorio con id " + laboratorio.getidLab() + " no existe";
@@ -668,7 +668,8 @@ public class ControlBD {
     //Consultar registros
     public Asignacion consultarAsignacion(String idPropuesta)  {
 
-        String[] camposAsignacion = {"idpropuesta", "idhorario", "iddia"}, idPro = {idPropuesta};
+        String[] camposAsignacion = {"idpropuesta", "idhorario", "iddia"};
+        String[] idPro = {idPropuesta};
         Cursor cursor = db.query("asignacion", camposAsignacion, "idpropuesta = ?", idPro, null, null, null );
         if(cursor.moveToFirst()){
             Asignacion asignacion = new Asignacion();
@@ -683,9 +684,9 @@ public class ControlBD {
     }
 
     public Encargado consultarEncargado(String idEncargado){
-        String[] camposEncargado = {"idencargado", "nombreencargado", "apellidoencargado"};
+        String[] camposEncargado = {"idencargado", "nombresencargado", "apellidosencargado"};
         String[] idEnc = {idEncargado};
-        Cursor c = db.query("encargado", camposEncargado, "idenc = ?", idEnc, null, null, null);
+        Cursor c = db.query("encargado", camposEncargado, "idencargado = ?", idEnc, null, null, null);
         if(c.moveToFirst()){
             Encargado encargado = new Encargado();
             encargado.setIdEncargado(c.getString(0));
@@ -699,7 +700,7 @@ public class ControlBD {
     public Salon consultarSalon(String idSalon){
         String[] camposSalon = {"idsalon", "idencargado", "tipo", "nombre"};
         String[] idSal = {idSalon};
-        Cursor c = db.query("salon", camposSalon, "idsal = ?", idSal, null, null, null);
+        Cursor c = db.query("salon", camposSalon, "idsalon = ?", idSal, null, null, null);
         if(c.moveToFirst()){
             Salon salon = new Salon();
             salon.setIdSalon(c.getString(0));
@@ -1287,10 +1288,10 @@ public class ControlBD {
 
             case 25: {//verificación de existencia de Horario
                 Horario horario = (Horario) dato;
-                String[] id = {horario.getidDia()};
+                String[] id = {horario.getidHorario()};
 
                 abrir();
-                Cursor cursor = db.query("horario", null, "iddia = ?", id, null, null, null);
+                Cursor cursor = db.query("horario", null, "idhorario = ?", id, null, null, null);
                 //cerrar();
                 if (cursor.moveToFirst()) {
                     return true;
@@ -1319,7 +1320,7 @@ public class ControlBD {
 
                 Cursor c1 = db.query("teorico", null, "idteorico = ?", id1, null, null, null);
                 Cursor c2 = db.query("materia", null, "idmateria = ?", id2, null, null, null);
-                Cursor c3 = db.query("laboratorio", null, "idlaboratorio = ?", id3, null, null, null);
+                Cursor c3 = db.query("laboratorio", null, "idlab = ?", id3, null, null, null);
                 if (c1.moveToFirst() && c2.moveToFirst() || c3.moveToFirst()) {
                     return true;
                 }
@@ -1331,7 +1332,7 @@ public class ControlBD {
                     Laboratorio laboratorioforeneas = (Laboratorio) dato;
                     String[] id1 = {laboratorioforeneas.getidMat()};
 
-                    Cursor c1 = db.query("materia", null, "idteorico = ?", id1, null, null, null);
+                    Cursor c1 = db.query("materia", null, "idmat = ?", id1, null, null, null);
                     if (c1.moveToFirst()) {
                         return true;
                     }
